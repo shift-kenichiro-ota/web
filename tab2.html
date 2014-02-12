@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta name="author" content="" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="format-detection" content="telephone=no" />
+		<!-- applicanを読み込む -->
+        <script type="text/javascript" charset="utf-8" src="js/vendor/applican-0.19.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		    ////////////////////////////////////////
+            // applican の読み込み完了まで待機
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+            // applican 準備完了
+            function onDeviceReady() {
+
+                //イベント登録
+                document.addEventListener("pause", onPause, false);
+                document.addEventListener("resume", onResume, false);
+                document.addEventListener("backbutton", onBackKeyDown, false);
+                document.addEventListener("menubutton", onMenuKeyDown, false);
+                document.addEventListener("searchbutton", onSearchKeyDown, false);
+                document.addEventListener("volumedownbutton", onVolumeDownKeyDown, false);
+                document.addEventListener("volumeupbutton", onVolumeUpKeyDown, false);
+                document.addEventListener("online", onOnline, false);
+                document.addEventListener("offline", onOffline, false);
+                document.addEventListener("appear", onAppear, false);
+
+                //画面回転
+                document.addEventListener("orientationchanged", onOrientationChanged, false);
+
+                //バッテリー
+                document.addEventListener("batterycritical", onBatteryCritical, false);
+                document.addEventListener("batterylow", onBatteryLow, false);
+                document.addEventListener("batterystatus", onBatteryStatus, false);
+
+                console.log('console.log test');
+
+                /*
+                var test = [true];
+                test[1] = test;
+                console.log(test);
+                */
+            }
+
+
+			/////////////////////
+			//リスト表示(1行テキスト)
+
+			var list_data = [
+				{title:"item1", subtitle:"item1 subtitle", valuetitle:"1件", picture:"test.jpg", value:"value1"},
+				{title:"item2", subtitle:"item2 subtitle", valuetitle:"2件", picture:"tab/tab_btn_1_off.png", value:"value2"},
+				{title:"item3", subtitle:"item3 subtitle", valuetitle:"3件", picture:"http://www.applican.com/trunk/tester/logo.png", value:"value3"},
+				{title:"item4", subtitle:"item4 subtitle", valuetitle:"999件", picture:"http://www.applican.com/trunk/tester/logo.png", value:"value4"},
+				{title:"item5あいうえおあいうえおあいうえおあいうえお", subtitle:"item5 subtitleあいうえおあいうえおあいうえおあいうえお", valuetitle:"valuetitleあいうえおあいうえおあいうえおあいうえお", picture:"http://www.applican.com/trunk/tester/logo.png", value:"value5"},
+				{title:"item6", subtitle:"item6 subtitle", valuetitle:"1件", picture:"test.jpg", value:"value6"},
+				{title:"item7", subtitle:"item7 subtitle", valuetitle:"1件", picture:"test.jpg", value:"value7"},
+				{title:"item8", subtitle:"item8 subtitle", valuetitle:"1件", picture:"test.jpg", value:"value8"},
+				{title:"item9", subtitle:"item9 subtitle", valuetitle:"1件", picture:"test.jpg", value:"value9"},
+				{title:"item10", subtitle:"item10 subtitle", valuetitle:"1件", picture:"test.jpg", value:"value10"},
+
+			];
+
+			function showListView1() {
+				applican.list.show(applican.list.ListType.TITLE, '選択１', list_data, showListViewSuccess, showListViewError);
+			}
+
+			function showListView2() {
+				applican.list.show(applican.list.ListType.SUBTITLE, '選択２', list_data, showListViewSuccess, showListViewError);
+			}
+
+			function showListView3() {
+				applican.list.show(applican.list.ListType.VALUE, '選択３', list_data, showListViewSuccess, showListViewError);
+			}
+
+			function showListView4() {
+				applican.list.show(applican.list.ListType.SUBTITLE_VALUE, '選択４', list_data, showListViewSuccess, showListViewError);
+			}
+
+			function showListView5() {
+				applican.list.show(applican.list.ListType.PICTURE, '選択５', list_data, showListViewSuccess, showListViewError);
+			}
+
+			function showListView6() {
+				applican.list.show(applican.list.ListType.PICTURE_SUBTITLE, '選択６', list_data, showListViewSuccess, showListViewError);
+			}
+
+			function showListView7() {
+				applican.list.show(applican.list.ListType.PICTURE_VALUE, '選択７', list_data, showListViewSuccess, showListViewError);
+			}
+
+			function showListView8() {
+				applican.list.show(applican.list.ListType.PICTURE_SUBTITLE_VALUE, '選択８', list_data, showListViewSuccess, showListViewError);
+			}
+
+			function showListView9() {
+				var options = {
+					width : 160,
+					height : 100
+				};
+				applican.list.show(applican.list.ListType.PICTURE_SUBTITLE_VALUE, '選択９', list_data, showListViewSuccess, showListViewError, options);
+			}
+
+			function showListViewSuccess(result) {
+				var dump = "showListViewSuccess\n";
+				dump += "value:" + result + "\n";
+				document.getElementById("dumpAreaList").value = dump;
+			}
+
+			function showListViewError(error) {
+				var dump = "showListViewError\n";
+				dump += "code:" + error.code + "\n";
+				document.getElementById("dumpAreaList").value = dump;
+			}
+		</script>
+		<script type="text/javascript" charset="utf-8">
+		  window.onload = init;
+		  function init() {
+		      showListView1();
+		      showListView2();
+		      showListView3();
+		      showListView4();
+		      showListView5();
+		      showListView6();
+		      showListView7();
+		      showListView8();
+		      showListView9();
+		  }
+		</script>
+	</head>
+	<body>
+		tab2
+		<br />
+		<a href="tab2_2.html">リンク</a>
+		<br />
+		<br />
+		<a href="http://www.applican.com/trunk/tester/server.html">インターネット側へリンク</a>
+		<br />
+		<br />
+
+		<a href="tab4.html?launch_webview=yes">リンクを別のWebViewで開く</a>
+		<br />
+
+		<textarea id="dumpAreaList" name="Name" rows="8" cols="40"></textarea>
+
+
+	</body>
+</html>

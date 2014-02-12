@@ -1,0 +1,54 @@
+
+body{
+	margin:0;
+	padding:5px;
+}
+
+a{
+	-webkit-tap-highlight-color: rgba(200, 200, 255, 0.3);
+	display:inline-block;
+	text-decoration:none;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border: 1px solid #666;
+	position:relative;
+	cursor:pointer;
+	margin:5px;
+	vertical-align: middle;
+	padding:8px 16px;
+	font-size:14px;
+	color:#000;
+	
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.86, #aaa), color-stop(0.00, #fff));
+	background: -webkit-linear-gradient(top, #fff 0%, #aaa 86%);
+	background: -moz-linear-gradient(top, #fff 0%, #aaa 86%);
+	background: -o-linear-gradient(top, #fff 0%, #aaa 86%);
+	background: -ms-linear-gradient(top, #fff 0%, #aaa 86%);
+	background: linear-gradient(to bottom, #fff 0%, #aaa 86%);
+}
+
+
+
+
+
+/* スライダーをのせるベースを描く */
+.slider {
+}
+/* スライダーの背景を描く */
+.slider input {
+  width:90%;
+}
+/* スライダーのボタンのベースを描く */
+.slider input::-webkit-slider-thumb { 
+  -webkit-appearance:none;
+  position:relative;
+  z-index:100;
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fefefe), color-stop(0.49, #dddddd), color-stop(0.50, #d1d1d1), color-stop(1, #a1a1a1));
+  background-repeat:no-repeat;
+  background-position:50%;
+  box-shadow:inset 0 -1px 1px rgba(255,255,255,0.5), inset 0 1px 0 #fff;
+}

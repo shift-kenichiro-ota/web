@@ -1,0 +1,17 @@
+.open {
+    width:50px;
+    margin: 10px 0;
+    padding: 10px;
+    background:#66CC99;
+    cursor: pointer;
+}
+#slideBox {
+    display:none;
+    padding: 10px;
+    border: 1px solid #BFFFBF;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}

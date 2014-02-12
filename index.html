@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>タブがある場合のAPI組み合わせ</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Pragma" content="no-cache">
+
+		<!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/sample.css">
+		<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+
+	</head>
+	<body>
+		<!-- Add your site or application content here -->
+		<p>
+			アプリカンテストケース
+			<br />
+			<b><p id="caseNo"></p></b>
+		</p>
+
+		<b>テスト実施中の端末情報</b>
+		<br />
+		<textarea id="dumpAreaDeviceInfo" rows="120" cols="30"></textarea>
+		<br />
+
+		<a href="#" id=showLogBtn>ログコンソールを開く</a>
+		<br />
+		<br />
+		<div id="current_test">
+            <b>現在テスト中のAPI</b>
+			<span id="test_api"></span><br />
+            <span id="test_api_ja"></span>
+			<div id="api_value"></div>
+		</div>
+		<div>
+			<textarea id="api_value_area" rows="60" cols="40"></textarea>
+		</div>
+		<br />
+		<br />
+		<input id="test_exec" type="button" value="テストを開始する"/>
+        <span id="hidden_api_result" class="hidden"></span>        
+        <span id="hidden_test_case_result" class="hidden"></span>
+        <span id="hidden_playSE_track" class="hidden"></span>
+        <span id="hidden_test_case_finish" class="hidden"></span>
+        
+		<b>テスト結果</b>
+		<br />
+        <div id="testResultArea">
+            <ul data-role="listview" class="ui-listview" id="testResult">
+            </ul>
+        </div>
+		<br />
+		<br />
+		<b>確認用画像</b>
+		<img src="" id="myImage" />
+		<div>
+			<div id="dumpAreaCamera2"></div>
+		</div>
+
+		<!-- バックグラウンドで処理が行われ続ける可能性がある機能 -->
+		<div data-role="collapsible" data-theme="c" data-content-theme="c" class="ui-collapsible">
+			<h3 class="ui-collapsible-heading"><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-c" data-theme="c"><span class="ui-btn-inner ui-corner-top"><span class="ui-btn-text">バックグラウンドで動作し続けているAPI<span class="ui-collapsible-heading-status"> 動作を確認する場合にタップ</span></span><span class="ui-icon ui-icon-shadow ui-icon-minus"></span></span></a></h3>
+			<div class="ui-collapsible-content ui-body-c ui-corner-bottom" aria-hidden="false">
+				<div data-role="collapsible" data-theme="e" data-content-theme="e" class="ui-collapsible">
+					<h3 class="ui-collapsible-heading"><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-e" data-theme="e"><span class="ui-btn-inner ui-corner-top"><span class="ui-btn-text">位置情報監視<span class="ui-collapsible-heading-status"> click to collapse contents</span></span><span class="ui-icon ui-icon-shadow ui-icon-minus"></span></span></a></h3>
+					<div class="ui-collapsible-content ui-body-e ui-corner-bottom" aria-hidden="false">
+						<b>位置情報(GEOLocation)</b>
+						<br />
+						<textarea id="dumpAreaGeolocation" rows="10" cols="30"></textarea>
+						<br />
+					</div>
+				</div>
+				<div data-role="collapsible" data-theme="e" data-content-theme="e" class="ui-collapsible">
+					<h3 class="ui-collapsible-heading"><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-e" data-theme="e"><span class="ui-btn-inner ui-corner-top"><span class="ui-btn-text">コンパス監視<span class="ui-collapsible-heading-status"> click to collapse contents</span></span><span class="ui-icon ui-icon-shadow ui-icon-minus"></span></span></a></h3>
+					<div class="ui-collapsible-content ui-body-e ui-corner-bottom" aria-hidden="false">
+						<b>コンパス(Compass)</b>
+						<br />
+						<textarea id="dumpAreaCompass" rows="10" cols="30"></textarea>
+						<br />
+					</div>
+				</div>
+				<div data-role="collapsible" data-theme="e" data-content-theme="e" class="ui-collapsible">
+					<h3 class="ui-collapsible-heading"><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-e" data-theme="e"><span class="ui-btn-inner ui-corner-top"><span class="ui-btn-text">加速度監視<span class="ui-collapsible-heading-status"> click to collapse contents</span></span><span class="ui-icon ui-icon-shadow ui-icon-minus"></span></span></a></h3>
+					<div class="ui-collapsible-content ui-body-e ui-corner-bottom" aria-hidden="false">
+						<b>加速度(Accelerometer)</b>
+						<br />
+						<textarea id="dumpAreaAcceleration" rows="10" cols="30"></textarea>
+						<br />
+					</div>
+				</div>
+				<div data-role="collapsible" data-theme="e" data-content-theme="e" class="ui-collapsible">
+					<h3 class="ui-collapsible-heading"><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-e" data-theme="e"><span class="ui-btn-inner ui-corner-top"><span class="ui-btn-text">シェイク監視<span class="ui-collapsible-heading-status"> click to collapse contents</span></span><span class="ui-icon ui-icon-shadow ui-icon-minus"></span></span></a></h3>
+					<div class="ui-collapsible-content ui-body-e ui-corner-bottom" aria-hidden="false">
+						<b>シェイク監視</b>
+						<br />
+						<textarea id="dumpAreaShake" rows="10" cols="30"></textarea>
+						<br />
+					</div>
+				</div>
+				<div data-role="collapsible" data-theme="e" data-content-theme="e" class="ui-collapsible">
+					<h3 class="ui-collapsible-heading"><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-e" data-theme="e"><span class="ui-btn-inner ui-corner-top"><span class="ui-btn-text">KeyDown監視<span class="ui-collapsible-heading-status"> click to collapse contents</span></span><span class="ui-icon ui-icon-shadow ui-icon-minus"></span></span></a></h3>
+					<div class="ui-collapsible-content ui-body-e ui-corner-bottom" aria-hidden="false">
+						<b>KeyDown監視(Androidのみ)</b>
+						<br />
+						<textarea id="dumpAreaKeyDown" rows="10" cols="30"></textarea>
+						<br />
+					</div>
+				</div>
+				<div data-role="collapsible" data-theme="e" data-content-theme="e" class="ui-collapsible">
+					<h3 class="ui-collapsible-heading"><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-e" data-theme="e"><span class="ui-btn-inner ui-corner-top"> <span class="ui-btn-text">KeyUp監視<span class="ui-collapsible-heading-status"> click to collapse contents</span></span><span class="ui-icon ui-icon-shadow ui-icon-minus"></span></span></a></h3>
+					<div class="ui-collapsible-content ui-body-e ui-corner-bottom" aria-hidden="false">
+						<b>KeyUp監視(Androidのみ)</b>
+						<br />
+						<textarea id="dumpAreaKeyUp" rows="10" cols="30"></textarea>
+						<br />
+					</div>
+				</div>
+				<div data-role="collapsible" data-theme="e" data-content-theme="e" class="ui-collapsible">
+					<h3 class="ui-collapsible-heading"><a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-e" data-theme="e"><span class="ui-btn-inner ui-corner-top"><span class="ui-btn-text">サウンド読み込み<span class="ui-collapsible-heading-status"> click to collapse contents</span></span><span class="ui-icon ui-icon-shadow ui-icon-minus"></span></span></a></h3>
+					<div class="ui-collapsible-content ui-body-e ui-corner-bottom" aria-hidden="false">
+						<b>GameSound自動再生中</b>
+						<br />
+						<b>GameSound</b>
+						<br />
+						<textarea id="dumpAreaGameSound" rows="5" cols="30"></textarea>
+						<br />
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<script data-main="js/main.js" src="js/libs/require.min.js"></script>
+	</body>
+</html>
