@@ -633,71 +633,76 @@ function fileWrite2_fail(error) {
 
 // ファイル読み込み (永続的なストレージ)
 function fileRead1(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileRead1_gotFS, fileRead1_fail);
-    waitTestAPI(finishCallback);
-}
-
-function fileRead1_gotFS(fileSystem) {
-	fileSystem.root.getFile(FILE_NAME, null, fileRead1_gotFileEntry, fileRead1_fail);
-}
-
-function fileRead1_gotFileEntry(fileEntry) {
-	fileEntry.file(fileRead1_gotFile, fileRead1_fail);
-}
-
-function fileRead1_gotFile(file) {
-	var dump = "fileRead1_gotFile";
-	console.log(dump);
-    console.log(file);
-	fileRead1_readAsText(file);
-	fileRead1_readDataUrl(file);
-}
-
-function fileRead1_readDataUrl(file) {
-	var reader = new FileReader();
-	reader.onloadend = function(evt) {
-        if(evt.target.result) {
-            var dump = "データ URL として読み込み : " + evt.target.result;
-            console.log(dump);
-        } else {
-            dump = "file readDataUrl fail";
-        }
+    var fileRead1_fail = function (error) {
+	    var dump = "fileRead1_fail ";
+	    dump += "code:" + error.code + " ";
+	    console.log(dump);
+	    test_result = "NG : " + error.code;
         $("#hidden_api_result").html(dump);
-	};
-	reader.readAsDataURL(file);
-}
+        finishCallback(error);
+    };
 
-function fileRead1_readAsText(file) {
-	var reader = new FileReader();
-    console.log("fileRead1_reaAsText");
-    console.log(fileRead1_readAsText);
+    var fileRead1_gotFile = function(file) {
+	    var dump = "fileRead1_gotFile";
+	    console.log(dump);
+        console.log(file);
 
-	reader.onloadend = function(evt) {
-        if(evt.target.result) {
-            var dump = "テキストとして読み込み" + evt.target.result;
-            console.log(evt.target.result);
-            console.log(dump);
-            TEST_RESULT = TEST_RESULT + evt.target.result + " ";
-            if (evt.target.result) {
-                test_result = "OK : " + evt.target.result;
-            } else {
-                test_result = "NG : " + evt.target.result;
+        async.series([
+            function(callback) {
+	            var reader = new FileReader();
+                console.log("fileRead1_reaAsText");
+
+	            reader.onloadend = function(evt) {
+                    if (evt.target.result) {
+                        var dump = "テキストとして読み込み" + evt.target.result;
+                        console.log(evt.target.result);
+                        console.log(dump);
+                        TEST_RESULT = TEST_RESULT + evt.target.result + " ";
+                        if (evt.target.result) {
+                            test_result = "OK : " + evt.target.result;
+                        } else {
+                            test_result = "NG : " + evt.target.result;
+                        }
+
+                    } else {
+                        dump = "file readAsText fail";
+                    }
+                    $("#hidden_api_result").html(dump);
+                    callback();
+	                };
+	            reader.readAsText(file);
+            },
+            function(callback) {
+ 	            var reader = new FileReader();
+	            reader.onloadend = function(evt) {
+                    if(evt.target.result) {
+                        var dump = "データ URL として読み込み : " + evt.target.result;
+                        console.log(dump);
+                    } else {
+                        dump = "file readDataUrl fail";
+                    }
+
+                    $("#hidden_api_result").html(dump);
+                    callback();
+	                };
+	            reader.readAsDataURL(file);
             }
+        ],
+        function() {
+            finishCallback();
+        });
+    };
 
-        } else {
-            dump = "file readAsText fail";
-        }
-        $("#hidden_api_result").html(dump);
-	};
-	reader.readAsText(file);
-}
+    var fileRead1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile(FILE_NAME, null, fileRead1_gotFileEntry, fileRead1_fail);
+    };
 
-function fileRead1_fail(error) {
-	var dump = "fileRead1_fail ";
-	dump += "code:" + error.code + " ";
-	console.log(dump);
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(dump);
+    var fileRead1_gotFileEntry = function(fileEntry) {
+	    fileEntry.file(fileRead1_gotFile, fileRead1_fail);
+    };
+
+	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileRead1_gotFS, fileRead1_fail);
+    //waitTestAPI(finishCallback);
 }
 
 // ファイル読み込み (一時的なストレージ)
@@ -3580,8 +3585,6 @@ function setTabBadge(tab, num) {
 // 結果をページ内に出力
 function testResult(testcase, finishCallback) {
 	console.log("testResult testcase" + testcase);
-    finishCallback();
-    /*
 	async.series([
         function(callback) {
             fileRead1(callback);
@@ -3610,7 +3613,6 @@ function testResult(testcase, finishCallback) {
             console.log("テスト結果処理終了");
             finishCallback();
     });
-    */
 }
 
 function displayResult(testcase, finishCallback) {
