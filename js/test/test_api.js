@@ -1676,55 +1676,48 @@ function getLocaleNameError(err) {
 var db = null;
 var testResultDB = null;
 function openDb(name, finishCallback) {
+    var openDb_success = function(db_obj) {
+	    db = db_obj;
+	    var dump = "";
+	    dump += db.name + "";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+        finishCallback();
+    };
+
+    var openDb_error = function(error) {
+	    var dump = "";
+	    dump += error.message + " ";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+        finishCallback(error);
+    };
+
     var dbName = "testdb";
     if(name) {
         dbName = name;
     }
 	applican.openDatabase(dbName, openDb_success, openDb_error);
-    waitTestAPI(finishCallback);
-}
-
-function openDb_success(db_obj) {
-	db = db_obj;
-	// var dump = "openDb_success ";
-	var dump = "";
-	dump += db.name + "";
-	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function openDb_error(error) {
-	// var dump = "openDb_error ";
-	var dump = "";
-	dump += error.message + " ";
-	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
 }
 
 function createTable(finishCallback) {
-	if (db === null) {
-		// alert('データベースを開いていません');
-		test_result = "NG : データベースを開いていません";
-		return;
-	}
-	var sql = "CREATE TABLE IF NOT EXISTS DEMO (id unique, data, data2)";
+    var createTable_success = function(result) {
+	    var dump = "createTable_success ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+        finishCallback();
+    };
+
+    var createTable_error = function(error) {
+	    var dump = "createTable_error ";
+	    dump += error.message + " ";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+        finishCallback(error);
+    };
+
+    var sql = "CREATE TABLE IF NOT EXISTS DEMO (id unique, data, data2)";
 	db.exec(sql, createTable_success, createTable_error);
-    waitTestAPI(finishCallback);
-}
-
-function createTable_success(result) {
-	var dump = "createTable_success ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-
-function createTable_error(error) {
-	var dump = "createTable_error ";
-	dump += error.message + " ";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 function dropTable(finishCallback) {
