@@ -469,69 +469,56 @@ function getPushTokenError(res) {
 // ///
 // ファイル書き込み (永続的なストレージ)
 function fileWrite1(contents, finishCallback) {
-	writeContents = oldContents + contents;
-	//    alert("fileWrite1 : " + writeContents);
+    var fileWrite1_fail = function(error) {
+	    var dump = "fileWrite1_fail ";
+	    dump += "code:" + error.code;
+	    console.log(dump);
+	    fileWriteStatus = true;
+        $("#hidden_api_result").html(dump);
+        finishCallback(error);
+    };
+
+    var fileWrite1_gotFileWriter = function(writer) {
+	    var dump = "fileWrite1_gotFileWriter";
+	    console.log(dump);
+
+	    writer.onwritestart = function(evt) {
+		    console.log("onwrite test start");
+	    };
+	    writer.onabort = function(evt) {
+		    console.log("onabort");
+	    };
+	    writer.onwrite = function(evt) {
+		    console.log("onwrite");
+	    };
+	    writer.onerror = function(evt) {
+		    console.log("onerror");
+	    };
+
+	    writer.onwriteend = function(evt) {
+		    console.log("onwrite end");
+	    };
+	    console.log(writeContents);
+	    writer.write(writeContents);
+	    oldContents = writeContents;
+	    fileWriteStatus = true;
+        $("#hidden_api_result").html(dump);
+        finishCallback();
+    };
+
+    var fileWrite1_gotFileEntry = function(fileEntry) {
+	    fileEntry.createWriter(fileWrite1_gotFileWriter, fileWrite1_fail);
+    };
+
+    var fileWrite1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile(FILE_NAME, {
+		    create : true,
+		    exclusive : false
+	    }, fileWrite1_gotFileEntry, fileWrite1_fail);
+    };
+
+    writeContents = oldContents + contents;
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileWrite1_gotFS, fileWrite1_fail);
-    waitTestAPI(finishCallback);
-}
-
-function fileWrite1_gotFS(fileSystem) {
-	//    alert("fileWrite1_gotFS" + FILE_NAME);
-	fileSystem.root.getFile(FILE_NAME, {
-		create : true,
-		exclusive : false
-	}, fileWrite1_gotFileEntry, fileWrite1_fail);
-}
-
-function fileWrite1_gotFileEntry(fileEntry) {
-	fileEntry.createWriter(fileWrite1_gotFileWriter, fileWrite1_fail);
-}
-
-function fileWrite1_gotFileWriter(writer) {
-	var dump = "fileWrite1_gotFileWriter";
-	console.log(dump);
-	// document.getElementById("dumpAreaFile").value = dump;
-
-	writer.onwritestart = function(evt) {
-		console.log("onwrite test start");
-		// document.getElementById("dumpAreaFile").value +=
-		// "onwritestart ";
-	};
-	writer.onabort = function(evt) {
-		console.log("onabort");
-		// document.getElementById("dumpAreaFile").value += "onabort ";
-	};
-	writer.onwrite = function(evt) {
-		console.log("onwrite");
-		// document.getElementById("dumpAreaFile").value += "onwrite ";
-	};
-	writer.onerror = function(evt) {
-		console.log("onerror");
-		// document.getElementById("dumpAreaFile").value += "onerror ";
-	};
-
-	writer.onwriteend = function(evt) {
-		console.log("onwrite end");
-		// document.getElementById("dumpAreaFile").value += "onwriteend ";
-	};
-	console.log(writeContents);
-	writer.write(writeContents);
-	oldContents = writeContents;
-	fileWriteStatus = true;
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
-	//    alert("fileWrite1_gotFileWriter fileWriteStatus: " + fileWriteStatus);
-	//    alert(oldContents);
-}
-
-function fileWrite1_fail(error) {
-	var dump = "fileWrite1_fail ";
-	dump += "code:" + error.code;
-	console.log(dump);
-	fileWriteStatus = true;
-    $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
-	// document.getElementById("dumpAreaFile").value = dump;
 }
 
 /** ************************************************************ */
@@ -539,56 +526,54 @@ function fileWrite1_fail(error) {
 // ///
 // ファイル書き込み (永続的なストレージ)
 function fileWriteTest(finishCallback) {
+    var fileWriteTest_fail = function(error) {
+	    var dump = "fileWrite1_fail";
+	    dump += "code:" + error.code;
+	    console.log(dump);
+        $("#hidden_api_result").html(dump);
+    };
+
+    var fileWrite1_gotFileWriter = function(writer) {
+	    var dump = "fileWrite1_gotFileWriter";
+	    console.log(dump);
+
+	    writer.onwritestart = function(evt) {
+		    console.log("onwrite test start");
+	    };
+	    writer.onabort = function(evt) {
+		    console.log("onabort");
+	    };
+	    writer.onwrite = function(evt) {
+		    console.log("onwrite");
+	    };
+	    writer.onerror = function(evt) {
+		    console.log("onerror");
+	    };
+
+	    writer.onwriteend = function(evt) {
+		    console.log("onwrite end");
+	    };
+	    console.log(writeContents);
+	    writer.write(writeContents);
+	    oldContents = writeContents;
+	    fileWriteStatus = true;
+        $("#hidden_api_result").html(dump);
+        finishCallback();
+    };
+
+    var fileWrite1_gotFileEntry = function(fileEntry) {
+	    fileEntry.createWriter(fileWrite1_gotFileWriter, fileWrite1_fail);
+    };
+
+    var fileWriteTest_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile("readme.txt", {
+		    create : true,
+		    exclusive : false
+	    }, fileWrite1_gotFileEntry, fileWrite1_fail);
+    };
+
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileWriteTest_gotFS, fileWriteTest_fail);
     waitTestAPI(finishCallback);
-}
-
-function fileWriteTest_gotFS(fileSystem) {
-	fileSystem.root.getFile("readme.txt", {
-		create : true,
-		exclusive : false
-	}, fileWrite1_gotFileEntry, fileWrite1_fail);
-}
-
-function fileWriteTest_gotFileWriter(writer) {
-	var dump = "fileWrite1_gotFileWriter";
-	console.log(dump);
-	// document.getElementById("dumpAreaFile").value = dump;
-
-	writer.onwritestart = function(evt) {
-		console.log("onwrite test start");
-		// document.getElementById("dumpAreaFile").value +=
-		// "onwritestart ";
-	};
-	writer.onabort = function(evt) {
-		console.log("onabort");
-		// document.getElementById("dumpAreaFile").value += "onabort ";
-	};
-	writer.onwrite = function(evt) {
-		console.log("onwrite");
-		// document.getElementById("dumpAreaFile").value += "onwrite ";
-	};
-	writer.onerror = function(evt) {
-		console.log("onerror");
-		// document.getElementById("dumpAreaFile").value += "onerror ";
-	};
-
-	writer.onwriteend = function(evt) {
-		console.log("onwrite end");
-		// document.getElementById("dumpAreaFile").value += "onwriteend ";
-	};
-	writer.write("some sample text 1");
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function fileWriteTest_fail(error) {
-	var dump = "fileWrite1_fail";
-	dump += "code:" + error.code;
-	console.log(dump);
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
-	// document.getElementById("dumpAreaFile").value = dump;
 }
 
 /** ************************************************************ */
@@ -1010,7 +995,6 @@ function download1_gotFS(fileSystem) {
 	var ft = new FileTransfer();
 
 	ft.onprogress = function(evt) {
-//		document.getElementById("dumpAreaFile").value = evt.loaded + "/" + evt.total;
         $("#hidden_api_result").html(evt.loaded + "/" + evt.total);
 	};
 
@@ -3630,8 +3614,12 @@ function displayResult(testcase, finishCallback) {
 		}
         $('#testResultArea').append(html).listview();
         $('#hidden_test_case_result').html(test_result);
-        waitTestResultDisplay(callback);
-	}], function() {
+        callback();
+	},
+    function(callback) {
+        $('#hidden_test_case_result').html("");
+        callback();
+    }], function() {
         console.log("display test result finish");
         finishCallback();
 	});
@@ -3669,24 +3657,6 @@ function insertTestResult(db, sql, finishCallback) {
     db.exec(sql, insertTestResult_success, insertTestResult_error);
 }
 
-function testResultSearchSuccess(result) {
-	// var dump = "searchData_success ";
-    var cnt = 0;
-    if (applican.config.debug) {
-        cnt = 0;
-    } else {
-        cnt = result.rows.length;
-    }
-	var dump = "";
-	dump += "row cnt:" + cnt + " ";
-    $("#hidden_api_result").html(dump);
-}
-
-function testResultSearchError(error) {
-	var dump = error + "searchData_error ";
-	console.log("テスト結果DB検索エラー");
-	return dump;
-}
 
 // wait処理
 function waitTestAPI(finishCallback) {
