@@ -1707,14 +1707,6 @@ function openDb_error(error) {
     $("#hidden_api_result").html(dump);
 }
 
-function testResultDBOpenSuccess(db_obj) {
-	testResultDB = db_obj;
-}
-
-function testResultDBOpenError(error) {
-	console.log(error.message);
-}
-
 function createTable(finishCallback) {
 	if (db === null) {
 		// alert('データベースを開いていません');
@@ -3658,15 +3650,6 @@ function varsReset(finishCallback) {
     finishCallback();
 }
 
-function displayResultFromDB() {
-	applican.openDatabase('testresult', testResultDBOpenSuccess, testResultDBOpenError);
-	if (testResultDB === null) {
-		// alert('データベースを開いていません');
-		return;
-	}
-	var sql = "SELECT * FROM TESTRESULT";
-	db.query(sql, testResultSearchSuccess, testResultSearchError);
-}
 function insertTestResult(db, sql, finishCallback) {
     if (db === null) {
         test_result = "NG : データベースを開いていません";

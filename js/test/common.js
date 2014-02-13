@@ -10,35 +10,40 @@ define(function() {
 	function beforeTest(finishCallback) {
         async.series([
             function(callback) {
-                var colItem = "";
                 console.log("test suite : " + suiteNo);
                 console.log("before test start");
                 console.log("テスト開始前処理");
-                colItem += '<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b" id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
+
+                var colItem = '<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b" id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
                 if($("#test_case_num" + suiteNo).html() !== undefined || $("#test_case_num" + suiteNo).html() !== "") {
                     $('#testResult').append(colItem).collapsibleset();
                 }
-                setTimeout(function() {
-                    callback(null, 1);
-                }, 500);
+                callback(null);
             },
             function(callback) {
                 console.log("debug1");
-                applican.openDatabase('testresult', function(dbobj) { testResultDB = dbobj; callback(); }, testResultDBOpenError);
+                applican.openDatabase('testresult',
+                    function(db_obj) {
+                        testResultDB = db_obj;
+                        callback(null);
+                    },
+                    function(error) {
+                        console.log(error.message);
+                        callback(error);
+                    });
             },function(callback) {
                 var sql = "CREATE TABLE IF NOT EXISTS TESTRESULT (id integer primary key autoincrement, suite_no text, case_no text, case_name text, result text)";
-                if (testResultDB === null) {
-                    // alert('データベースを開いていません');
-                    return;
-                }
                 testResultDB.exec(sql, createTable_success, createTable_error);
                 setTimeout(function() {
-                    callback(null, 1);
+                    callback(null);
                 }, 500);
             },
             function(callback) {
                 outputCaseNo(suiteNo, callback);
-            }], function() {
+            }], function(err, results) {
+            if (err) {
+                throw err;
+            }
             console.log("before test end");
             finishCallback();
         });
