@@ -33,10 +33,19 @@ define(function() {
                     });
             },function(callback) {
                 var sql = "CREATE TABLE IF NOT EXISTS TESTRESULT (id integer primary key autoincrement, suite_no text, case_no text, case_name text, result text)";
-                testResultDB.exec(sql, createTable_success, createTable_error);
-                setTimeout(function() {
-                    callback(null);
-                }, 500);
+                testResultDB.exec(sql,
+                    function(result) {
+                        test_result = "OK";
+                        $("#hidden_api_result").html("createTable_success ");
+                        callback();
+                    },
+                    function(error) {
+                        var dump = "createTable_error ";
+                        dump += error.message + " ";
+                        test_result = "NG : " + dump;
+                        $("#hidden_api_result").html(dump);
+                        callback(error);
+                    });
             },
             function(callback) {
                 outputCaseNo(suiteNo, callback);
@@ -56,17 +65,19 @@ define(function() {
 		async.series([
 		function(callback) {
             console.log("device name : " + device_name);
-			setTimeout(function() {
+            callback();
+			/*setTimeout(function() {
 				callback(null, 1);
-			}, 500);
+			}, 500); */
 		},
 		function(callback) {
+            //callback();
 			upload1(callback);
 		}], function() {
-			setTimeout(function() {
+			//setTimeout(function() {
                 console.log("out put device name");
 				finishCallback();
-			}, 1000);
+			//}, 1000);
 		});
 	}
 
@@ -116,34 +127,6 @@ define(function() {
 	}
 
 	function backgroundTest(finishCallback) {
-		// async.series([
-		// function(callback) {
-		// notificationAlert("バックグラウンド処理のテストを開始します。", "テスト開始", "OK");
-		// setTimeout(function() {
-		// callback(null, 1);
-		// }, 3000);
-		// },
-		// function(callback) {
-		// notificationConfirm("バックグラウンドで位置情報監視が動作し続けていること", "watchLocationの確認", "OK, NG", callback);
-		// },
-		// function(callback) {
-		// notificationConfirm("バックグラウンドで加速度の監視が動作し続けていること", "watchAccelerationの確認", "OK, NG", callback);
-		// },
-		// function(callback) {
-		// notificationConfirm("バックグラウンドでShakeの監視が動作し続けていること", "watchShakeの確認", "OK, NG", callback);
-		// },
-		// function(callback) {
-		// notificationConfirm("バックグラウンドでKeyDown監視が動作し続けていること", "watchKeyDownの確認", "OK, NG", callback);
-		// },
-		// function(callback) {
-		// notificationConfirm("バックグラウンドでKeyUp監視が動作し続けていること", "watchKeyDownの確認", "OK, NG", callback);
-		// },
-		// function(callback) {
-		// notificationConfirm("BGMが鳴り続けている続けていること", "playBGMの確認", "OK, NG", callback);
-		// }], function() {
-		// alert("backGroundTest finish ");
-		// finishCallback(null);
-		// });
 		console.log("backgroundTest");
 	}
 

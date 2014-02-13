@@ -1721,7 +1721,6 @@ function createTable(finishCallback) {
 function createTable_success(result) {
 	var dump = "createTable_success ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1729,7 +1728,6 @@ function createTable_error(error) {
 	var dump = "createTable_error ";
 	dump += error.message + " ";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
