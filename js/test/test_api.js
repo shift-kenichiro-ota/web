@@ -511,6 +511,7 @@ function fileWrite1(contents, finishCallback) {
     };
 
     var fileWrite1_gotFS = function(fileSystem) {
+        console.log("hogegeoota");
 	    fileSystem.root.getFile(FILE_NAME, {
 		    create : true,
 		    exclusive : false
@@ -526,6 +527,15 @@ function fileWrite1(contents, finishCallback) {
 // ///
 // ファイル書き込み (永続的なストレージ)
 function fileWriteTest(finishCallback) {
+    var fileWrite1_fail = function(error) {
+	    var dump = "fileWrite1_fail ";
+	    dump += "code:" + error.code;
+	    console.log(dump);
+	    fileWriteStatus = true;
+        $("#hidden_api_result").html(dump);
+        finishCallback(error);
+    };
+
     var fileWriteTest_fail = function(error) {
 	    var dump = "fileWrite1_fail";
 	    dump += "code:" + error.code;
@@ -687,7 +697,6 @@ function fileRead1(finishCallback) {
     };
 
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileRead1_gotFS, fileRead1_fail);
-    //waitTestAPI(finishCallback);
 }
 
 // ファイル読み込み (一時的なストレージ)
@@ -759,16 +768,12 @@ function directoryReader1_gotFS(fileSystem) {
 }
 
 function directoryReader1_readEntries(entries) {
-	// var dump = "directoryReader1_readEntries ";
-	// document.getElementById("dumpAreaFile").value = dump;
 	var dump;
 
 	var i;
 	for ( i = 0; i < entries.length; i++) {
-		// document.getElementById("dumpAreaFile").value += entries[i].name + (entries[i].isDirectory ? "/" : "") + " ";
 		dump = entries[i].name + (entries[i].isDirectory ? "/" : "") + " ";
 	}
-//    document.getElementById("hidden_api_result").value = dump;
     test_result = "OK : " + dump;
     $("#hidden_api_result").html(dump);
 }
@@ -864,13 +869,11 @@ function copyTo1_copyToSuccess(entry) {
 	var dump = "";
 	dump += entry.name + " " + entry.fullPath + " ";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function copyTo1_fail(error) {
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -890,13 +893,11 @@ function toURL1_gotFileEntry(fileEntry) {
 	dump += fileURL + " ";
 	console.log(dump);
     test_result = "OK : toURL";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function toURL1_fail(error) {
 	test_result = "NG : toURL fail " + error.code;
-	// alert("toURL1_fail: " + error.code);
 }
 
 // 親ディレクトリ
@@ -917,18 +918,28 @@ function getParent1_getParentSuccess(entry) {
 	var dump = "getParent1_getParentSuccess ";
 	dump += entry.name + " " + entry.fullPath + " ";
     test_result = dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function getParent1_fail(error) {
 	test_result = "NG getParent fail " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
 // ファイルアップロード
 function upload1(finishCallback) {
+     var upload1_fail = function(error) {
+	    var dump = "upload1_fail ";
+	    dump += "code:" + error.code + " ";
+	    dump += "source:" + error.source + " ";
+	    dump += "target:" + error.target + " ";
+	    dump += "http_status:" + error.http_status + " ";
+	    uploadStatus = true;
+	    console.log(dump);
+        $("#hidden_api_result").html(dump);
+        finishCallback(error);
+    };
+
     var upload1_uploadSuccess = function(result) {
 	    var dump = "upload1_uploadSuccess ";
 	    dump += "responseCode:" + result.responseCode + " ";
@@ -963,21 +974,9 @@ function upload1(finishCallback) {
 	    ft.upload(fileEntry.fullPath, encodeURI(UPLOAD_URL), upload1_uploadSuccess, upload1_fail, options);
     };
 
-    var upload1_fail = function(error) {
-	    var dump = "upload1_fail ";
-	    dump += "code:" + error.code + " ";
-	    dump += "source:" + error.source + " ";
-	    dump += "target:" + error.target + " ";
-	    dump += "http_status:" + error.http_status + " ";
-	    uploadStatus = true;
-	    console.log(dump);
-        $("#hidden_api_result").html(dump);
-        finishCallback(error);
-    };
-
     var upload1_gotFS = function(fileSystem) {
 	    fileSystem.root.getFile(FILE_NAME, null, upload1_gotFileEntry, upload1_fail);
-    }
+    };
 
     applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0,
         upload1_gotFS,
@@ -3571,7 +3570,8 @@ function testResult(testcase, finishCallback) {
 	console.log("testResult testcase" + testcase);
 	async.series([
         function(callback) {
-            fileRead1(callback);
+            //fileRead1(callback);
+            callback();
         },
         function(callback) {
             var sql = "INSERT INTO TESTRESULT (suite_no, case_no, case_name, result) VALUES (" + '"' + suiteNo + '"' + "," + '"' + caseNo + '"' + "," + '"' + testcase + '"' + "," + '"' + test_result + '"' + ")";
@@ -3582,7 +3582,8 @@ function testResult(testcase, finishCallback) {
         },
         function(callback) {
             console.log("TEST_RESULT : " + TEST_RESULT + testcase + "," + test_result + " ");
-            fileWrite1(TEST_RESULT + testcase + "," + test_result + " ", callback);
+            //fileWrite1(TEST_RESULT + testcase + "," + test_result + " ", callback);
+            callback();
         },
         function(callback) {
             upload1(callback);
