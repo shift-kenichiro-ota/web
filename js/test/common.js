@@ -65,19 +65,13 @@ define(function() {
 		async.series([
 		function(callback) {
             console.log("device name : " + device_name);
-            callback();
-			setTimeout(function() {
-				callback(null, 1);
-			}, 500);
+			callback(null, 1);
 		},
 		function(callback) {
-            //callback();
 			upload1(callback);
 		}], function() {
-			setTimeout(function() {
-                console.log("out put device name");
-				finishCallback();
-			}, 1000);
+            console.log("out put device name");
+			finishCallback();
 		});
 	}
 

@@ -157,7 +157,6 @@ function testCompassGetCurrentHeading(finishCallback) {
 }
 
 function testConnectionType(finishCallback) {
-    finishCallback();
     async.series([
         function(callback) {
             checkDeviceInfo(callback);

@@ -417,7 +417,7 @@ function checkDeviceInfo(finishCallback) {
 			test_result = "OK : " + e;
 		}
 	} finally {
-        waitTestAPI(finishCallback);
+        finishCallback();
     }
 }
 
@@ -3649,33 +3649,27 @@ function varsReset(finishCallback) {
 }
 
 function insertTestResult(db, sql, finishCallback) {
-    if (db === null) {
-        test_result = "NG : データベースを開いていません";
-        // alert('データベースを開いていません');
-        return;
-    }
+    var insertTestResult_success = function(result) {
+        var dump = "insertData_success ";
+        if(applican.config.debug) {
+            dump += "insertId:" + result;
+        } else {
+            dump += "insertId:" + result.insertId + " ";
+        }
+        test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+            finishCallback();
+    };
+
+    var insertTestResult_error = function (error) {
+        var dump = "insertData_error ";
+        dump += error.message + " ";
+        $("#hidden_api_result").html(dump);
+        test_result = "NG : " + dump;
+        finishCallback(error);
+    };
+
     db.exec(sql, insertTestResult_success, insertTestResult_error);
-    waitTestAPI(finishCallback);
-}
-
-
-function insertTestResult_success(result) {
-    var dump = "insertData_success ";
-    if(applican.config.debug) {
-        dump += "insertId:" + result;
-    } else {
-        dump += "insertId:" + result.insertId + " ";
-    }
-    test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function insertTestResult_error(error) {
-    var dump = "insertData_error ";
-    dump += error.message + " ";
-    $("#hidden_api_result").html(dump);
-    test_result = "NG : " + dump;
 }
 
 function testResultSearchSuccess(result) {

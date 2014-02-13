@@ -155,13 +155,14 @@ define(function() {
                 console.log("test name " + testName + "debug : " + debug);
 
                 strCall = "test" + testName + "(callback);";
-                var testCase = new Function("callback", strCall);
-                testCase(callback);
 
                 console.log("test name : " + testName + " ,run" + k + " case no : " + caseNo);
                 console.log("test name : " + strCall);
                 test_name = testName;
+                var testCase = new Function("callback", strCall);
+                testCase(callback);
             }
+
         ], function() {
             console.log("test name : " + testName + " ,run last" + k + " debug : " + debug + " case no : " + caseNo);
             console.log("test name(test_name) : " + test_name);
