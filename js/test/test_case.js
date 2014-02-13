@@ -203,13 +203,13 @@ function testGameSoundSetSEVolume(finishCallback) {
             loadSE(callback);
         },
         function(callback) {
-            setSEVolume(trac, 50, callback);
+            setSEVolume(track, 50, callback);
         },
         function(callback) {
             playSE(track, callback);
         },
         function(callback) {
-            setSEVolume(trac, 100, callback);
+            setSEVolume(track, 100, callback);
         },
         function(callback) {
             playSE(track, callback);
@@ -657,7 +657,7 @@ function testDirectoryEntryMoveTo(finishCallback) {
             alert("結果出力");
         }], function() {
         console.log("testDirectoryEntryMoveTo");
-        alert("directoryMoveTo finalCallback")
+        alert("directoryMoveTo finalCallback");
         finishCallback();
     });
 }

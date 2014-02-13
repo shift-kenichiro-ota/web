@@ -2106,7 +2106,6 @@ function updateContact(finishCallback) {
 }
 
 function updateContact_findSuccess(contacts) {
-    var dump = "updateContact_findSuccess";
 //	document.getElementById("dumpAreaContacts").value = "updateContact_findSuccess ";
 	if (contacts && contacts.length > 0) {
 		contacts[0].name.givenName += "x";
@@ -2489,7 +2488,6 @@ function localNotificationCancel2(finishCallback) {// キャンセル
 function localNotificationAllCancel(finishCallback) {
 	applican.localNotification.allCancel();
 
-	var dump = "localNotificationAllCancel ";
     test_result = "OK";
     setTimeout(function() {
         finishCallback();

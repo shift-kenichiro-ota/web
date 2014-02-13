@@ -15,7 +15,7 @@ define(function() {
                 console.log("before test start");
                 console.log("テスト開始前処理");
                 colItem += '<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b" id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
-                if($("#test_case_num" + suiteNo).html() != undefined || $("#test_case_num" + suiteNo).html() != "") {
+                if($("#test_case_num" + suiteNo).html() !== undefined || $("#test_case_num" + suiteNo).html() !== "") {
                     $('#testResult').append(colItem).collapsibleset();
                 }
                 setTimeout(function() {
@@ -26,7 +26,7 @@ define(function() {
                 console.log("debug1");
                 applican.openDatabase('testresult', function(dbobj) { testResultDB = dbobj; callback(); }, testResultDBOpenError);
             },function(callback) {
-                var sql = "CREATE TABLE IF NOT EXISTS TESTRESULT (id integer primary key autoincrement, case_no text, case_name text, result text)";
+                var sql = "CREATE TABLE IF NOT EXISTS TESTRESULT (id integer primary key autoincrement, suite_no text, case_no text, case_name text, result text)";
                 if (testResultDB === null) {
                     // alert('データベースを開いていません');
                     return;
@@ -67,7 +67,7 @@ define(function() {
 
 	// 組み合わせ番号をファイルに出力
 	function outputCaseNo(caseNo, finishCallback) {
-		fileWrite1("組み合わせNo" + suiteNo + "のテスト\n", finishCallback);
+		fileWrite1("組み合わせNo" + caseNo + "のテスト\n", finishCallback);
 	}
 
 	function openWebView(testSuiteNo, loop) {

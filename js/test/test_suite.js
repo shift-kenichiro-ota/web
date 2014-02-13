@@ -125,7 +125,7 @@ define(function() {
                         j++;
                     },
                     function (err) {
-                        console.log('last i = ' + i);
+                        console.log('last j = ' + j);
                         callback();
                     }
                 );
@@ -153,14 +153,13 @@ define(function() {
                 var strCall;
                 debug = "run";
                 console.log("test name " + testName + "debug : " + debug);
-//                strCall = "test" + testName + "(" + callback + ")";
-//                    strCall = "test" + testName + "();";
+
                 strCall = "test" + testName + "(callback);";
-                eval(strCall);
+                var testCase = new Function("callback", strCall);
+                testCase(callback);
+
                 console.log("test name : " + testName + " ,run" + k + " case no : " + caseNo);
                 console.log("test name : " + strCall);
-//                var f = new Function(strCall);
-//                f();
                 test_name = testName;
             }
         ], function() {
@@ -194,7 +193,6 @@ define(function() {
                 suiteNo = test_case[i].key;
                 nextSuiteNo = test_case[(i+1)].key;
                 webviewTestCase(test_case, i, callback);
-                var test_case_count = (test_case[i].val.length);
                 suiteLoop = i;
             }, function(callback) {
                 notificationAlert("WebViewをクローズしてください。", "dialog", "OK", callback);
@@ -215,7 +213,7 @@ define(function() {
                 var j = 0;
                 async.whilst(
                     function() {
-                        console.log("test case length" + test_case[suiteLoop].val.length - 1);
+                        console.log("test case length : " + (test_case[suiteLoop].val.length - 1));
                         return j < (test_case[suiteLoop].val.length - 1);
                     },
                     function (callback) {
@@ -230,7 +228,7 @@ define(function() {
                         j++;
                     },
                     function (err) {
-                        console.log('last i = ' + i);
+                        console.log('last j = ' + j);
                         callback();
                     }
                 );
@@ -251,11 +249,10 @@ define(function() {
             function(callback) {
                 var strCall;
                 console.log("test name " + testName);
-//                    strCall = "test" + testName + "(" + callback + ")";
                 strCall = "test" + testName + "(callback);";
-                eval(strCall);
-//                    var f = new Function(strCall);
-//                    f();
+
+                var testCase = new Function("callback", strCall);
+                testCase(callback);
             }
         ], function() {
             console.log("run test case");
