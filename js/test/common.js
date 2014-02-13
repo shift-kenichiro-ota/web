@@ -66,18 +66,18 @@ define(function() {
 		function(callback) {
             console.log("device name : " + device_name);
             callback();
-			/*setTimeout(function() {
+			setTimeout(function() {
 				callback(null, 1);
-			}, 500); */
+			}, 500);
 		},
 		function(callback) {
             //callback();
 			upload1(callback);
 		}], function() {
-			//setTimeout(function() {
+			setTimeout(function() {
                 console.log("out put device name");
 				finishCallback();
-			//}, 1000);
+			}, 1000);
 		});
 	}
 

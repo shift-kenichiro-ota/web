@@ -940,62 +940,62 @@ function getParent1_fail(error) {
 
 // ファイルアップロード
 function upload1(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, upload1_gotFS, upload1_fail);
-    waitTestAPI(finishCallback);
-}
+	//applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, upload1_gotFS, upload1_fail);
+    //waitTestAPI(finishCallback);
 
-function upload1_gotFS(fileSystem) {
-	fileSystem.root.getFile(FILE_NAME, null, upload1_gotFileEntry, upload1_fail);
-	// fileSystem.root.getFile("sample.zip", null, upload1_gotFileEntry,
-	// upload1_fail);
-}
+    var upload1_uploadSuccess = function(result) {
+	    var dump = "upload1_uploadSuccess ";
+	    dump += "responseCode:" + result.responseCode + " ";
+	    dump += "response:" + result.response + " ";
+	    dump += "bytesSent:" + result.bytesSent + " ";
+	    uploadStatus = true;
+	    console.log(dump);
+        test_result = dump;
+        $("#hidden_api_result").html(dump);
 
-function upload1_gotFileEntry(fileEntry) {
-	var options = new FileUploadOptions();
-	options.fileKey = "file";
-	options.fileName = FILE_NAME;
-	options.mimeType = "text/plain";
+        finishCallback();
+    };
 
-	var params = {};
-	params.value1 = "test";
-	params.value2 = "param";
+    var upload1_gotFileEntry = function(fileEntry) {
+	    var options = new FileUploadOptions();
+	    options.fileKey = "file";
+	    options.fileName = FILE_NAME;
+	    options.mimeType = "text/plain";
 
-	options.params = params;
+	    var params = {};
+	    params.value1 = "test";
+	    params.value2 = "param";
 
-	var ft = new FileTransfer();
+	    options.params = params;
 
-	ft.onprogress = function(evt) {
-		console.log(evt.loaded + "\/" + evt.total + " ");
-		// document.getElementById("dumpAreaFile").value = evt.loaded + "/"
-		// +
-		// evt.total;
-	};
+	    var ft = new FileTransfer();
 
-	ft.upload(fileEntry.fullPath, encodeURI(UPLOAD_URL), upload1_uploadSuccess, upload1_fail, options);
-}
+	    ft.onprogress = function(evt) {
+		    console.log(evt.loaded + "\/" + evt.total + " ");
+	    };
 
-function upload1_uploadSuccess(result) {
-	var dump = "upload1_uploadSuccess ";
-	dump += "responseCode:" + result.responseCode + " ";
-	dump += "response:" + result.response + " ";
-	dump += "bytesSent:" + result.bytesSent + " ";
-	uploadStatus = true;
-	console.log(dump);
-    test_result = dump;
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
-}
+	    ft.upload(fileEntry.fullPath, encodeURI(UPLOAD_URL), upload1_uploadSuccess, upload1_fail, options);
+    };
 
-function upload1_fail(error) {
-	var dump = "upload1_fail ";
-	dump += "code:" + error.code + " ";
-	dump += "source:" + error.source + " ";
-	dump += "target:" + error.target + " ";
-	dump += "http_status:" + error.http_status + " ";
-	uploadStatus = true;
-	console.log(dump);
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
+    var upload1_fail = function(error) {
+	    var dump = "upload1_fail ";
+	    dump += "code:" + error.code + " ";
+	    dump += "source:" + error.source + " ";
+	    dump += "target:" + error.target + " ";
+	    dump += "http_status:" + error.http_status + " ";
+	    uploadStatus = true;
+	    console.log(dump);
+        $("#hidden_api_result").html(dump);
+        finishCallback(error);
+    };
+
+    var upload1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile(FILE_NAME, null, upload1_gotFileEntry, upload1_fail);
+    }
+
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0,
+        upload1_gotFS,
+        upload1_fail);
 }
 
 // ファイルダウンロード
