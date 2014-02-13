@@ -362,44 +362,45 @@ function setBGMVolume(track, volume, finishCallback) {
 
 // ドコモの基地局から位置情報を取得
 function docomoLocation(finishCallback) {
-	var option = {
+        var successCallback = function(position) {
+	    var coords = position.coords;
+	    var dump = "";
+	    dump += coords.Lat + ' (' + coords.latitude + ')' + " ";
+	    dump += coords.Lon + ' (' + coords.longitude + ')' + " ";
+	    var address = position.address;
+	    dump += address.AreaName + " ";
+	    dump += address.AreaCode + " ";
+	    dump += address.PostalCode + " ";
+	    dump += address.Adr + " ";
+	    dump += address.region + " ";
+	    dump += address.city + " ";
+	    dump += address.street + " ";
+	    dump += address.AdrCode + " ";
+
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+        finishCallback();
+    };
+
+    function errorCallback(err) {
+	    if (err.code === 4001) {
+		    test_result = 'OK : DoCoMoの<a href="' + err.message + '" target="_blank">会員メニュー</a>にて、ご利用の端末の位置情報提供を有効にしてください。' + ' ' + err.code + ' ' + err.message;
+            $("#hidden_api_result").html(test_result);
+	    } else if (err.code > 0) {
+		    test_result = 'NG : ' + err.code + ' ' + err.message;
+            $("#hidden_api_result").html(test_result);
+	    } else {
+		    test_result = 'OK(docomoLocationの確認 DoCoMo回線に接続していなければご利用になれません。)' + err.code + ' ' + err.message;
+            $("#hidden_api_result").html(test_result);
+	    }
+        finishCallback();
+    };
+
+    var option = {
 		APIKey1 : DOCOMO_APIKEY1,
 		APIKey2 : DOCOMO_APIKEY2
 	};
 	applican.docomolocation.getCurrentPosition(successCallback, errorCallback, option);
-    waitTestAPI(finishCallback);
-}
-
-function successCallback(position) {
-	var coords = position.coords;
-	var dump = "";
-	dump += coords.Lat + ' (' + coords.latitude + ')' + " ";
-	dump += coords.Lon + ' (' + coords.longitude + ')' + " ";
-	var address = position.address;
-	dump += address.AreaName + " ";
-	dump += address.AreaCode + " ";
-	dump += address.PostalCode + " ";
-	dump += address.Adr + " ";
-	dump += address.region + " ";
-	dump += address.city + " ";
-	dump += address.street + " ";
-	dump += address.AdrCode + " ";
-
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function errorCallback(err) {
-	if (err.code === 4001) {
-		test_result = 'OK : DoCoMoの<a href="' + err.message + '" target="_blank">会員メニュー</a>にて、ご利用の端末の位置情報提供を有効にしてください。' + ' ' + err.code + ' ' + err.message;
-        $("#hidden_api_result").html(test_result);
-	} else if (err.code > 0) {
-		test_result = 'NG : ' + err.code + ' ' + err.message;
-        $("#hidden_api_result").html(test_result);
-	} else {
-		test_result = 'OK(docomoLocationの確認 DoCoMo回線に接続していなければご利用になれません。)' + err.code + ' ' + err.message;
-        $("#hidden_api_result").html(test_result);
-	}
 }
 
 // ///
@@ -637,7 +638,6 @@ function fileRead1(finishCallback) {
 }
 
 function fileRead1_gotFS(fileSystem) {
-	//    alert("fileRead1 : " + FILE_NAME);
 	fileSystem.root.getFile(FILE_NAME, null, fileRead1_gotFileEntry, fileRead1_fail);
 }
 
@@ -658,7 +658,6 @@ function fileRead1_readDataUrl(file) {
 	reader.onloadend = function(evt) {
         if(evt.target.result) {
             var dump = "データ URL として読み込み : " + evt.target.result;
-//        document.getElementById("hidden_api_result").value = dump;
             console.log(dump);
         } else {
             dump = "file readDataUrl fail";
@@ -940,9 +939,6 @@ function getParent1_fail(error) {
 
 // ファイルアップロード
 function upload1(finishCallback) {
-	//applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, upload1_gotFS, upload1_fail);
-    //waitTestAPI(finishCallback);
-
     var upload1_uploadSuccess = function(result) {
 	    var dump = "upload1_uploadSuccess ";
 	    dump += "responseCode:" + result.responseCode + " ";
@@ -3591,6 +3587,8 @@ function setTabBadge(tab, num) {
 // 結果をページ内に出力
 function testResult(testcase, finishCallback) {
 	console.log("testResult testcase" + testcase);
+    finishCallback();
+    /*
 	async.series([
         function(callback) {
             fileRead1(callback);
@@ -3613,9 +3611,13 @@ function testResult(testcase, finishCallback) {
             varsReset(callback);
         }],
         function(err, results) {
+            if (err) {
+               throw err;
+            }
             console.log("テスト結果処理終了");
             finishCallback();
     });
+    */
 }
 
 function displayResult(testcase, finishCallback) {
