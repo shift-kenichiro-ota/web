@@ -32,9 +32,6 @@ define(function() {
 
     function readTestCase() {
         var test_case = require('json_test_case');
-//        $.getJSON("./test_case/test_case.json", function(data) {
-//            test_case_list = data;
-//        });
         return test_case.test_case_list;
     }
 
@@ -276,5 +273,4 @@ define(function() {
         execute : execute,
         webviewTest : webviewTest
     };
-
 });

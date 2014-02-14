@@ -78,7 +78,6 @@ function watchHeadingSuccess(res) {
 	dump += "timestamp:" + res.timestamp + " ";
 	document.getElementById("dumpAreaCompass").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 function watchHeadingError(e) {
@@ -86,7 +85,6 @@ function watchHeadingError(e) {
 	dump += "code:" + e.code + " ";
 	document.getElementById("dumpAreaCompass").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 // ///
@@ -98,7 +96,6 @@ function clearWatchHeading(finishCallback) {
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
-//    document.getElementById("hidden_api_result").value = compassValue + " Stop!!";
 }
 
 // ///
@@ -119,14 +116,12 @@ function watchAccelerationSuccess(res) {
 	dump += "timestamp:" + res.timestamp + " ";
 	document.getElementById("dumpAreaAcceleration").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 function watchAccelerationError() {
 	var dump = "watchAccelerationError ";
 	document.getElementById("dumpAreaAcceleration").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 // ///
@@ -146,7 +141,6 @@ function watchShake(finishCallback) {
 	applican.accelerometer.watchShake(shakeSuccess);
 	document.getElementById("dumpAreaShake").value = "Start ";
     $("#hidden_api_result").html("watch shake start");
-//    document.getElementById("hidden_api_result").value = "watch shake start";
     waitTestAPI(finishCallback);
 }
 
@@ -154,14 +148,12 @@ function shakeSuccess() {
 	var dump = "shake: " + parseInt((new Date()) / 1000) + " ";
 	document.getElementById("dumpAreaShake").value += dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 function clearWatchShake(finishCallback) {
 	applican.accelerometer.clearWatchShake();
 	document.getElementById("dumpAreaShake").value = "Stop!!";
     $("#hidden_api_result").html("Stop");
-//    document.getElementById("hidden_api_result").value = "stop";
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -192,7 +184,6 @@ function watchPositionSuccess(res) {
 	dump += "timestamp:" + res.timestamp + " ";
 	document.getElementById("dumpAreaGeolocation").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 function watchPositionError(e) {
@@ -201,7 +192,6 @@ function watchPositionError(e) {
 	dump += "message:" + e.message + " ";
 	document.getElementById("dumpAreaGeolocation").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 // ///
@@ -211,7 +201,6 @@ function clearWatchPosition(finishCallback) {
     var positionValue = document.getElementById("dumpAreaGeolocation").value;
 	document.getElementById("dumpAreaGeolocation").value = positionValue + " Stop!!";
     $("#hidden_api_result").html("Stop");
-//    document.getElementById("hidden_api_result").value =  positionValue + " Stop!!";
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -223,7 +212,6 @@ function watchKeyDown(finishCallback) {
 	applican.keyboard.watchKeyDown(watchKeyDownSuccess);
 	document.getElementById("dumpAreaKeyDown").value = "watchKeyDown Start!";
     $("#hidden_api_result").html("watch key down start");
-//    document.getElementById("hidden_api_result").value = "watch key down start";
     waitTestAPI(finishCallback);
 }
 
@@ -235,14 +223,12 @@ function watchKeyDownSuccess(res) {
 	dump += "altKey:" + res.altKey + " ";
 	document.getElementById("dumpAreaKeyDown").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 function clearWatchKeyDown(finishCallback) {
 	applican.keyboard.clearWatchKeyDown();
 	document.getElementById("dumpAreaKeyDown").value = "watchKeyDown Stop!";
     $("#hidden_api_result").html("watch key down stop");
-//    document.getElementById("hidden_api_result").value = "watch key down stop";
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -252,7 +238,6 @@ function watchKeyUp(finishCallback) {
 	applican.keyboard.watchKeyUp(watchKeyUpSuccess);
 	document.getElementById("dumpAreaKeyUp").value = "watchKeyUp Start!";
     $("#hidden_api_result").html("watch key up");
-//    document.getElementById("hidden_api_result").value = "watch key up";
     waitTestAPI(finishCallback);
 }
 
@@ -264,14 +249,12 @@ function watchKeyUpSuccess(res) {
 	dump += "altKey:" + res.altKey + " ";
 	document.getElementById("dumpAreaKeyUp").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 function clearWatchKeyUp(finishCallback) {
 	applican.keyboard.clearWatchKeyUp();
 	document.getElementById("dumpAreaKeyUp").value = "watchKeyUp Stop!";
     $("#hidden_api_result").html("watch key up stop");
-//    document.getElementById("hidden_api_result").value = dump;
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -305,7 +288,6 @@ function loadBGMSuccess() {
 	var dump = "loadBGMSuccess ";
 	document.getElementById("dumpAreaGameSound").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 function loadBGMError(err) {
@@ -313,7 +295,6 @@ function loadBGMError(err) {
 	dump += "code:" + err.code + " ";
 	document.getElementById("dumpAreaGameSound").value = dump;
     $("#hidden_api_result").html(dump);
-//    document.getElementById("hidden_api_result").value = dump;
 }
 
 // BGM再生
@@ -497,13 +478,13 @@ function fileWrite1(contents, finishCallback) {
 
 	    writer.onwriteend = function(evt) {
 		    console.log("onwrite end");
+            finishCallback();
 	    };
 	    console.log(writeContents);
 	    writer.write(writeContents);
 	    oldContents = writeContents;
 	    fileWriteStatus = true;
         $("#hidden_api_result").html(dump);
-        finishCallback();
     };
 
     var fileWrite1_gotFileEntry = function(fileEntry) {
@@ -608,21 +589,17 @@ function fileWrite2_gotFileEntry(fileEntry) {
 
 function fileWrite2_gotFileWriter(writer) {
 	var dump = "fileWrite2_gotFileWriter";
-//	document.getElementById("dumpAreaFile").value = dump;
 
 	writer.onwriteend = function(evt) {
 		document.getElementById("dumpAreaFile").value += "ファイルの内容が 'some sample text' となりました ";
 	};
 	writer.write("some sample text 2");
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function fileWrite2_fail(error) {
 	var dump = "fileWrite2_fail";
 	dump += "code:" + error.code;
-//	document.getElementById("dumpAreaFile").value = dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -688,12 +665,12 @@ function fileRead1(finishCallback) {
         });
     };
 
-    var fileRead1_gotFS = function(fileSystem) {
-	    fileSystem.root.getFile(FILE_NAME, null, fileRead1_gotFileEntry, fileRead1_fail);
-    };
-
     var fileRead1_gotFileEntry = function(fileEntry) {
 	    fileEntry.file(fileRead1_gotFile, fileRead1_fail);
+    };
+
+    var fileRead1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile(FILE_NAME, null, fileRead1_gotFileEntry, fileRead1_fail);
     };
 
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileRead1_gotFS, fileRead1_fail);
@@ -751,8 +728,6 @@ function fileRead2_readAsText(file) {
 function fileRead2_fail(error) {
 	var dump = "fileRead2_fail ";
 	dump += "code:" + error.code + " ";
-//	document.getElementById("dumpAreaFile").value = dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -780,9 +755,7 @@ function directoryReader1_readEntries(entries) {
 
 function directoryReader1_fail(error) {
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
-	// alert("directoryReader1_fail: " + error.code);
 }
 
 // ファイル削除
@@ -801,8 +774,6 @@ function deleteFile1_gotFileEntry(fileEntry) {
 
 function deleteFile1_removeSuccess() {
 	var dump = "deleteFile1_removeSuccess ";
-//	document.getElementById("dumpAreaFile").value = dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -832,17 +803,14 @@ function moveTo1_gotFileEntry(fileEntry) {
 }
 
 function moveTo1_moveToSuccess(entry) {
-	// var dump = "moveTo1_moveToSuccess ";
 	var dump = "";
 	dump += entry.name + " " + entry.fullPath + "";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function moveTo1_fail(error) {
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -865,7 +833,6 @@ function copyTo1_gotFileEntry(fileEntry) {
 }
 
 function copyTo1_copyToSuccess(entry) {
-	// var dump = "copyTo1_copyToSuccess ";
 	var dump = "";
 	dump += entry.name + " " + entry.fullPath + " ";
 	test_result = "OK : " + dump;
@@ -1090,26 +1057,22 @@ function abort2_gotFileEntry(fileEntry) {
 function abort2_uploadSuccess(result) {
 	var dump = "abort2_uploadSuccess ";
 	dump += result.responseCode + " " + result.response + " " + result.bytesSent;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function abort2_uploadFail(error) {
 	var dump = "abort2_uploadFail ";
 	dump += "code:" + error.code + " ";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function abort2_abortSuccess() {
 	var dump = "abort2_abortSuccess ";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function abort2_abortFail() {
 	var dump = "abort2_abortFail ";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1129,13 +1092,11 @@ function mkdir1_gotFS(fileSystem) {
 function mkdir1_getDirectory(directoryEntry) {
 	var dump = "mkdir1_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
     test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function mkdir1_fail(error) {
 	test_result = "NG mkdir fail " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -1155,12 +1116,10 @@ function mkdirInDir_gotFS(fileSystem) {
 function mkdirInDir_getDirectory(directoryEntry) {
 	var dump = "mkdirInDir_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
     $("#hidden_api_result").html(dump);
-	// document.getElementById("dumpAreaFile").value = dump;
 }
 
 function mkdirInDir_fail(error) {
     $("#hidden_api_result").html(error);
-	//    alert("mkdir1_fail: " + error.code);
 }
 
 // ディレクトリ削除(Recursively)
@@ -1180,13 +1139,11 @@ function rmdir1_getDirectory(directoryEntry) {
 function rmdir1_removeRecursivelySuccess() {
 	var dump = "rmdir1_removeRecursivelySuccess ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function rmdir1_fail(error) {
 	test_result = "NG rmdir fail " + error.code;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -1214,7 +1171,6 @@ function rmdir2_removeSuccess() {
 
 function rmdir2_fail(error) {
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -1240,13 +1196,11 @@ function moveTo2_moveToSuccess(entry) {
 	var dump = "moveTo2_moveToSuccess ";
 	dump += entry.name + " " + entry.fullPath + " ";
 	test_result = "OK : " + entry.name + " " + entry.fullPath;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function moveTo2_fail(error) {
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -1272,13 +1226,11 @@ function copyTo2_copyToSuccess(entry) {
 	var dump = "copyTo2_copyToSuccess ";
 	dump += entry.name + " " + entry.fullPath + " ";
 	test_result = "OK : " + entry.name + " " + entry.fullPath;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function copyTo2_fail(error) {
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -1298,13 +1250,11 @@ function toURL2_getDirectory(directoryEntry) {
 	dump += directoryURL + " ";
 	console.log(dump);
     test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function toURL2_fail(error) {
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -1326,7 +1276,6 @@ function getParent2_getParentSuccess(entry) {
 	var dump = "getParent2_getParentSuccess ";
 	dump += entry.name + " " + entry.fullPath + "";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1350,20 +1299,17 @@ function getDisplayInfo(finishCallback) {
 }
 
 function getDisplayInfo_success(info) {
-	// var dump = "getDisplayInfo_success ";
 	var dump = "";
 	dump += "orientation:" + info.orientation + " ";
 	dump += "width:" + info.width + " ";
 	dump += "height:" + info.height + " ";
 	console.log("getDisplayInfo success " + dump);
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function getDisplayInfo_error(e) {
 	test_result = "NG : " + e;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -1383,19 +1329,16 @@ function httpGetSuccess(result) {
 	dump += "result:" + result + " ";
 	if (dump.indexOf('Success') > 0) {
 		test_result = "OK : " + result;
-//        document.getElementById("hidden_api_result").value = dump;
         $("#hidden_api_result").html(dump);
 	} else {
 		httpGetError(result);
 	}
-	// document.getElementById("dumpAreaLaunchHttp").value = dump;
 }
 
 function httpGetError(message) {
 	var dump = "httpGetError ";
 	dump += "code:" + message + " ";
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1414,20 +1357,16 @@ function httpPost(finishCallback) {
 }
 
 function httpPostSuccess(result) {
-	// var dump = "httpPostSuccess ";
 	var dump = "";
 	dump += "result:" + result + " ";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function httpPostError(message) {
-	// var dump = "httpPostError ";
 	var dump = "";
 	dump += "code:" + message + " ";
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1442,16 +1381,13 @@ function getWiFiStatus_Success(status) {
 	var dump = "getWiFiStatus_callback ";
 	dump += "status:" + status + " ";
 	test_result = "OK : " + status;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
-	// document.getElementById("dumpAreaWiFi").value = dump;
 }
 
 function getWiFiStatus_Error(error) {
 	var dump = "getWiFiStatus_Error ";
 	dump += "code:" + error.code + " ";
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1464,7 +1400,6 @@ function onWiFi(finishCallback) {
 function onWiFi_Success() {
 	var dump = "onWiFi_Success ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1472,7 +1407,6 @@ function onWiFi_Error(error) {
 	var dump = "onWiFi_Error ";
 	dump += "code:" + error.code + " ";
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1485,7 +1419,6 @@ function offWiFi(finishCallback) {
 function offWiFi_Success() {
 	var dump = "offWiFi_Success ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1493,7 +1426,6 @@ function offWiFi_Error(error) {
 	var dump = "offWiFi_Error ";
 	dump += "code:" + error.code + " ";
 	test_result = "NG : " + error.code;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1504,7 +1436,6 @@ function getSSIDList(finishCallback) {
 }
 
 function getSSIDList_Success(result) {
-	// var dump = "getSSIDList_Success ";
 	var dump = "";
 	var cnt = result.length;
 	dump += "num: " + cnt + " ";
@@ -1512,16 +1443,13 @@ function getSSIDList_Success(result) {
 		dump += "SSID: " + result[i] + " ";
 	}
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function getSSIDList_Error(err) {
-	// var dump = "getSSIDList_Error ";
 	var dump = "";
 	dump += "code:" + err.code + " ";
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1532,20 +1460,16 @@ function getCurrentSSID(finishCallback) {
 }
 
 function getCurrentSSID_Success(result) {
-	// var dump = "getCurrentSSID_Success ";
 	var dump = "";
 	dump += "SSID: " + result + "";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function getCurrentSSID_Error(err) {
-	// var dump = "getCurrentSSID_Error ";
 	var dump = "";
 	dump += "code:" + err.code + "";
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1561,20 +1485,16 @@ function connectWifi1(finishCallback) {
 }
 
 function connectWifi_Success(result) {
-	// var dump = "connectWifi_Success ";
 	var dump = "";
 	dump += "result: " + result + "";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function connectWifi_Error(err) {
-	// var dump = "connectWifi_Error ";
 	var dump = "";
 	dump += "code:" + err.code + "";
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1585,9 +1505,6 @@ function connectWifi2(finishCallback) {
 	options.ssid = "applicantest2";
 	options.security = applican.wifi.SecurityType.WEP;
 	options.password = "8756102394858";
-
-	// options.ssid = "applicantest3";
-	// options.security = "NONE";
 
 	applican.wifi.connect(connectWifi_Success, connectWifi_Error, options);
     waitTestAPI(finishCallback);
@@ -1618,7 +1535,6 @@ function getPreferredLanguageSuccess(language) {
 	var dump = "getPreferredLanguageSuccess ";
 	dump += "language:" + language.value + " ";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1626,7 +1542,6 @@ function getPreferredLanguageError(err) {
 	var dump = "getPreferredLanguageError ";
 	dump += "code:" + err.code + " ";
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1637,22 +1552,17 @@ function getLocaleName(finishCallback) {
 }
 
 function getLocaleNameSuccess(locale) {
-	// var dump = "getLocaleNameSuccess ";
 	var dump = "";
 	dump += "locale:" + locale.value + "";
 	if (dump.indexOf('ja_JP') > 0) {
 		test_result = "OK : " + dump;
-//        document.getElementById("hidden_api_result").value = dump;
         $("#hidden_api_result").html(dump);
 	} else {
 		getLocaleNameError(locale);
 	}
-	// document.getElementById("dumpAreaGlobalization").value =
-	// dump;
 }
 
 function getLocaleNameError(err) {
-	// var dump = "getLocaleNameError ";
 	var dump = "";
 	dump += "code:" + err.code + "";
 	test_result = "NG : " + dump;
@@ -1711,7 +1621,6 @@ function createTable(finishCallback) {
 function dropTable(finishCallback) {
 	if (db === null) {
 		test_result = "NG : データベースを開いていません";
-		// alert('データベースを開いていません');
 		return;
 	}
 	var sql = "DROP TABLE IF EXISTS DEMO";
@@ -1722,7 +1631,6 @@ function dropTable(finishCallback) {
 function dropTable_success(result) {
 	var dump = "dropTable_success ";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1730,14 +1638,12 @@ function dropTable_error(error) {
 	var dump = "createTable_error ";
 	dump += error.message + " ";
     test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function insertData(finishCallback) {
 	if (db === null) {
 		test_result = "NG : データベースを開いていません";
-		// alert('データベースを開いていません');
 		return;
 	}
 	var sql = "INSERT INTO DEMO (id, data, data2) VALUES (1, 'First row', NULL)";
@@ -1753,14 +1659,12 @@ function insertData_success(result) {
         dump += "insertId:" + result.insertId + " ";
     }
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function insertData_error(error) {
 	var dump = "insertData_error ";
 	dump += error.message + " ";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
     test_result = "NG : " + dump;
 }
@@ -1768,7 +1672,6 @@ function insertData_error(error) {
 function deleteData(finishCallback) {
 	if (db === null) {
 		test_result = "NG : データベースを開いていません";
-		// alert('データベースを開いていません');
 		return;
 	}
 	var sql = "DELETE FROM DEMO";
@@ -1780,7 +1683,6 @@ function deleteData_success(result) {
 	var dump = "deleteData_success ";
 	dump += "rowsAffected:" + result.rowsAffected + " ";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1788,7 +1690,6 @@ function deleteData_error(error) {
 	var dump = "deleteData_error ";
 	dump += error.message + " ";
     test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1796,7 +1697,6 @@ function deleteData_error(error) {
 function execTransaction(finishCallback) {
 	if (db === null) {
 		test_result = "NG : データベースを開いていません";
-		// alert('データベースを開いていません');
 		return;
 	}
 	var sqls = ["DROP TABLE IF EXISTS DEMO", "CREATE TABLE IF NOT EXISTS DEMO (id unique, data, data2)", "INSERT INTO DEMO (id, data, data2) VALUES (1, 'First row', NULL)", "INSERT INTO DEMO (id, data, data2) VALUES (2.1, 'Second row', 'test')"];
@@ -1809,7 +1709,6 @@ function execTransaction_success(result) {
 	dump += "rowsAffected:" + result.rowsAffected + " ";
 	dump += "insertId:" + result.insertId + " ";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1817,7 +1716,6 @@ function execTransaction_error(error) {
 	var dump = "execTransaction_error ";
 	dump += error.message + " ";
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1839,7 +1737,6 @@ function searchData_success(result) {
 		dump += "id:" + result.rows[i].id + ", data:" + result.rows[i].data + ", data2:" + result.rows[i].data2 + " ";
 	}
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1847,7 +1744,6 @@ function searchData_error(error) {
 	var dump = "searchData_error ";
 	dump += error.message + " ";
     test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1866,7 +1762,6 @@ function createContact(finishCallback) {
 	} else {
 		test_result = "NG : " + dump;
 	}
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
     setTimeout(function() {
         finishCallback();
@@ -1895,14 +1790,12 @@ function findContact_success(contacts) {
 		}
 	}
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function findContact_error() {
 	var dump = "findContact_error ";
 	test_result = "NG";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -1976,14 +1869,12 @@ function saveContact(finishCallback) {
 function saveContact_onSuccess() {
 	var dump = "saveContact_onSuccess ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function saveContact_onError() {
 	var dump = "saveContact_onError ";
 	test_result = "NG" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2001,7 +1892,6 @@ function removeContact_findSuccess(contacts) {
     var dump = "";
 	for (var i = 0; i < contacts.length; i++) {
         dump += contacts[i].id + "," + contacts[i].displayName + " ";
-//		document.getElementById("dumpAreaContacts").value += contacts[i].id + "," + contacts[i].displayName + " ";
         $("#hidden_api_result").html(dump);
 		contacts[i].remove(removeContact_success, removeContact_error);
 	}
@@ -2010,14 +1900,12 @@ function removeContact_findSuccess(contacts) {
 
 function removeContact_success() {
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
 function removeContact_error() {
 	// var dump = "removeContact_error ";
 	test_result = "NG";
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -2073,7 +1961,6 @@ function updateContact(finishCallback) {
 }
 
 function updateContact_findSuccess(contacts) {
-//	document.getElementById("dumpAreaContacts").value = "updateContact_findSuccess ";
 	if (contacts && contacts.length > 0) {
 		contacts[0].name.givenName += "x";
 		contacts[0].phoneNumbers[0].value = "9876543210";
@@ -2081,19 +1968,16 @@ function updateContact_findSuccess(contacts) {
 		contacts[0].save(updateContact_success, updateContact_error);
 	} else {
 		test_result = "OK 検索機能正常、検索結果なし";
-		// alert("検索結果なし");
 	}
 }
 
 function updateContact_success() {
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
 function updateContact_error() {
 	test_result = "NG";
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -2101,15 +1985,12 @@ function updateContact_error() {
 // 簡易データ保存
 function setSimpleStorage(key, val, finishCallback) {
 	applican.simpleStorage.set(key, val + '\'.' + (new Date().getTime()) + "改行前 改行後", setSimpleStorage_success);
-	// applican.simpleStorage.set('testkey', 100.001,
-	// setSimpleStorage_success);
     waitTestAPI(finishCallback);
 }
 
 function setSimpleStorage_success() {
 	var dump = "setSimpleStorage_success ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2127,8 +2008,6 @@ function getSimpleStorage_success(result) {
 	} else {
 		simpleStorageData = null;
 	}
-	// document.getElementById("dumpAreaSimpleStorage").value =dump;
-    //    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2140,7 +2019,6 @@ function removeSimpleStorage(finishCallback) {
 function removeSimpleStorage_success(result) {
 	var dump = "removeSimpleStorage_success ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2152,7 +2030,6 @@ function clearSimpleStorage(finishCallback) {
 function clearSimpleStorage_success(result) {
 	var dump = "clearSimpleStorage_success ";
 	test_result = "OK" + result;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2166,16 +2043,13 @@ function cleanupPicture(finishCallback) {
 function cleanupPictureSuccess() {
 	var dump = "cleanupPictureSuccess ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function cleanupPictureError(message) {
-	// var dump = "cleanupPictureError ";
 	var dump = "";
 	dump += "message:" + message;
 	test_result = "OK" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2197,18 +2071,15 @@ function captureBarcode(finishCallback) {
 function captureBarcodeSuccess(res) {
 	if (res.codeData.indexOf("applican") > 0) {
 		test_result = "OK : " + res;
-//        document.getElementById("hidden_api_result").value = test_result;
         $("#hidden_api_result").html(test_result);
 	} else {
 		test_result = "NG";
-//        document.getElementById("hidden_api_result").value = test_result;
         $("#hidden_api_result").html(test_result);
 	}
 }
 
 function captureBarcodeError(e) {
 	test_result = "NG : " + e;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -2221,21 +2092,18 @@ function getCurrentHeading(finishCallback) {
 
 function currentHeadingSuccess(res) {
 	console.log("getCurrentHeading success");
-	// var dump = "currentHeadingSuccess ";
 	var dump = "";
 	dump += "magneticHeading:" + res.magneticHeading + " ";
 	dump += "trueHeading:" + res.trueHeading + " ";
 	dump += "headingAccuracy:" + res.headingAccuracy + " ";
 	dump += "timestamp:" + res.timestamp + " ";
 	test_result = "OK" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function currentHeadingError(e) {
 	console.log("getCurrentHeading error" + e);
 	test_result = "NG : " + e;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -2250,8 +2118,6 @@ function currentAccelerationSuccess(res) {
 	console.log(res.x + " " + res.y + " " + res.z);
 	if (res.x || res.y || res.z || res.timestamp) {
 		test_result = "OK : ";
-//        document.getElementById("hidden_api_result").value = test_result;
-//        document.getElementById("hidden_api_result").value = test_result;
         $("#hidden_api_result").html(test_result);
 	} else {
 		currentAccelerometerError();
@@ -2260,7 +2126,6 @@ function currentAccelerationSuccess(res) {
 
 function currentAccelerometerError() {
 	test_result = "NG : ";
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 }
 
@@ -2287,18 +2152,15 @@ function currentPositionSuccess(res) {
 	dump += "speed:" + res.coords.speed + " ";
 	dump += "timestamp:" + res.timestamp + " ";
 	test_result = "OK" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function currentPositionError(error) {
 	console.log("currentPostion error");
-	// var dump = "currentPositionError ";
 	var dump = "";
 	dump += "code:" + error.code + " ";
 	dump += "message:" + error.message + " ";
 	test_result = "OK" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2312,7 +2174,6 @@ function notificationAlert(message, title, buttonName, finishCallback) {
 function alertCallback() {
 	var dump = "alertCallback ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2379,16 +2240,13 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
 function localNotificationSchedule1Success() {
 	var dump = "localNotificationSchedule1Success ";
 	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function localNotificationSchedule1Error(res) {
-	// var dump = "localNotificationSchedule1Error ";
 	var dump = "";
 	dump += "code:" + res.code + " ";
 	test_result = "NG" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2425,7 +2283,6 @@ function localNotificationSchedule2Success() {
 	var dump = "localNotificationSchedule2Success ";
     test_result = "OK : " * dump;
 	console.log(dump);
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2434,7 +2291,6 @@ function localNotificationSchedule2Error(res) {
 	dump += "code:" + res.code + " ";
     test_result = dump;
 	console.log(dump);
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2476,23 +2332,19 @@ function captureAudio(finishCallback) {
 }
 
 function captureAudioSuccess(mediaFiles) {
-	// var dump = "captureAudioSuccess ";
 	var dump = "";
 	for (var i = 0, len = mediaFiles.length; i < len; i++) {
 		dump += mediaFiles[i].fullPath;
 	}
 	test_result = "OK" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function captureAudioError(err) {
-	// var dump = "captureAudioError ";
 	var dump = "";
 	dump += "code:" + err.code + " ";
 	dump += "message:" + err.message + " ";
 	test_result = "NG" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2503,23 +2355,19 @@ function captureVideo(finishCallback) {
 }
 
 function captureVideoSuccess(mediaFiles) {
-	// var dump = "captureVideoSuccess ";
 	var dump = "";
 	for (var i = 0, len = mediaFiles.length; i < len; i++) {
 		dump += mediaFiles[i].fullPath;
 	}
 	test_result = "OK" + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function captureVideoError(err) {
-	// var dump = "captureVideoError ";
 	var dump = "";
 	dump += "code:" + err.code + " ";
 	dump += "message:" + err.message + "";
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2539,11 +2387,9 @@ function captureImageSuccess(mediaFiles) {
 	}
 	if (dump) {
 		test_result = "OK : " + dump;
-//        document.getElementById("hidden_api_result").value = dump;
         $("#hidden_api_result").html(dump);
 	} else {
 		test_result = "NG : " + dump;
-//        document.getElementById("hidden_api_result").value = dump;
         $("#hidden_api_result").html(dump);
 	}
 	captureImageStatus = true;
@@ -2560,7 +2406,6 @@ function captureImageSuccess(mediaFiles) {
 
 function captureImageError(err) {
 	test_result = "NG : " + err;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
 	captureImageStatus = true;
 }
@@ -2572,23 +2417,17 @@ function getCurrentPosition1(finishCallback) {
 }
 
 function getCurrentPosition1_success(position) {
-	// var dump = "getCurrentPosition1_success ";
 	var dump = "";
 	dump += "position:" + position;
-	//	document.getElementById("dumpAreaMedia").value = dump;
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function getCurrentPosition1_error(error) {
-	// var dump = "getCurrentPosition1_error ";
 	var dump = "";
 	dump += "code: " + error.code + " ";
 	dump += "message: " + error.message + " ";
-	//	document.getElementById("dumpAreaMedia").value = dump;
 	test_result = "NG : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2642,15 +2481,12 @@ function loadSE(finishCallback) {
 function loadSESuccess() {
 	var dump = "loadSESuccess ";
 	test_result = "OK : " + dump;
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function loadSEError(err) {
-	// var dump = "loadSEError ";
 	var dump = "";
 	dump += "code:" + err.code + " ";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 	test_result = "NG : " + dump;
 }
@@ -2748,14 +2584,12 @@ function playVideoOverlay(control, finishCallback) {
 
 function playVideoOverlay_success() {
 	var dump = "playVideoOverlay_success ";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
 function playVideoOverlay_error(error) {
 	var dump = "playVideoOverlay_error ";
 	dump += "code:" + error.code + " ";
-//    document.getElementById("hidden_api_result").value = dump;
     $("#hidden_api_result").html(dump);
 }
 
@@ -2856,13 +2690,11 @@ function saveToPhotoAlbum(finishCallback) {
 function saveToPhotoAlbumSuccess() {
 	test_result = "OK";
     $("#hidden_api_result").html("save to photo album : " + test_result);
-//    document.getElementById("hidden_api_result").value = "save to photo album";
 }
 
 function saveToPhotoAlbumError(message) {
 	test_result = "NG";
     $("#hidden_api_result").html("save to photo album : " + test_result);
-//    document.getElementById("hidden_api_result").value = "save to photo album";
 }
 
 // ///
@@ -2910,9 +2742,6 @@ function getPicture1_getPictureError(message) {
 // ログ画面表示
 function showLogConsole(finishCallback) {
 	applican.showLogConsole();
-//	if (finishCallback !== null) {
-//		finishCallback(null);
-//	}
 }
 
 /** ******************************************************************************** */
@@ -2960,7 +2789,6 @@ function localNotificationCancel3() {// キャンセル
 
 function localNotificationSchedule4() {// 毎分0秒
 	var fireDateUnixtime = (new Date(2000, 0, 1, 0, 0, 0)) / 1000;
-	// alert(fireDateUnixtime);
 
 	var options = {
 		alertId : 4,
@@ -2997,7 +2825,6 @@ function localNotificationCancel4() {// キャンセル
 
 function localNotificationSchedule5() {// 毎時30分
 	var fireDateUnixtime = (new Date(2000, 0, 1, 0, 30, 0)) / 1000;
-	// alert(fireDateUnixtime);
 
 	var options = {
 		alertId : 5,
@@ -3034,7 +2861,6 @@ function localNotificationCancel5() {// キャンセル
 
 function localNotificationSchedule6() {// 毎日13時40分
 	var fireDateUnixtime = (new Date(2000, 0, 1, 13, 40, 0)) / 1000;
-	// alert(fireDateUnixtime);
 
 	var options = {
 		alertId : 6,
@@ -3071,7 +2897,6 @@ function localNotificationCancel6() {// キャンセル
 
 function localNotificationSchedule7() {// 毎月18日13時45分
 	var fireDateUnixtime = (new Date(2000, 0, 18, 13, 45, 0)) / 1000;
-	// alert(fireDateUnixtime);
 
 	var options = {
 		alertId : 7,
@@ -3419,17 +3244,14 @@ function pauseRecAudio() {
 function addLaunchWebviewCloseEventListener() {
 	applican.addLaunchWebviewCloseEventListener(webViewClose);
 	var dump = "addLaunchWebviewCloseEventListener ";
-	//document.getElementById("dumpAreaLaunchWebview").value = dump;
 }
 
 function webViewClose() {
 	var dump = "webViewClose ";
-	//document.getElementById("dumpAreaLaunchWebview").value = dump;
 	var urlParams = get_url_vars();
 	var loop = urlParams[0];
     loopCnt = Number(loop) + 1;
     finalCallbackFunction();
-//	location.href = "index.html?suiteNo=" + suiteNo + "loop=" + (Number(loop)+1);
 }
 
 function get_url_vars() {
@@ -3570,8 +3392,8 @@ function testResult(testcase, finishCallback) {
 	console.log("testResult testcase" + testcase);
 	async.series([
         function(callback) {
-            //fileRead1(callback);
-            callback();
+            fileRead1(callback);
+            //callback();
         },
         function(callback) {
             var sql = "INSERT INTO TESTRESULT (suite_no, case_no, case_name, result) VALUES (" + '"' + suiteNo + '"' + "," + '"' + caseNo + '"' + "," + '"' + testcase + '"' + "," + '"' + test_result + '"' + ")";
@@ -3688,5 +3510,3 @@ function waitTestResultDisplay(finishCallback) {
 function waitCancel(finishCallback) {
 
 }
-
-/** ******************************************************************************** */

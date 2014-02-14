@@ -59,8 +59,6 @@ define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
 	 'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case'  ], function($) {
 	     document.addEventListener("deviceready", onDeviceReady, false);
 	     document.getElementById("showLogBtn").addEventListener("click", showLogConsole, false);
-
-	     // $("showLogBtn").bind("click", showLogConsole);
 	 });
 
 /*
@@ -75,7 +73,6 @@ function onDeviceReady() {
     // イベント登録
     addLaunchWebviewCloseEventListener();
 
-//    document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
     document.addEventListener("backbutton", onBackKeyDown, false);
     document.addEventListener("menubutton", onMenuKeyDown, false);
@@ -98,10 +95,6 @@ function onDeviceReady() {
     
 	    // テスト実行
     document.getElementById("test_exec").addEventListener('click', function(event) {exe(test_suite);}, false);
-
-    /*
-     * var test = [true]; test[1] = test; console.log(test);
-     */
 }
 
 function exe(suite) {
@@ -111,59 +104,48 @@ function exe(suite) {
 function onPause() {
     var dump = "onPause\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onResume() {
     var dump = "onResume\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onBackKeyDown() {
     var dump = "onBackKeyDown\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onMenuKeyDown() {
     var dump = "onMenuKeyDown\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onSearchKeyDown() {
     var dump = "onSearchKeyDown\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onVolumeDownKeyDown() {
     var dump = "onVolumeDownKeyDown\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onVolumeUpKeyDown() {
     var dump = "onVolumeUpKeyDown\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onOnline() {
     var dump = "onOnline\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onOffline() {
     var dump = "onOffline\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 function onAppear() {
     var dump = "onAppear\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 
 function onOrientationChanged(res) {
     var dump = "onOrientationChanged\n";
     dump += "orientation:" + res.orientation + "\n";
     console.log(dump);
-    // document.getElementById("dumpAreaEvent").value += dump;
 }
 
 function onBatteryCritical(res) {
@@ -171,22 +153,16 @@ function onBatteryCritical(res) {
     dump += "level:" + res.level + "\n";
     dump += "isPlugged:" + res.isPlugged + "\n";
     console.log(dump);
-    // document.getElementById("dumpAreaBattery").value = dump;
 }
 function onBatteryLow(res) {
     var dump = "onBatteryLow\n";
     dump += "level:" + res.level + "\n";
     dump += "isPlugged:" + res.isPlugged + "\n";
     console.log(dump);
-    // document.getElementById("dumpAreaBattery").value = dump;
 }
 function onBatteryStatus(res) {
     var dump = "onBatteryStatus\n";
     dump += "level:" + res.level + "\n";
     dump += "isPlugged:" + res.isPlugged + "\n";
     console.log(dump);
-    // document.getElementById("dumpAreaBattery").value = dump;
 }
-
-/** ******************************************************************************** */
-
