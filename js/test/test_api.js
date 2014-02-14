@@ -343,7 +343,7 @@ function setBGMVolume(track, volume, finishCallback) {
 
 // ドコモの基地局から位置情報を取得
 function docomoLocation(finishCallback) {
-        var successCallback = function(position) {
+    var successCallback = function(position) {
 	    var coords = position.coords;
 	    var dump = "";
 	    dump += coords.Lat + ' (' + coords.latitude + ')' + " ";
@@ -628,7 +628,7 @@ function fileRead1(finishCallback) {
                         var dump = "テキストとして読み込み" + evt.target.result;
                         console.log(evt.target.result);
                         console.log(dump);
-                        TEST_RESULT = TEST_RESULT + evt.target.result + " ";
+                        //TEST_RESULT = TEST_RESULT + evt.target.result + " ";
                         if (evt.target.result) {
                             test_result = "OK : " + evt.target.result;
                         } else {
@@ -1073,48 +1073,54 @@ function abort2_abortFail() {
 
 // ディレクトリ作成
 function mkdir1(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, mkdir1_gotFS, mkdir1_fail);
-    waitTestAPI(finishCallback);
-}
+    var  mkdir1_fail = function(error) {
+	    test_result = "NG mkdir fail " + error.code;
+        $("#hidden_api_result").html(test_result);
 
-function mkdir1_gotFS(fileSystem) {
-	fileSystem.root.getDirectory("newDir", {
-		create : true,
-		exclusive : false
-	}, mkdir1_getDirectory, mkdir1_fail);
-}
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
 
-function mkdir1_getDirectory(directoryEntry) {
-	var dump = "mkdir1_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
-    test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
+    var mkdir1_getDirectory = function(directoryEntry) {
+	    var dump = "mkdir1_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
+        test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
 
-function mkdir1_fail(error) {
-	test_result = "NG mkdir fail " + error.code;
-    $("#hidden_api_result").html(test_result);
+        setTimeout(finishCallback, 0);
+    };
+
+    var mkdir1_gotFS = function(fileSystem) {
+	    fileSystem.root.getDirectory("newDir", {
+		    create : true,
+		    exclusive : false
+	    }, mkdir1_getDirectory, mkdir1_fail);
+    };
+
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, mkdir1_gotFS, mkdir1_fail);
 }
 
 //ディレクトリ内にディレクトリ作成
 function mkdirInDir(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, mkdirInDir_gotFS, mkdirInDir_fail);
-    waitTestAPI(finishCallback);
-}
+    var mkdirInDir_fail = function(error) {
+        $("#hidden_api_result").html(error);
 
-function mkdirInDir_gotFS(fileSystem) {
-	fileSystem.root.getDirectory("newDir/inDir", {
-		create : true,
-		exclusive : false
-	}, mkdirInDir_getDirectory, mkdirInDir_fail);
-}
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
 
-function mkdirInDir_getDirectory(directoryEntry) {
-	var dump = "mkdirInDir_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
-    $("#hidden_api_result").html(dump);
-}
+    var mkdirInDir_getDirectory = function(directoryEntry) {
+	    var dump = "mkdirInDir_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
+        $("#hidden_api_result").html(dump);
 
-function mkdirInDir_fail(error) {
-    $("#hidden_api_result").html(error);
+        setTimeout(finishCallback, 0);
+    };
+
+    function mkdirInDir_gotFS(fileSystem) {
+	    fileSystem.root.getDirectory("newDir/inDir", {
+		    create : true,
+		    exclusive : false
+	    }, mkdirInDir_getDirectory, mkdirInDir_fail);
+    };
+
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, mkdirInDir_gotFS, mkdirInDir_fail);
 }
 
 // ディレクトリ削除(Recursively)
@@ -1144,59 +1150,65 @@ function rmdir1_fail(error) {
 
 // ディレクトリ削除
 function rmdir2(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir2_gotFS, rmdir2_fail);
-    waitTestAPI(finishCallback);
-}
+    var rmdir2_fail = function(error) {
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(test_result);
 
-function rmdir2_gotFS(fileSystem) {
-	fileSystem.root.getDirectory("newDir", null, rmdir2_getDirectory, rmdir2_fail);
-}
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
 
-function rmdir2_getDirectory(directoryEntry) {
-	directoryEntry.remove(rmdir2_removeSuccess, rmdir2_fail);
-}
 
-function rmdir2_removeSuccess() {
-	var dump = "rmdir2_removeSuccess ";
-	console.log(dump);
-	test_result = "OK";
-//    document.getElementById("hidden_api_result").value = dump;
-    $("#hidden_api_result").html(dump);
-}
+    var rmdir2_removeSuccess = function() {
+	    var dump = "rmdir2_removeSuccess ";
+	    console.log(dump);
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
 
-function rmdir2_fail(error) {
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(test_result);
+        setTimeout(finishCallback, 0);
+    };
+
+    var rmdir2_getDirectory = function(directoryEntry) {
+	    directoryEntry.remove(rmdir2_removeSuccess, rmdir2_fail);
+    };
+
+    var rmdir2_gotFS = function(fileSystem) {
+	    fileSystem.root.getDirectory("newDir", null, rmdir2_getDirectory, rmdir2_fail);
+    };
+
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir2_gotFS, rmdir2_fail);
 }
 
 // ディレクトリ移動
 function moveTo2(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, moveTo2_gotFS, moveTo2_fail);
-    waitTestAPI(finishCallback);
-}
+    var moveTo2_fail = function(error) {
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(test_result);
 
-function moveTo2_gotFS(fileSystem) {
-	fileSystem.root.getDirectory("newDir", null, moveTo2_getDirectory, moveTo2_fail);
-}
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
 
-function moveTo2_getDirectory(directoryEntry) {
-	var tmp = directoryEntry.fullPath;
-	var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
-	var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
-	var parentEntry = new DirectoryEntry(parentName, parentPath);
-	directoryEntry.moveTo(parentEntry, "newDir2", moveTo2_moveToSuccess, moveTo2_fail);
-}
+    var moveTo2_moveToSuccess = function(entry) {
+	    var dump = "moveTo2_moveToSuccess ";
+	    dump += entry.name + " " + entry.fullPath + " ";
+	    test_result = "OK : " + entry.name + " " + entry.fullPath;
+        $("#hidden_api_result").html(dump);
 
-function moveTo2_moveToSuccess(entry) {
-	var dump = "moveTo2_moveToSuccess ";
-	dump += entry.name + " " + entry.fullPath + " ";
-	test_result = "OK : " + entry.name + " " + entry.fullPath;
-    $("#hidden_api_result").html(dump);
-}
+        setTimeout(finishCallback, 0);
+    };
 
-function moveTo2_fail(error) {
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(test_result);
+    var moveTo2_getDirectory = function(directoryEntry) {
+	    var tmp = directoryEntry.fullPath;
+	    var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
+	    var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
+	    var parentEntry = new DirectoryEntry(parentName, parentPath);
+	    directoryEntry.moveTo(parentEntry, "newDir2", moveTo2_moveToSuccess, moveTo2_fail);
+    };
+
+    var moveTo2_gotFS = function(fileSystem) {
+	    fileSystem.root.getDirectory("newDir", null, moveTo2_getDirectory, moveTo2_fail);
+    };
+
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, moveTo2_gotFS, moveTo2_fail);
 }
 
 // ディレクトリコピー
@@ -3397,8 +3409,10 @@ function testResult(testcase, finishCallback) {
             displayResult(testcase, callback);
         },
         function(callback) {
-            console.log("TEST_RESULT : " + TEST_RESULT + testcase + "," + test_result + " ");
-            fileWrite1(TEST_RESULT + testcase + "," + test_result + " ", callback);
+            //console.log("TEST_RESULT : " + TEST_RESULT + testcase + "," + test_result + " ");
+            //fileWrite1(TEST_RESULT + testcase + "," + test_result + " ", callback);
+            console.log(testcase + "," + test_result + " ");
+            fileWrite1(testcase + "," + test_result + " ", callback);
         },
         function(callback) {
             upload1(callback);
