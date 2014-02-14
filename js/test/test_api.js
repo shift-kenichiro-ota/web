@@ -456,7 +456,7 @@ function fileWrite1(contents, finishCallback) {
 	    console.log(dump);
 	    fileWriteStatus = true;
         $("#hidden_api_result").html(dump);
-        finishCallback(error);
+        setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var fileWrite1_gotFileWriter = function(writer) {
@@ -478,7 +478,7 @@ function fileWrite1(contents, finishCallback) {
 
 	    writer.onwriteend = function(evt) {
 		    console.log("onwrite end");
-            finishCallback();
+            setTimeout(finishCallback, 0);
 	    };
 	    console.log(writeContents);
 	    writer.write(writeContents);
@@ -492,7 +492,6 @@ function fileWrite1(contents, finishCallback) {
     };
 
     var fileWrite1_gotFS = function(fileSystem) {
-        console.log("hogegeoota");
 	    fileSystem.root.getFile(FILE_NAME, {
 		    create : true,
 		    exclusive : false
@@ -779,9 +778,7 @@ function deleteFile1_removeSuccess() {
 
 function deleteFile1_fail(error) {
 	test_result = "NG : delete file fail " + error.code;
-//    document.getElementById("hidden_api_result").value = test_result;
     $("#hidden_api_result").html(test_result);
-	// alert("deleteFile1_fail: " + error.code);
 }
 
 // ファイル移動
@@ -895,7 +892,6 @@ function getParent1_fail(error) {
 
 // ファイルアップロード
 function upload1(finishCallback) {
-    /*
      var upload1_fail = function(error) {
 	    var dump = "upload1_fail ";
 	    dump += "code:" + error.code + " ";
@@ -905,7 +901,7 @@ function upload1(finishCallback) {
 	    uploadStatus = true;
 	    console.log(dump);
         $("#hidden_api_result").html(dump);
-        finishCallback(error);
+        setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var upload1_uploadSuccess = function(result) {
@@ -918,7 +914,7 @@ function upload1(finishCallback) {
         test_result = dump;
         $("#hidden_api_result").html(dump);
 
-        finishCallback();
+        setTimeout(finishCallback, 0);
     };
 
     var upload1_gotFileEntry = function(fileEntry) {
@@ -945,12 +941,8 @@ function upload1(finishCallback) {
     var upload1_gotFS = function(fileSystem) {
 	    fileSystem.root.getFile(FILE_NAME, null, upload1_gotFileEntry, upload1_fail);
     };
-    */
 
-    //applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, upload1_gotFS, upload1_fail);
-    console.log("upload pre hoge :");
-    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) { console.log("upload success hoge : "); setTimeout(finishCallback, 0); }, function(fileSystem) { console.log("upload fail hoge : "); finishCallback()});
-    console.log("upload post hoge :");
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, upload1_gotFS, upload1_fail);
 }
 
 // ファイルダウンロード
@@ -1583,7 +1575,7 @@ function openDb(name, finishCallback) {
 	    dump += db.name + "";
 	    test_result = "OK : " + dump;
         $("#hidden_api_result").html(dump);
-        finishCallback();
+        setTimeout(finishCallback, 0);
     };
 
     var openDb_error = function(error) {
@@ -1591,7 +1583,7 @@ function openDb(name, finishCallback) {
 	    dump += error.message + " ";
 	    test_result = "OK : " + dump;
         $("#hidden_api_result").html(dump);
-        finishCallback(error);
+        setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var dbName = "testdb";
@@ -1606,7 +1598,7 @@ function createTable(finishCallback) {
 	    var dump = "createTable_success ";
 	    test_result = "OK";
         $("#hidden_api_result").html(dump);
-        finishCallback();
+        setTimeout(finishCallback, 0);
     };
 
     var createTable_error = function(error) {
@@ -1614,7 +1606,7 @@ function createTable(finishCallback) {
 	    dump += error.message + " ";
 	    test_result = "OK : " + dump;
         $("#hidden_api_result").html(dump);
-        finishCallback(error);
+        setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var sql = "CREATE TABLE IF NOT EXISTS DEMO (id unique, data, data2)";
@@ -3396,7 +3388,6 @@ function testResult(testcase, finishCallback) {
 	async.series([
         function(callback) {
             fileRead1(callback);
-            //callback();
         },
         function(callback) {
             var sql = "INSERT INTO TESTRESULT (suite_no, case_no, case_name, result) VALUES (" + '"' + suiteNo + '"' + "," + '"' + caseNo + '"' + "," + '"' + testcase + '"' + "," + '"' + test_result + '"' + ")";
@@ -3407,16 +3398,12 @@ function testResult(testcase, finishCallback) {
         },
         function(callback) {
             console.log("TEST_RESULT : " + TEST_RESULT + testcase + "," + test_result + " ");
-            //fileWrite1(TEST_RESULT + testcase + "," + test_result + " ", callback);
-            console.log("oota A");
-            callback();
+            fileWrite1(TEST_RESULT + testcase + "," + test_result + " ", callback);
         },
         function(callback) {
-            console.log("oota B");
             upload1(callback);
         },
         function(callback) {
-            console.log("oota C");
             varsReset(callback);
         }],
         function(err, results) {

@@ -48,8 +48,7 @@ define(function() {
                     });
             },
             function(callback) {
-                //outputCaseNo(suiteNo, callback);
-                callback();
+                outputCaseNo(suiteNo, callback);
             }], function(err, results) {
             if (err) {
                 throw err;
