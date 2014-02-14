@@ -3804,7 +3804,9 @@ _Database.prototype.query = function(sql, successCallback, errorCallback) {
 	
 
 	this.requestFileSystem = function(type, size, successCallback, opt_errorCallback){
+        console.log("pre request hoge");
 	    if(this.isFileExecute)return;
+        console.log("pre return request hoge");
 	    this.isFileExecute = true;
 
 	    this.requestFileSystemSuccess = successCallback;

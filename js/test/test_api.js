@@ -611,7 +611,7 @@ function fileRead1(finishCallback) {
 	    console.log(dump);
 	    test_result = "NG : " + error.code;
         $("#hidden_api_result").html(dump);
-        finishCallback(error);
+        setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var fileRead1_gotFile = function(file) {
@@ -661,7 +661,7 @@ function fileRead1(finishCallback) {
             }
         ],
         function() {
-            finishCallback();
+            setTimeout(finishCallback, 0);
         });
     };
 
@@ -895,6 +895,7 @@ function getParent1_fail(error) {
 
 // ファイルアップロード
 function upload1(finishCallback) {
+    /*
      var upload1_fail = function(error) {
 	    var dump = "upload1_fail ";
 	    dump += "code:" + error.code + " ";
@@ -944,10 +945,12 @@ function upload1(finishCallback) {
     var upload1_gotFS = function(fileSystem) {
 	    fileSystem.root.getFile(FILE_NAME, null, upload1_gotFileEntry, upload1_fail);
     };
+    */
 
-    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0,
-        upload1_gotFS,
-        upload1_fail);
+    //applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, upload1_gotFS, upload1_fail);
+    console.log("upload pre hoge :");
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) { console.log("upload success hoge : "); setTimeout(finishCallback, 0); }, function(fileSystem) { console.log("upload fail hoge : "); finishCallback()});
+    console.log("upload post hoge :");
 }
 
 // ファイルダウンロード
@@ -3405,12 +3408,15 @@ function testResult(testcase, finishCallback) {
         function(callback) {
             console.log("TEST_RESULT : " + TEST_RESULT + testcase + "," + test_result + " ");
             //fileWrite1(TEST_RESULT + testcase + "," + test_result + " ", callback);
+            console.log("oota A");
             callback();
         },
         function(callback) {
+            console.log("oota B");
             upload1(callback);
         },
         function(callback) {
+            console.log("oota C");
             varsReset(callback);
         }],
         function(err, results) {
