@@ -22,7 +22,6 @@ var fileWriteStatus = false;
 var captureImageStatus = false;
 var oldContents = "";
 
-var TEST_RESULT = "";
 var FILE_NAME = "testResult.csv";
 var UPLOAD_URL = baseURL + "/file.php";
 var WIFI_WPA_SSID = "";
@@ -360,7 +359,7 @@ function docomoLocation(finishCallback) {
 
 	    test_result = "OK : " + dump;
         $("#hidden_api_result").html(dump);
-        finishCallback();
+        setTimeout(finishCallback, 0);
     };
 
     function errorCallback(err) {
@@ -374,7 +373,7 @@ function docomoLocation(finishCallback) {
 		    test_result = 'OK(docomoLocationの確認 DoCoMo回線に接続していなければご利用になれません。)' + err.code + ' ' + err.message;
             $("#hidden_api_result").html(test_result);
 	    }
-        finishCallback();
+        setTimeout(finishCallback, 0);
     };
 
     var option = {
@@ -623,7 +622,6 @@ function fileRead1(finishCallback) {
                         var dump = "テキストとして読み込み" + evt.target.result;
                         console.log(evt.target.result);
                         console.log(dump);
-                        //TEST_RESULT = TEST_RESULT + evt.target.result + " ";
                         if (evt.target.result) {
                             test_result = "OK : " + evt.target.result;
                         } else {
@@ -3402,8 +3400,6 @@ function testResult(testcase, finishCallback) {
             displayResult(testcase, callback);
         },
         function(callback) {
-            //console.log("TEST_RESULT : " + TEST_RESULT + testcase + "," + test_result + " ");
-            //fileWrite1(TEST_RESULT + testcase + "," + test_result + " ", callback);
             console.log(testcase + "," + test_result + " ");
             fileWrite1(testcase + "," + test_result + " ", callback);
         },
