@@ -1145,7 +1145,6 @@ function rmdir1_fail(error) {
 // ディレクトリ削除
 function rmdir2(finishCallback) {
     var rmdir2_fail = function(error) {
-        console.log("ng hoge" + error);
 	    test_result = "NG : " + error.code;
         $("#hidden_api_result").html(test_result);
 
@@ -1155,7 +1154,6 @@ function rmdir2(finishCallback) {
 
     var rmdir2_removeSuccess = function() {
 	    var dump = "rmdir2_removeSuccess ";
-	    console.log(dump);
 	    test_result = "OK";
         $("#hidden_api_result").html(dump);
 
@@ -1167,12 +1165,10 @@ function rmdir2(finishCallback) {
     };
 
     var rmdir2_gotFS = function(fileSystem) {
-	    fileSystem.root.getDirectory("newDir2", null, rmdir2_getDirectory, rmdir2_fail);
+	    fileSystem.root.getDirectory("newDir", null, rmdir2_getDirectory, rmdir2_fail);
     };
 
-    console.log("in pre rmdir2");
     applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir2_gotFS, rmdir2_fail);
-    console.log("in post rmdir2");
 }
 
 // ディレクトリ移動

@@ -160,12 +160,9 @@ function testConnectionType(finishCallback) {
     async.series([
         function(callback) {
             checkDeviceInfo(callback);
-        },
-        function(callback) {
-            testResult("Device Connection typeの確認", callback);
         }], function() {
         console.log("testConnectionType");
-        finishCallback();
+        testResult("Device Connection typeの確認", finishCallback);
     });
 }
 
@@ -518,12 +515,9 @@ function testContactClone(finishCallback) {
     async.series([
         function(callback) {
             cloneContact(callback);
-        },
-        function(callback) {
-            testResult("contactCloneの確認", callback);
         }], function(err) {
         console.log("testContactClone");
-        finishCallback();
+        testResult("contactCloneの確認", finishCallback);
     });
 }
 
@@ -565,12 +559,9 @@ function testDatabaseExec(finishCallback) {
         },
         function(callback) {
             createTable(callback);
-        },
-        function(callback) {
-            testResult("databaseExecの確認", callback);
         }], function() {
         console.log("testDatabaseExec");
-        finishCallback();
+        testResult("databaseExecの確認", finishCallback);
     });
 }
 
@@ -594,12 +585,9 @@ function testDeviceGetPushToken(finishCallback) {
     async.series([
         function(callback) {
             getPushToken(callback);
-        },
-        function(callback) {
-            testResult("deviceGetPushTokenの確認", callback);
         }], function() {
         console.log("testDeviceGetPushToken");
-        finishCallback();
+        testResult("deviceGetPushTokenの確認", finishCallback);
     });
 }
 
@@ -627,31 +615,26 @@ function testDocomoLocationGetCurrentPosition(finishCallback) {
         function(callback) {
             docomoLocation(callback);
             alert("API呼び出し")
-        },
-        function(callback) {
-            testResult("docomoLocationの確認", callback);
-            alert("結果出力");
         }], function() {
         console.log("testDocomoLocationGetCurrentPosition");
-        finishCallback();
+        testResult("docomoLocationの確認", finishCallback);
     });
 }
 
 function testDirectoryEntryMoveTo(finishCallback) {
     async.series([
         function(callback) {
-            mkdir1(callback);
             alert("mkdir1");
+            mkdir1(callback);
         },
         function(callback) {
-            moveTo2(callback);
-            alert("moveTo2");
+            //moveTo2(callback);
+            alert("skip moveTo2");
+            callback();
         },
         function(callback) {
-            console.log("pre rmdir2");
-            rmdir2(callback);
-            console.log("post rmdir2");
             alert("rmdir2");
+            rmdir2(callback);
         }], function() {
         alert("結果出力");
         console.log("testDirectoryEntryMoveTo");
