@@ -1952,9 +1952,7 @@ function cloneContact(finishCallback) {
 	} else {
 		test_result = "NG" + dump;
 	}
-    setTimeout(function() {
-        finishCallback();
-    }, CLONE_CONTACT_WAIT_TIME);
+    finishCallback();
 }
 
 // 連絡先を更新
@@ -3421,9 +3419,8 @@ function testResult(testcase, finishCallback) {
             varsReset(callback);
         }],
         function(err, results) {
-            if (err) {
-               throw err;
-            }
+
+            // 例外があってもテストは続行するためにerrはあえて無視する
             console.log("テスト結果処理終了");
             finishCallback();
     });
