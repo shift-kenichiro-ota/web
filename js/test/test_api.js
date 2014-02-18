@@ -418,33 +418,28 @@ function checkDeviceInfoResult() {
 // ///
 // Pushトークンを取得
 function getPushToken(finishCallback) {
-	try {
-		applican.device.getPushToken(getPushTokenSuccess, getPushTokenError, {});
-	} catch (e) {
-		getPushTokenError("トークンの取得に失敗しました : " + e);
-	} finally {
-        alert("getPushToken finishCallback");
-        waitTestAPI(finishCallback);
-    }
-}
-
-function getPushTokenSuccess(res) {
-	if (res.pushToken) {
-        alert("pushTokenSuccess : " + res.pushToken);
-		test_result = "OK : " + res.pushToken;
+    var getPushTokenError = function(error) {
+        if(error) {
+    	    test_result = "NG : " + error;
+        } else {
+            test_result = "NG";
+        }
         $("#hidden_api_result").html(test_result);
-	} else {
-		getPushTokenError(res);
-	}
-}
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
 
-function getPushTokenError(res) {
-    if(res) {
-    	test_result = "NG : " + res;
-    } else {
-        test_result = "NG";
-    }
-    $("#hidden_api_result").html(test_result);
+    var getPushTokenSuccess = function(res) {
+	    if (res.pushToken) {
+            alert("pushTokenSuccess : " + res.pushToken);
+		    test_result = "OK : " + res.pushToken;
+            $("#hidden_api_result").html(test_result);
+            setTimeout(finishCallback, 0);
+	    } else {
+		    getPushTokenError(res);
+	    }
+    };
+
+    applican.device.getPushToken(getPushTokenSuccess, getPushTokenError, {});
 }
 
 // ///
