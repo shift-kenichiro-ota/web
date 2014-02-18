@@ -648,16 +648,16 @@ function testDirectoryEntryMoveTo(finishCallback) {
             alert("moveTo2");
         },
         function(callback) {
+            console.log("pre rmdir2");
             rmdir2(callback);
+            console.log("post rmdir2");
             alert("rmdir2");
-        },
-        function(callback) {
-            testResult("directoryMoveToの確認", callback);
-            alert("結果出力");
         }], function() {
+        alert("結果出力");
         console.log("testDirectoryEntryMoveTo");
         alert("directoryMoveTo finalCallback");
-        finishCallback();
+
+        testResult("directoryMoveToの確認", finishCallback);
     });
 }
 

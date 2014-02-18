@@ -507,7 +507,7 @@ function fileWriteTest(finishCallback) {
 	    console.log(dump);
 	    fileWriteStatus = true;
         $("#hidden_api_result").html(dump);
-        finishCallback(error);
+        setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var fileWriteTest_fail = function(error) {
@@ -542,7 +542,7 @@ function fileWriteTest(finishCallback) {
 	    oldContents = writeContents;
 	    fileWriteStatus = true;
         $("#hidden_api_result").html(dump);
-        finishCallback();
+        setTimeout(finishCallback, 0);
     };
 
     var fileWrite1_gotFileEntry = function(fileEntry) {
@@ -557,7 +557,6 @@ function fileWriteTest(finishCallback) {
     };
 
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileWriteTest_gotFS, fileWriteTest_fail);
-    waitTestAPI(finishCallback);
 }
 
 /** ************************************************************ */
@@ -602,7 +601,6 @@ function fileRead1(finishCallback) {
 	    var dump = "fileRead1_fail ";
 	    dump += "code:" + error.code + " ";
 	    console.log(dump);
-	    test_result = "NG : " + error.code;
         $("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -622,18 +620,12 @@ function fileRead1(finishCallback) {
                         var dump = "テキストとして読み込み" + evt.target.result;
                         console.log(evt.target.result);
                         console.log(dump);
-                        if (evt.target.result) {
-                            test_result = "OK : " + evt.target.result;
-                        } else {
-                            test_result = "NG : " + evt.target.result;
-                        }
-
                     } else {
                         dump = "file readAsText fail";
                     }
                     $("#hidden_api_result").html(dump);
                     callback();
-	                };
+	            };
 	            reader.readAsText(file);
             },
             function(callback) {
@@ -776,62 +768,69 @@ function deleteFile1_fail(error) {
 
 // ファイル移動
 function moveTo1(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, moveTo1_gotFS, moveTo1_fail);
-    waitTestAPI(finishCallback);
-}
+    var moveTo1_fail = function(error) {
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(test_result);
 
-function moveTo1_gotFS(fileSystem) {
-	fileSystem.root.getFile("readme.txt", null, moveTo1_gotFileEntry, moveTo1_fail);
-}
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
 
-function moveTo1_gotFileEntry(fileEntry) {
-	var tmp = fileEntry.fullPath;
-	var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
-	var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
-	var parentEntry = new DirectoryEntry(parentName, parentPath);
-	fileEntry.moveTo(parentEntry, "readme2.txt", moveTo1_moveToSuccess, moveTo1_fail);
-}
+    var moveTo1_moveToSuccess = function(entry) {
+	    var dump = "";
+	    dump += entry.name + " " + entry.fullPath + "";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
 
-function moveTo1_moveToSuccess(entry) {
-	var dump = "";
-	dump += entry.name + " " + entry.fullPath + "";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
+        setTimeout(finishCallback, 0);
+    };
 
-function moveTo1_fail(error) {
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(test_result);
+
+    var moveTo1_gotFileEntry = function(fileEntry) {
+	    var tmp = fileEntry.fullPath;
+	    var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
+	    var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
+	    var parentEntry = new DirectoryEntry(parentName, parentPath);
+	    fileEntry.moveTo(parentEntry, "readme2.txt", moveTo1_moveToSuccess, moveTo1_fail);
+    };
+
+    var moveTo1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile("readme.txt", null, moveTo1_gotFileEntry, moveTo1_fail);
+    };
+
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, moveTo1_gotFS, moveTo1_fail);
 }
 
 // ファイルコピー
 function copyTo1(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, copyTo1_gotFS, copyTo1_fail);
-    waitTestAPI(finishCallback);
-}
+    var copyTo1_fail = function(error) {
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(test_result);
 
-function copyTo1_gotFS(fileSystem) {
-	fileSystem.root.getFile("readme.txt", null, copyTo1_gotFileEntry, copyTo1_fail);
-}
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
 
-function copyTo1_gotFileEntry(fileEntry) {
-	var tmp = fileEntry.fullPath;
-	var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
-	var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
-	var parentEntry = new DirectoryEntry(parentName, parentPath);
-	fileEntry.copyTo(parentEntry, "readme3.txt", copyTo1_copyToSuccess, copyTo1_fail);
-}
+    var copyTo1_copyToSuccess = function(entry) {
+	    var dump = "";
+	    dump += entry.name + " " + entry.fullPath + " ";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
 
-function copyTo1_copyToSuccess(entry) {
-	var dump = "";
-	dump += entry.name + " " + entry.fullPath + " ";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
+        setTimeout(finishCallback, 0);
+    };
 
-function copyTo1_fail(error) {
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(test_result);
+    var copyTo1_gotFileEntry = function(fileEntry) {
+	    var tmp = fileEntry.fullPath;
+	    var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
+	    var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
+	    var parentEntry = new DirectoryEntry(parentName, parentPath);
+	    fileEntry.copyTo(parentEntry, "readme3.txt", copyTo1_copyToSuccess, copyTo1_fail);
+    };
+
+    var copyTo1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile("readme.txt", null, copyTo1_gotFileEntry, copyTo1_fail);
+    };
+
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, copyTo1_gotFS, copyTo1_fail);
 }
 
 // ファイルtoURL
@@ -1144,6 +1143,7 @@ function rmdir1_fail(error) {
 // ディレクトリ削除
 function rmdir2(finishCallback) {
     var rmdir2_fail = function(error) {
+        console.log("ng hoge" + error);
 	    test_result = "NG : " + error.code;
         $("#hidden_api_result").html(test_result);
 
@@ -1165,15 +1165,18 @@ function rmdir2(finishCallback) {
     };
 
     var rmdir2_gotFS = function(fileSystem) {
-	    fileSystem.root.getDirectory("newDir", null, rmdir2_getDirectory, rmdir2_fail);
+	    fileSystem.root.getDirectory("newDir2", null, rmdir2_getDirectory, rmdir2_fail);
     };
 
+    console.log("in pre rmdir2");
     applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir2_gotFS, rmdir2_fail);
+    console.log("in post rmdir2");
 }
 
 // ディレクトリ移動
 function moveTo2(finishCallback) {
     var moveTo2_fail = function(error) {
+        console.log("in move2 fail" + error);
 	    test_result = "NG : " + error.code;
         $("#hidden_api_result").html(test_result);
 
@@ -1181,6 +1184,7 @@ function moveTo2(finishCallback) {
     };
 
     var moveTo2_moveToSuccess = function(entry) {
+        console.log("in move2 suc");
 	    var dump = "moveTo2_moveToSuccess ";
 	    dump += entry.name + " " + entry.fullPath + " ";
 	    test_result = "OK : " + entry.name + " " + entry.fullPath;
@@ -1190,6 +1194,7 @@ function moveTo2(finishCallback) {
     };
 
     var moveTo2_getDirectory = function(directoryEntry) {
+        console.log("in move2 getdirectory");
 	    var tmp = directoryEntry.fullPath;
 	    var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
 	    var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
@@ -1198,10 +1203,13 @@ function moveTo2(finishCallback) {
     };
 
     var moveTo2_gotFS = function(fileSystem) {
+        console.log("in move2 gotfs");
 	    fileSystem.root.getDirectory("newDir", null, moveTo2_getDirectory, moveTo2_fail);
     };
 
+    console.log("in pre move2");
     applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, moveTo2_gotFS, moveTo2_fail);
+    console.log("in post move2");
 }
 
 // ディレクトリコピー
@@ -3459,7 +3467,6 @@ function insertTestResult(db, sql, finishCallback) {
         } else {
             dump += "insertId:" + result.insertId + " ";
         }
-        test_result = "OK : " + dump;
         $("#hidden_api_result").html(dump);
             finishCallback();
     };
@@ -3468,7 +3475,6 @@ function insertTestResult(db, sql, finishCallback) {
         var dump = "insertData_error ";
         dump += error.message + " ";
         $("#hidden_api_result").html(dump);
-        test_result = "NG : " + dump;
         finishCallback(error);
     };
 
