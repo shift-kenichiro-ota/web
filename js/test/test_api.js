@@ -1067,6 +1067,7 @@ function abort2_abortFail() {
 function mkdir1(finishCallback) {
     var  mkdir1_fail = function(error) {
 	    test_result = "NG mkdir fail " + error.code;
+        console.log("mkdir1 test_result " + test_result);
         $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
@@ -1075,6 +1076,7 @@ function mkdir1(finishCallback) {
     var mkdir1_getDirectory = function(directoryEntry) {
 	    var dump = "mkdir1_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
         test_result = "OK : " + dump;
+        console.log("mkdir1 test_result " + test_result);
         $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
@@ -1194,12 +1196,18 @@ function moveTo2(finishCallback) {
     };
 
     var moveTo2_getDirectory = function(directoryEntry) {
-        console.log("in move2 getdirectory");
+        console.log("in pre move2 getdirectory");
 	    var tmp = directoryEntry.fullPath;
+        console.log("tmp = " + tmp);
 	    var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
+        console.log("parentPath = " + parentPath);
 	    var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
+        console.log("parentName = " + parentName);
 	    var parentEntry = new DirectoryEntry(parentName, parentPath);
-	    directoryEntry.moveTo(parentEntry, "newDir2", moveTo2_moveToSuccess, moveTo2_fail);
+        console.log("parentEntry = " + parentEntry);
+	    //directoryEntry.moveTo(parentEntry, "newDir2", moveTo2_moveToSuccess, moveTo2_fail);
+        directoryEntry.moveTo(parentEntry, null, moveTo2_moveToSuccess, moveTo2_fail);
+        console.log("in post move2 getdirectory");
     };
 
     var moveTo2_gotFS = function(fileSystem) {
