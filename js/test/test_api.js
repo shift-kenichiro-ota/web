@@ -2003,15 +2003,25 @@ function updateContact_error() {
 // ///////////////////
 // 簡易データ保存
 function setSimpleStorage(key, val, finishCallback) {
+    var setSimpleStorage_success = function() {
+	    var dump = "setSimpleStorage_success ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.simpleStorage.set(key, val + '\'.' + (new Date().getTime()) + "改行前 改行後", setSimpleStorage_success);
-    waitTestAPI(finishCallback);
+    //waitTestAPI(finishCallback);
 }
 
+/*
 function setSimpleStorage_success() {
 	var dump = "setSimpleStorage_success ";
 	test_result = "OK";
     $("#hidden_api_result").html(dump);
 }
+*/
 
 function getSimpleStorage(key, finishCallback) {
 	applican.simpleStorage.get(key, getSimpleStorage_success);
