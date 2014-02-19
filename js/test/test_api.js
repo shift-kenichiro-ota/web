@@ -2195,16 +2195,7 @@ function notificationAlert(message, title, buttonName, finishCallback) {
     };
 
     applican.notification.alert(message, alertCallback, title, buttonName);
-    //waitTestAPI(finishCallback);
 }
-
-/*
-function alertCallback() {
-	var dump = "alertCallback ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-*/
 
 // ///
 // 確認ダイアログ
