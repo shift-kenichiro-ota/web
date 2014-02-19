@@ -610,12 +610,10 @@ function fileRead1(finishCallback) {
             function(callback) {
 	            var reader = new FileReader();
                 console.log("fileRead1_reaAsText");
-                console.log("hoge 1");
 
 	            reader.onloadend = function(evt) {
                     if (evt.target.result) {
-                        //var dump = "テキストとして読み込み" + evt.target.result;
-                        var dump = "hogeoota read" + evt.target.result;
+                        var dump = "テキストとして読み込み" + evt.target.result;
                         console.log(evt.target.result);
                         console.log(dump);
                     } else {
@@ -624,16 +622,13 @@ function fileRead1(finishCallback) {
                     $("#hidden_api_result").html(dump);
                     callback();
 	            };
-                console.log("hoge readAsText pre");
 	            reader.readAsText(file);
-                console.log("hoge readAsText post");
             },
             function(callback) {
  	            var reader = new FileReader();
 	            reader.onloadend = function(evt) {
                     if(evt.target.result) {
-                        //var dump = "データ URL として読み込み : " + evt.target.result;
-                        var dump = "hogehogeoota read2 : " + evt.target.result;
+                        var dump = "データ URL として読み込み : " + evt.target.result;
                         console.log(dump);
                     } else {
                         dump = "file readDataUrl fail";
@@ -2738,6 +2733,27 @@ function saveToPhotoAlbumError(message) {
 var _destinationType = -1;
 var _imageData = null;
 function getPicture1(mode, finishCallback) {
+    var getPicture1_getPictureError = function(message) {
+	    var dump = "";
+	    dump += "message:" + message + " ";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(message); }, 0);
+    };
+
+    var getPicture1_getPictureSuccess = function(res) {
+	    _imageData = res;
+	    var dump = "";
+	    dump += "size:" + res.length + " ";
+	    var image = document.getElementById('myImage');
+	    image.src = "data:image/jpeg;base64," + res;
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var options = {
 		quality : 70,
 		destinationType : applican.camera.DestinationType.DATA_URL,
@@ -2747,9 +2763,10 @@ function getPicture1(mode, finishCallback) {
 		targetHeight : 400
 	};
 	applican.camera.getPicture(getPicture1_getPictureSuccess, getPicture1_getPictureError, options);
-    waitTestAPI(finishCallback);
+    //waitTestAPI(finishCallback);
 }
 
+/*
 function getPicture1_getPictureSuccess(res) {
 	_imageData = res;
 	var dump = "";
@@ -2766,6 +2783,7 @@ function getPicture1_getPictureError(message) {
 	test_result = "NG : " + dump;
     $("#hidden_api_result").html(dump);
 }
+*/
 
 /** ******************************************************************************** */
 
