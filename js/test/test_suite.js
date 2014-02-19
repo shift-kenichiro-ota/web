@@ -147,11 +147,10 @@ define(function() {
                 }, 300);
             },
             function(callback) {
-                var strCall;
                 debug = "run";
                 console.log("test name " + testName + "debug : " + debug);
 
-                strCall = "test" + testName + "(callback);";
+                var strCall = "test" + testName + "(callback);";
 
                 console.log("test name : " + testName + " ,run" + k + " case no : " + caseNo);
                 console.log("test name : " + strCall);

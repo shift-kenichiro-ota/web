@@ -884,6 +884,10 @@ function testSimpleStorageGet(finishCallback) {
 }
 
 function testWiFiOn(finishCallback) {
+    if (applican.device.platform === "iOS") {
+        finishCallback();
+        return;
+    }
     async.series([
         function(callback) {
             onWiFi(callback);

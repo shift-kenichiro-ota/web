@@ -47,13 +47,10 @@ var RELEASE_SOUND_DATA_WAIT_TIME = 500;
 var PAUSE_SOUND_WAIT_TIME = 300;
 var STOP_SOUND_WAIT_TIME = 300;
 var CREATE_CONTACT_WAIT_TIME = 1000;
-var CLONE_CONTACT_WAIT_TIME = 2000;
 var VIBRATE_WAIT_TIME = 3000;
 var LOCAL_NOTIFICATION_CANCEL_WAIT_TIME = 1000;
 var SPLASH_WAIT_TIME = 1000;
 var GA_TRACKING_VIEW_WAIT_TIME = 2000;
-var DISPLAY_HIDDEN_VALUE_WAIT_TIME = 300;
-var TEST_CASE_WAIT_TIME = 4000;
 /**************************************************************/
 /*
 * バックグラウンドで動かし続ける処理
@@ -362,7 +359,7 @@ function docomoLocation(finishCallback) {
         setTimeout(finishCallback, 0);
     };
 
-    function errorCallback(err) {
+    var errorCallback = function(err) {
 	    if (err.code === 4001) {
 		    test_result = 'OK : DoCoMoの<a href="' + err.message + '" target="_blank">会員メニュー</a>にて、ご利用の端末の位置情報提供を有効にしてください。' + ' ' + err.code + ' ' + err.message;
             $("#hidden_api_result").html(test_result);
@@ -613,10 +610,12 @@ function fileRead1(finishCallback) {
             function(callback) {
 	            var reader = new FileReader();
                 console.log("fileRead1_reaAsText");
+                console.log("hoge 1");
 
 	            reader.onloadend = function(evt) {
                     if (evt.target.result) {
-                        var dump = "テキストとして読み込み" + evt.target.result;
+                        //var dump = "テキストとして読み込み" + evt.target.result;
+                        var dump = "hogeoota read" + evt.target.result;
                         console.log(evt.target.result);
                         console.log(dump);
                     } else {
@@ -625,13 +624,16 @@ function fileRead1(finishCallback) {
                     $("#hidden_api_result").html(dump);
                     callback();
 	            };
+                console.log("hoge readAsText pre");
 	            reader.readAsText(file);
+                console.log("hoge readAsText post");
             },
             function(callback) {
  	            var reader = new FileReader();
 	            reader.onloadend = function(evt) {
                     if(evt.target.result) {
-                        var dump = "データ URL として読み込み : " + evt.target.result;
+                        //var dump = "データ URL として読み込み : " + evt.target.result;
+                        var dump = "hogehogeoota read2 : " + evt.target.result;
                         console.log(dump);
                     } else {
                         dump = "file readDataUrl fail";
@@ -1109,7 +1111,7 @@ function mkdirInDir(finishCallback) {
         setTimeout(finishCallback, 0);
     };
 
-    function mkdirInDir_gotFS(fileSystem) {
+    var mkdirInDir_gotFS = function(fileSystem) {
 	    fileSystem.root.getDirectory("newDir/inDir", {
 		    create : true,
 		    exclusive : false
@@ -1411,21 +1413,25 @@ function getWiFiStatus_Error(error) {
 
 // WiFiをON
 function onWiFi(finishCallback) {
+    var onWiFi_Error = function(error) {
+	    var dump = "onWiFi_Error ";
+	    dump += "code:" + error.code + " ";
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
+
+
+    var onWiFi_Success = function() {
+	    var dump = "onWiFi_Success ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.wifi.on(onWiFi_Success, onWiFi_Error);
-    waitTestAPI(finishCallback);
-}
-
-function onWiFi_Success() {
-	var dump = "onWiFi_Success ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-
-function onWiFi_Error(error) {
-	var dump = "onWiFi_Error ";
-	dump += "code:" + error.code + " ";
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(dump);
 }
 
 // WiFiをOFF
