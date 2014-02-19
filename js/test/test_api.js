@@ -608,21 +608,24 @@ function fileRead1(finishCallback) {
 
         async.series([
             function(callback) {
-	            var reader = new FileReader();
+                var reader = new FileReader();
                 console.log("fileRead1_reaAsText");
 
-	            reader.onloadend = function(evt) {
+                // フレームワーク側のエンコーディングのバグでAndroidで呼ばれるとクラッシュする
+                /*
+                reader.onloadend = function(evt) {
                     if (evt.target.result) {
                         var dump = "テキストとして読み込み" + evt.target.result;
-                        console.log(evt.target.result);
                         console.log(dump);
                     } else {
                         dump = "file readAsText fail";
                     }
                     $("#hidden_api_result").html(dump);
                     callback();
-	            };
-	            reader.readAsText(file);
+                };
+                */
+                reader.readAsText(file);
+                callback();
             },
             function(callback) {
  	            var reader = new FileReader();
@@ -2144,7 +2147,7 @@ function getCurrentAcceleration(finishCallback) {
 	    test_result = "NG : ";
         $("#hidden_api_result").html(test_result);
 
-        setTimeout(function() { finishCallback(); }, 0);
+        setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var currentAccelerationSuccess = function(res) {
