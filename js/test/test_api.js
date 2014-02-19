@@ -857,27 +857,7 @@ function toURL1(finishCallback) {
     };
 
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, toURL1_gotFS, toURL1_fail);
-    //waitTestAPI(finishCallback);
 }
-
-/*
-function toURL1_gotFS(fileSystem) {
-	fileSystem.root.getFile("readme.txt", null, toURL1_gotFileEntry, toURL1_fail);
-}
-
-function toURL1_gotFileEntry(fileEntry) {
-	var fileURL = fileEntry.toURL();
-	var dump = "toURL1_gotFileEntry ";
-	dump += fileURL + " ";
-	console.log(dump);
-    test_result = "OK : toURL";
-    $("#hidden_api_result").html(dump);
-}
-
-function toURL1_fail(error) {
-	test_result = "NG : toURL fail " + error.code;
-}
-*/
 
 // 親ディレクトリ
 function getParent1(finishCallback) {
@@ -1582,26 +1562,29 @@ function getPreferredLanguageError(err) {
 
 // 現在のロケール
 function getLocaleName(finishCallback) {
-	applican.globalization.getLocaleName(getLocaleNameSuccess, getLocaleNameError);
-    waitTestAPI(finishCallback);
-}
-
-function getLocaleNameSuccess(locale) {
-	var dump = "";
-	dump += "locale:" + locale.value + "";
-	if (dump.indexOf('ja_JP') > 0) {
-		test_result = "OK : " + dump;
+    var getLocaleNameError = function(err) {
+	    var dump = "";
+	    dump += "code:" + err.code + "";
+	    test_result = "NG : " + dump;
         $("#hidden_api_result").html(dump);
-	} else {
-		getLocaleNameError(locale);
-	}
-}
 
-function getLocaleNameError(err) {
-	var dump = "";
-	dump += "code:" + err.code + "";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var getLocaleNameSuccess = function(locale) {
+	    var dump = "";
+	    dump += "locale:" + locale.value + "";
+	    if (dump.indexOf('ja_JP') > 0) {
+		    test_result = "OK : " + dump;
+            $("#hidden_api_result").html(dump);
+
+            setTimeout(finishCallback, 0);
+	    } else {
+		    getLocaleNameError(locale);
+	    }
+    };
+
+	applican.globalization.getLocaleName(getLocaleNameSuccess, getLocaleNameError);
 }
 
 // ///////////////////

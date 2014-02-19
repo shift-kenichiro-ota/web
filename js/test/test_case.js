@@ -12,12 +12,9 @@ function testBarcodeCaptureBarcode(finishCallback) {
         },
         function(callback) {
             captureBarcode(callback);
-        },
-        function(callback) {
-            testResult("captureBarcodeの確認", callback);
         }], function() {
         console.log("testBarcodeCaptureBarcode");
-        finishCallback();
+        testResult("captureBarcodeの確認", finishCallback);
     });
 }
 
@@ -31,12 +28,9 @@ function testCameraGetPicture(finishCallback) {
         },
         function(callback) {
             notificationConfirm("写真撮影が行えること", "getPictureの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("getPictureの確認", callback);
         }], function() {
         console.log("testCameraGetPicture");
-        finishCallback();
+        testResult("getPictureの確認", finishCallback);
     });
 }
 
@@ -50,12 +44,9 @@ function testCameraSaveToPhotoAlbum(finishCallback) {
         },
         function(callback) {
             saveToPhotoAlbum(callback);
-        },
-        function(callback) {
-            testResult("saveToPhotoAlbumの確認", callback);
         }], function() {
         console.log("testCameraSaveToPhotoAlbum");
-        finishCallback();
+        testResult("saveToPhotoAlbumの確認", finishCallback);
     });
 }
 
@@ -73,13 +64,9 @@ function testCaptureCaptureImage(finishCallback) {
         },
         function(callback) {
             notificationConfirm("写真撮影が行えること", "captureImageの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("captureImageの確認", callback);
-            alert("captureImage結果出力")
         }], function() {
         console.log("testCaptureCaptureImage");
-        finishCallback();
+        testResult("captureImageの確認", finishCallback);
     });
 }
 
@@ -868,12 +855,9 @@ function testGlobalizationGetLocaleName(finishCallback) {
     async.series([
         function(callback) {
             getLocaleName(callback);
-        },
-        function(callback) {
-            testResult("getLocaleNameの確認", callback);
         }], function() {
         console.log("testGlobalizationGetPreferredLanguage");
-        finishCallback();
+        testResult("getLocaleNameの確認", finishCallback);
     });
 }
 
