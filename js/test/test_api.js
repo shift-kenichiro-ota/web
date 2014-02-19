@@ -835,10 +835,32 @@ function copyTo1(finishCallback) {
 
 // ファイルtoURL
 function toURL1(finishCallback) {
+    var toURL1_fail = function(error) {
+	    test_result = "NG : toURL fail " + error.code;
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
+
+    var toURL1_gotFileEntry = function(fileEntry) {
+	    var fileURL = fileEntry.toURL();
+	    var dump = "toURL1_gotFileEntry ";
+	    dump += fileURL + " ";
+	    console.log(dump);
+        test_result = "OK : toURL";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    } ;
+
+    var toURL1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile("readme.txt", null, toURL1_gotFileEntry, toURL1_fail);
+    };
+
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, toURL1_gotFS, toURL1_fail);
-    waitTestAPI(finishCallback);
+    //waitTestAPI(finishCallback);
 }
 
+/*
 function toURL1_gotFS(fileSystem) {
 	fileSystem.root.getFile("readme.txt", null, toURL1_gotFileEntry, toURL1_fail);
 }
@@ -855,6 +877,7 @@ function toURL1_gotFileEntry(fileEntry) {
 function toURL1_fail(error) {
 	test_result = "NG : toURL fail " + error.code;
 }
+*/
 
 // 親ディレクトリ
 function getParent1(finishCallback) {

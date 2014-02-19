@@ -813,12 +813,9 @@ function testFileEntryToURL(finishCallback) {
         },
         function(callback) {
             toURL1(callback);
-        },
-        function(callback) {
-            testResult("fileToURLの確認", callback);
         }], function() {
         console.log("testFileEntryToURL");
-        finishCallback();
+        testResult("fileToURLの確認", finishCallback);
     });
 }
 
