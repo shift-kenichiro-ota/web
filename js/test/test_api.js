@@ -539,7 +539,6 @@ function fileWriteTest(finishCallback) {
 	    };
 	    console.log(writeContents);
 	    writer.write(writeContents);
-	    oldContents = writeContents;
 	    fileWriteStatus = true;
         $("#hidden_api_result").html(dump);
         setTimeout(finishCallback, 0);
@@ -2187,15 +2186,25 @@ function currentPositionError(error) {
 // ///
 // 通知ダイアログ
 function notificationAlert(message, title, buttonName, finishCallback) {
-	applican.notification.alert(message, alertCallback, title, buttonName);
-    waitTestAPI(finishCallback);
+    var alertCallback = function() {
+	    var dump = "alertCallback ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+    applican.notification.alert(message, alertCallback, title, buttonName);
+    //waitTestAPI(finishCallback);
 }
 
+/*
 function alertCallback() {
 	var dump = "alertCallback ";
 	test_result = "OK";
     $("#hidden_api_result").html(dump);
 }
+*/
 
 // ///
 // 確認ダイアログ
