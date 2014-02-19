@@ -1332,29 +1332,33 @@ function getDisplayInfo_error(e) {
 // Http通信
 // GET
 function httpGet(finishCallback) {
-	var options = {
+    var httpGetError = function(message) {
+	    var dump = "httpGetError ";
+	    dump += "code:" + message + " ";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(message); }, 0);
+    };
+
+
+    var httpGetSuccess = function(result) {
+	    var dump = "httpGetSuccess ";
+	    dump += "result:" + result + " ";
+	    if (dump.indexOf('Success') > 0) {
+		    test_result = "OK : " + result;
+            $("#hidden_api_result").html(dump);
+
+            setTimeout(finishCallback, 0);
+	    } else {
+		    httpGetError(result);
+	    }
+    };
+
+    var options = {
 		timeout : 10000
 	};
 	applican.http.get(getURL, options, httpGetSuccess, httpGetError);
-    waitTestAPI(finishCallback);
-}
-
-function httpGetSuccess(result) {
-	var dump = "httpGetSuccess ";
-	dump += "result:" + result + " ";
-	if (dump.indexOf('Success') > 0) {
-		test_result = "OK : " + result;
-        $("#hidden_api_result").html(dump);
-	} else {
-		httpGetError(result);
-	}
-}
-
-function httpGetError(message) {
-	var dump = "httpGetError ";
-	dump += "code:" + message + " ";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // POST
