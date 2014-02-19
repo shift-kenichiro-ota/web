@@ -76,13 +76,10 @@ function testCaptureCaptureAudio(finishCallback) {
             captureAudio(callback);
         },
         function(callback) {
-            testResult("captureAudioの確認", callback);
-        },
-        function(callback) {
             notificationConfirm("録音が行えること", "captureVideoの確認", "OK,NG", callback);
         }], function() {
         console.log("testCaptureCaptureAudio");
-        finishCallback();
+        testResult("captureAudioの確認", finishCallback);
     });
 }
 
@@ -96,12 +93,9 @@ function testCaptureCaptureVideo(finishCallback) {
         },
         function(callback) {
             notificationConfirm("ビデオ撮影が行えること", "captureVideoの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("captureVideoの確認", callback);
         }], function() {
         console.log("testCaptureCaptureVideo");
-        finishCallback();
+        testResult("captureVideoの確認", finishCallback);
     });
 }
 
@@ -115,12 +109,9 @@ function testAccelerometerGetCurrentAcceleration(finishCallback) {
         },
         function(callback) {
             testResult("getCurrentAccelerationの確認", callback);
-        },
-        function(callback) {
-            watchAcceleration(callback);
         }], function() {
         console.log("testAccelerometerGetCurrentAcceleration");
-        finishCallback();
+        testResult("getCurrentAccelerationの確認", finishCallback);
     });
 }
 
@@ -133,13 +124,10 @@ function testCompassGetCurrentHeading(finishCallback) {
             getCurrentHeading(callback);
         },
         function(callback) {
-            testResult("getCurrentHeadingの確認", callback);
-        },
-        function(callback) {
             watchHeading(callback);
         }], function() {
         console.log("testCompassGetCurrentHeading");
-        finishCallback();
+        testResult("getCurrentHeadingの確認", finishCallback);
     });
 }
 
@@ -157,12 +145,9 @@ function testDeviceGetDisplayInfo(finishCallback) {
     async.series([
         function(callback) {
             getDisplayInfo(callback);
-        },
-        function(callback) {
-            testResult("Device Connection typeの確認", callback);
         }], function() {
         console.log("testDeviceGetDisplayInfo");
-        finishCallback();
+        testResult("Device Connection typeの確認", finishCallback);
     });
 }
 
@@ -170,12 +155,9 @@ function testGameSoundLoadSE(finishCallback) {
     async.series([
         function(callback) {
             loadSE(callback);
-        },
-        function(callback) {
-            testResult("loadSEの確認", callback);
         }], function() {
         console.log("testGameSoundLoadSE");
-        finishCallback();
+        testResult("loadSEの確認", finishCallback);
     });
 }
 
@@ -199,12 +181,9 @@ function testGameSoundSetSEVolume(finishCallback) {
         },
         function(callback) {
             notificationConfirm("効果音のボリュームが大きくなること", "setSEVolumeの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("setSEVolumeの確認", callback);
         }], function() {
         console.log("testGameSoundSetSEVolume");
-        finishCallback();
+        testResult("setSEVolumeの確認", finishCallback);
     });
 }
 
@@ -234,12 +213,9 @@ function testGameSoundPlaySE(finishCallback) {
         },
         function(callback) {
             notificationConfirm("各効果音が停止されていること", "stopSEの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("playSEの確認", callback);
         }], function() {
         console.log("testGameSoundPlaySE");
-        finishCallback();
+        testResult("playSEの確認", finishCallback);
     });
 }
 
@@ -253,12 +229,9 @@ function testGameSoundStopSE(finishCallback) {
         },
         function(callback) {
             stopSE(3, callback);
-        },
-        function(callback) {
-            testResult("stopSEの確認", callback);
         }], function() {
         console.log("testGameSoundStopSE");
-        finishCallback();
+        testResult("stopSEの確認", finishCallback);
     });
 }
 
@@ -271,13 +244,10 @@ function testGEOLocationGetCurrentPosition(finishCallback) {
             getCurrentPosition(callback);
         },
         function(callback) {
-            testResult("GEOLocationのgetCurrentPositionの確認", callback);
-        },
-        function(callback) {
             watchPosition(callback);
         }], function() {
         console.log("testGEOLocationGetCurrentPosition");
-        finishCallback();
+        testResult("GEOLocationのgetCurrentPositionの確認", finishCallback);
     });
 }
 
@@ -288,12 +258,9 @@ function testGoogleAnalyticsTrackView(finishCallback) {
         },
         function(callback) {
             notificationConfirm("GoogleAnalyticsでViewの件数が増えていること", "GATrackViewの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("gaTrackViewの確認", callback);
         }], function() {
         console.log("testGoogleanalyticsTrackView");
-        finishCallback();
+        testResult("gaTrackViewの確認", finishCallback);
     });
 }
 
@@ -304,12 +271,9 @@ function testGoogleAnalyticsTrackEvent(finishCallback) {
         },
         function(callback) {
             notificationConfirm("GoogleAnalyticsでEventの件数が増えていること", "GATrackEventの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("gaTrackEventの確認", callback);
         }], function() {
         console.log("testGoogleAnalyticsTrackEvent");
-        finishCallback();
+        testResult("gaTrackEventの確認", finishCallback);
     });
 }
 
@@ -320,12 +284,9 @@ function testLocalNotificationSchedule(finishCallback) {
         },
         function(callback) {
             notificationConfirm("push通知が来ること", "scheduleの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("localNotificationのscheduleの確認", callback);
         }], function() {
         console.log("testLocalNotificationSchedule");
-        finishCallback();
+        testResult("localNotificationのscheduleの確認", finishCallback);
     });
 }
 
@@ -342,12 +303,9 @@ function testLocalNotificationCancel(finishCallback) {
         },
         function(callback) {
             notificationConfirm("通知が来ないこと\n（通知のスケジュールがキャンセルされていること）", "cancelの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("localNotificationのcancelの確認", callback);
         }], function() {
         console.log("testLocalNotificationCancel");
-        finishCallback();
+        testResult("localNotificationのcancelの確認", finishCallback);
     });
 }
 
@@ -367,12 +325,9 @@ function testLocalNotificationAllCancel(finishCallback) {
         },
         function(callback) {
             notificationConfirm("通知が来ないこと\n（通知のスケジュールがキャンセルされていること）", "AllCancelの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("localNotificationAllCancelの確認", callback);
         }], function() {
         console.log("testLocalNotificationAllCancel");
-        finishCallback();
+        testResult("localNotificationAllCancelの確認", finishCallback);
     });
 }
 
@@ -388,12 +343,9 @@ function testSplashScreenShow(finishCallback) {
         },
         function(callback) {
             notificationConfirm("スプラッシュが表示されること", "Splashのshowの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("Splashのshowの確認", callback);
         }], function() {
         console.log("testSplashScreenShow");
-        finishCallback();
+        testResult("Splashのshowの確認", finishCallback);
     });
 }
 
@@ -404,12 +356,9 @@ function testSplashScreenHide(finishCallback) {
         },
         function(callback) {
             notificationConfirm("スプラッシュが表示になること", "Splashのhideの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("Splashのhideの確認", callback);
         }], function() {
         console.log("testSplashScreenHide");
-        finishCallback();
+        testResult("Splashのhideの確認", finishCallback);
     });
 }
 
@@ -420,12 +369,9 @@ function testVideoPlay(finishCallback) {
         },
         function(callback) {
             notificationConfirm("動画が指定の位置に表示されていること", "Videoのplayの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("playVideoの確認", callback);
         }], function() {
         console.log("testVideoPlay");
-        finishCallback();
+        testResult("playVideoの確認", finishCallback);
     });
 }
 
@@ -439,12 +385,9 @@ function testVideoStop(finishCallback) {
         },
         function(callback) {
             notificationConfirm("動画が停止されていること", "Videoのstopの確認", "OK,NG", callback);
-        },
-        function(callback) {
-            testResult("stopVideoの確認", callback);
         }], function() {
         console.log("testVideoStop");
-        finishCallback();
+        testResult("stopVideoの確認", finishCallback);
     });
 }
 
@@ -458,12 +401,9 @@ function testCameraCleanup(finishCallback) {
         },
         function(callback) {
             cleanupPicture(callback);
-        },
-        function(callback) {
-            testResult("Cameraのcleanupの確認", callback);
         }], function() {
         console.log("testCameraCleanup");
-        finishCallback();
+        testResult("Cameraのcleanupの確認", finishCallback);
     });
 }
 
@@ -471,12 +411,9 @@ function testContactCreate(finishCallback) {
     async.series([
         function(callback) {
             createContact(callback);
-        },
-        function(callback) {
-            testResult("Contact createの確認", callback);
         }], function(err) {
         console.log("testContactCreate");
-        finishCallback();
+        testResult("Contact createの確認", finishCallback);
     });
 }
 
@@ -484,12 +421,9 @@ function testContactSave(finishCallback) {
     async.series([
         function(callback) {
             saveContact(callback);
-        },
-        function(callback) {
-            testResult("Contact saveの確認", callback);
         }], function() {
         console.log("testContactSave");
-        finishCallback();
+        testResult("Contact saveの確認", finishCallback);
     });
 }
 
@@ -517,12 +451,9 @@ function testDatabaseOpenDatabase(finishCallback) {
     async.series([
         function(callback) {
             openDb("", callback);
-        },
-        function(callback) {
-            testResult("databaseOpenDatabaseの確認", callback);
         }], function() {
         console.log("testDatabaseOpenDatabase");
-        finishCallback();
+        testResult("databaseOpenDatabaseの確認", finishCallback);
     });
 }
 
@@ -530,12 +461,9 @@ function testDatabaseQuery(finishCallback) {
     async.series([
         function(callback) {
             searchData(callback);
-        },
-        function(callback) {
-            testResult("databaseQueryの確認", callback);
         }], function() {
         console.log("testDatabaseQuery");
-        finishCallback();
+        testResult("databaseQueryの確認", finishCallback);
     });
 }
 
@@ -559,12 +487,9 @@ function testDatabaseExecTransaction(finishCallback) {
         },
         function(callback) {
             execTransaction(callback);
-        },
-        function(callback) {
-            testResult("databaseExecTransactionの確認", callback);
         }], function() {
         console.log("testDatabaseExecTransaction");
-        finishCallback();
+        testResult("databaseExecTransactionの確認", finishCallback);
     });
 }
 
@@ -593,7 +518,7 @@ function testDeviceLight(finishCallback) {
             notificationConfirm("ライトが消灯すること", "lightの消灯確認", "OK,NG", callback);
         }], function() {
         console.log("testDeviceLight");
-        finishCallback();
+        testResult("deviceLightの確認", finishCallback);
     });
 }
 
@@ -635,12 +560,9 @@ function testDirectoryEntryGetDirectory(finishCallback) {
     async.series([
         function(callback) {
             mkdir1(callback);
-        },
-        function(callback) {
-            testResult("directoryGetDirectoryの確認", callback);
         }], function() {
         console.log("testDirectoryEntryGetDirectory");
-        finishCallback();
+        testResult("directoryGetDirectoryの確認", finishCallback);
     });
 }
 
@@ -654,12 +576,9 @@ function testDirectoryEntryRemoveRecursively(finishCallback) {
         },
         function(callback) {
             rmdir1(callback);
-        },
-        function(callback) {
-            testResult("directoryRemoveRecursivelyの確認", callback);
         }], function() {
         console.log("testDirectoryEntryRemoveRecursively");
-        finishCallback();
+        testResult("directoryRemoveRecursivelyの確認", finishCallback);
     });
 }
 
@@ -673,12 +592,9 @@ function testDirectoryEntryRemove(finishCallback) {
         },
         function(callback) {
             rmdir2(callback);
-        },
-        function(callback) {
-            testResult("direcotryRemoveの確認", callback);
         }], function() {
         console.log("testDirectoryEntryRemove");
-        finishCallback();
+        testResult("direcotryRemoveの確認", finishCallback);
     });
 }
 
@@ -686,12 +602,9 @@ function testDirectoryEntryCreateReader(finishCallback) {
     async.series([
         function(callback) {
             directoryReader1(callback);
-        },
-        function(callback) {
-            testResult("createReaderの確認", callback);
         }], function() {
         console.log("testDirectoryEntryCreateReader");
-        finishCallback();
+        testResult("createReaderの確認", finishCallback);
     });
 }
 
@@ -704,13 +617,10 @@ function testDirectoryEntryCopyTo(finishCallback) {
             copyTo2(callback);
         },
         function(callback) {
-            testResult("directoryCopyToの確認", callback);
-        },
-        function(callback) {
             rmdir1(callback);
         }], function() {
         console.log("testDirectoryEntryCopyTo");
-        finishCallback();
+        testResult("directoryCopyToの確認", finishCallback);
     });
 }
 
@@ -721,12 +631,9 @@ function testDirectoryEntryToURL(finishCallback) {
         },
         function(callback) {
             toURL2(callback);
-        },
-        function(callback) {
-            testResult("directoryToURLの確認", callback);
         }], function() {
         console.log("testDirectoryEntryToURL");
-        finishCallback();
+        testResult("directoryToURLの確認", finishCallback);
     });
 }
 
@@ -734,12 +641,9 @@ function testDirectoryEntryGetParent(finishCallback) {
     async.series([
         function(callback) {
             getParent2(callback);
-        },
-        function(callback) {
-            testResult("directoryGetParentの確認", callback);
         }], function() {
         console.log("testDirectoryEntryGetParent");
-        finishCallback();
+        testResult("directoryGetParentの確認", finishCallback);
     });
 }
 
@@ -752,12 +656,9 @@ function testFileEntryMoveTo(finishCallback) {
         },
         function(callback) {
             moveTo1(callback);
-        },
-        function(callback) {
-            testResult("fileMoveToの確認", callback);
         }], function() {
         console.log("testFileEntryMoveTo");
-        finishCallback();
+        testResult("fileMoveToの確認", finishCallback);
     });
 }
 
@@ -768,12 +669,9 @@ function testFileEntryRemove(finishCallback) {
         },
         function(callback) {
             deleteFile1(callback);
-        },
-        function(callback) {
-            testResult("fileRemoveの確認", callback);
         }], function() {
         console.log("testFileEntryRemove");
-        finishCallback();
+        testResult("fileRemoveの確認", finishCallback);
     });
 }
 
@@ -784,12 +682,9 @@ function testFileEntryCopyTo(finishCallback) {
         },
         function(callback) {
             copyTo1(callback);
-        },
-        function(callback) {
-            testResult("fileCopyToの確認", callback);
         }], function() {
         console.log("testFileEntryCopyTo");
-        finishCallback();
+        testResult("fileCopyToの確認", finishCallback);
     });
 }
 
@@ -813,12 +708,9 @@ function testFileEntryGetParent(finishCallback) {
         },
         function(callback) {
             getParent1(callback);
-        },
-        function(callback) {
-            testResult("fileGetParentの確認", callback);
         }], function() {
         console.log("testFileEntryGetParent");
-        finishCallback();
+        testResult("fileGetParentの確認", finishCallback);
     });
 }
 
@@ -829,12 +721,9 @@ function testFileEntryFile(finishCallback) {
         },
         function(callback) {
             fileRead1(callback);
-        },
-        function(callback) {
-            testResult("fileの確認", callback);
         }], function() {
         console.log("testFileEntryFile");
-        finishCallback();
+        testResult("fileの確認", finishCallback);
     });
 }
 
@@ -842,12 +731,9 @@ function testGlobalizationGetPreferredLanguage(finishCallback) {
     async.series([
         function(callback) {
             getPreferredLanguage(callback);
-        },
-        function(callback) {
-            testResult("getPreferredLanguageの確認", callback);
         }], function() {
         console.log("testGlobalizationGetPreferredLanguage");
-        finishCallback();
+        testResult("getPreferredLanguageの確認", finishCallback);
     });
 }
 
@@ -865,12 +751,9 @@ function testHTTPGet(finishCallback) {
     async.series([
         function(callback) {
             httpGet(callback);
-        },
-        function(callback) {
-            testResult("httpGetの確認", callback);
         }], function() {
         console.log("testHTTPGet");
-        finishCallback();
+        testResult("httpGetの確認", finishCallback);
     });
 }
 
@@ -878,12 +761,9 @@ function testHTTPPost(finishCallback) {
     async.series([
         function(callback) {
             httpPost(callback);
-        },
-        function(callback) {
-            testResult("httpPostの確認", callback);
         }], function() {
         console.log("testHTTPPost");
-        finishCallback();
+        testResult("httpPostの確認", finishCallback);
     });
 }
 
@@ -891,12 +771,9 @@ function testNotificationAlert(finishCallback) {
     async.series([
         function(callback) {
             notificationAlert("alertが表示されることの確認", "notificationAlertの確認", "OK", callback);
-        },
-        function(callback) {
-            testResult("notificationAlertの確認", callback);
         }], function() {
         console.log("testNotificationAlert");
-        finishCallback();
+        testResult("notificationAlertの確認", finishCallback);
     });
 }
 
@@ -910,9 +787,12 @@ function testGameSoundReleaseAllSE(finishCallback) {
         },
         function(callback) {
             playSE(1, callback);
+        },
+        function(callback) {
+            notificationConfirm("効果音がならないこと", "GameSoundReleaseAllSE", "OK,NG", callback);
         }], function() {
         console.log("testGameSoundReleaseAllSE");
-        notificationConfirm("効果音がならないこと", "GameSoundReleaseAllSE", "OK,NG", finishCallback);
+        testResult("gameSoundReleaseAllSEの確認", finishCallback);
     });
 }
 
@@ -920,12 +800,9 @@ function testSimpleStorageSet(finishCallback) {
     async.series([
         function(callback) {
             setSimpleStorage("key", "val", callback);
-        },
-        function(callback) {
-            testResult("simpleStorageSetの確認", callback);
         }], function() {
         console.log("testSimpleStorageSet");
-        finishCallback();
+        testResult("simpleStorageSetの確認", finishCallback);
     });
 }
 
@@ -955,14 +832,13 @@ function testSimpleStorageClear(finishCallback) {
         function(callback) {
             if (simpleStorageData === null) {
                 test_result = "OK";
-                testResult("simpleStorageClearの確認", callback);
             } else {
                 test_result = "NG : " + simpleStorageData;
-                testResult("simpleStorageClearの確認", callback);
             }
+            callback();
         }], function() {
         console.log("testSimpleStorageClear");
-        finishCallback();
+        testResult("simpleStorageClearの確認", finishCallback);
     });
 }
 
@@ -983,13 +859,13 @@ function testSimpleStorageRemove(finishCallback) {
         function(callback) {
             if (simpleStorageData === null) {
                 test_result = "OK";
-                testResult("simpleStorageClearの確認", callback);
             } else {
                 test_result = "NG : " + simpleStorageData;
-                testResult("simpleStorageClearの確認", callback);
             }
+            callback();
         }], function() {
         console.log("testSimpleStorageRemove");
+        testResult("simpleStorageClearの確認", finishCallback);
         finishCallback();
     });
 }
@@ -1001,12 +877,9 @@ function testSimpleStorageGet(finishCallback) {
         },
         function(callback) {
             getSimpleStorage('key1', callback);
-        },
-        function(callback) {
-            testResult("simpleStorageGetの確認", callback);
         }], function() {
         console.log("testSimpleStorageGet");
-        finishCallback();
+        testResult("simpleStorageGetの確認", finishCallback);
     });
 }
 
@@ -1014,12 +887,9 @@ function testWiFiOn(finishCallback) {
     async.series([
         function(callback) {
             onWiFi(callback);
-        },
-        function(callback) {
-            testResult("wifiOnの確認", callback);
         }], function() {
         console.log("testWiFiOn");
-        finishCallback();
+        testResult("wifiOnの確認", finishCallback);
     });
 }
 
@@ -1027,12 +897,9 @@ function testWiFiOff(finishCallback) {
     async.series([
         function(callback) {
             offWiFi(callback);
-        },
-        function(callback) {
-            testResult("wifiOffの確認", callback);
         }], function() {
         console.log("testWiFiOff");
-        finishCallback();
+        testResult("wifiOffの確認", finishCallback);
     });
 }
 
@@ -1040,12 +907,9 @@ function testWiFiGetStatus(finishCallback) {
     async.series([
         function(callback) {
             getWiFiStatus(callback);
-        },
-        function(callback) {
-            testResult("wifiGetStatusの確認", callback);
         }], function() {
         console.log("testWiFiGetStatus");
-        finishCallback();
+        testResult("wifiGetStatusの確認", finishCallback);
     });
 }
 
@@ -1053,12 +917,9 @@ function testWiFiGetCurrentSSID(finishCallback) {
     async.series([
         function(callback) {
             getCurrentSSID(callback);
-        },
-        function(callback) {
-            testResult("wifiGetCurrentSSIDの確認", callback);
         }], function() {
         console.log("testWiFiGetCurrentSSID");
-        finishCallback();
+        testResult("wifiGetCurrentSSIDの確認", finishCallback);
     });
 }
 
@@ -1066,12 +927,9 @@ function testWiFiConnect(finishCallback) {
     async.series([
         function(callback) {
             connectWifi1(callback);
-        },
-        function(callback) {
-            testResult("wifiConnectの確認", callback);
         }], function() {
         console.log("testWiFiConnect");
-        finishCallback();
+        testResult("wifiConnectの確認", finishCallback);
     });
 }
 
@@ -1079,12 +937,9 @@ function testWiFiGetSSIDList(finishCallback) {
     async.series([
         function(callback) {
             getCurrentSSID(callback);
-        },
-        function(callback) {
-            testResult("wifiGetSSIDListの確認", callback);
         }], function() {
         console.log("testWiFiGetSSIDList");
-        finishCallback();
+        testResult("wifiGetSSIDListの確認", finishCallback);
     });
 }
 
