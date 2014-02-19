@@ -106,9 +106,6 @@ function testAccelerometerGetCurrentAcceleration(finishCallback) {
         },
         function(callback) {
             getCurrentAcceleration(callback);
-        },
-        function(callback) {
-            testResult("getCurrentAccelerationの確認", callback);
         }], function() {
         console.log("testAccelerometerGetCurrentAcceleration");
         testResult("getCurrentAccelerationの確認", finishCallback);

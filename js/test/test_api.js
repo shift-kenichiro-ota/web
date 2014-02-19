@@ -128,7 +128,7 @@ function clearWatchAcceleration(finishCallback) {
     $("#hidden_api_result").html("clear watch acceleration");
     setTimeout(function() {
         finishCallback();
-    }, CLEAR_WAIT_TIME);
+    }, 0);
 }
 
 // ///////////////////
@@ -2140,23 +2140,26 @@ function currentHeadingError(e) {
 // ///
 // 現在の加速度を取得
 function getCurrentAcceleration(finishCallback) {
-    applican.accelerometer.getCurrentAcceleration(currentAccelerationSuccess,currentAccelerometerError);
-    waitTestAPI(finishCallback);
-}
-
-function currentAccelerationSuccess(res) {
-	console.log(res.x + " " + res.y + " " + res.z);
-	if (res.x || res.y || res.z || res.timestamp) {
-		test_result = "OK : ";
+    var currentAccelerometerError = function(error) {
+	    test_result = "NG : ";
         $("#hidden_api_result").html(test_result);
-	} else {
-		currentAccelerometerError();
-	}
-}
 
-function currentAccelerometerError() {
-	test_result = "NG : ";
-    $("#hidden_api_result").html(test_result);
+        setTimeout(function() { finishCallback(); }, 0);
+    };
+
+    var currentAccelerationSuccess = function(res) {
+	    console.log(res.x + " " + res.y + " " + res.z);
+	    if (res.x || res.y || res.z || res.timestamp) {
+		    test_result = "OK : ";
+            $("#hidden_api_result").html(test_result);
+
+            setTimeout(finishCallback, 0);
+	    } else {
+		    currentAccelerometerError();
+	    }
+    };
+
+    applican.accelerometer.getCurrentAcceleration(currentAccelerationSuccess,currentAccelerometerError);
 }
 
 // ///
@@ -2730,7 +2733,6 @@ function saveToPhotoAlbumError(message) {
 
 // ///
 // カメラ撮影(PhoneGap形式) base64で取得
-var _destinationType = -1;
 var _imageData = null;
 function getPicture1(mode, finishCallback) {
     var getPicture1_getPictureError = function(message) {
@@ -2763,27 +2765,7 @@ function getPicture1(mode, finishCallback) {
 		targetHeight : 400
 	};
 	applican.camera.getPicture(getPicture1_getPictureSuccess, getPicture1_getPictureError, options);
-    //waitTestAPI(finishCallback);
 }
-
-/*
-function getPicture1_getPictureSuccess(res) {
-	_imageData = res;
-	var dump = "";
-	dump += "size:" + res.length + " ";
-	var image = document.getElementById('myImage');
-	image.src = "data:image/jpeg;base64," + res;
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function getPicture1_getPictureError(message) {
-	var dump = "";
-	dump += "message:" + message + " ";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-*/
 
 /** ******************************************************************************** */
 
