@@ -2204,36 +2204,49 @@ function getCurrentAcceleration(finishCallback) {
 // ///
 // 位置情報を取得
 function getCurrentPosition(finishCallback) {
+    // Androidバグ対応
+    var callbackCalled = false;
+    var currentPositionError = function(error) {
+        if (callbackCalled) {
+            return;
+        }
+        callbackCalled = true;
+	    console.log("currentPostion error");
+	    var dump = "";
+	    dump += "code:" + error.code + " ";
+	    dump += "message:" + error.message + " ";
+	    test_result = "OK" + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
+
+    var currentPositionSuccess = function(res) {
+        if (callbackCalled) {
+            return;
+        }
+        callbackCalled = true;
+	    var dump = "currentPositionSuccess ";
+	    dump += "latitude:" + res.coords.latitude + " ";
+	    dump += "longitude:" + res.coords.longitude + " ";
+	    dump += "altitude:" + res.coords.altitude + " ";
+	    dump += "accuracy:" + res.coords.accuracy + " ";
+	    dump += "altitudeAccuracy:" + res.coords.altitudeAccuracy + " ";
+	    dump += "heading:" + res.coords.heading + " ";
+	    dump += "speed:" + res.coords.speed + " ";
+	    dump += "timestamp:" + res.timestamp + " ";
+	    test_result = "OK" + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var options = {
 		maximumAge : 10000,
 		timeout : 30000,
 		enableHighAccuracy : false
 	};
 	applican.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, options);
-    waitTestAPI(finishCallback);
-}
-
-function currentPositionSuccess(res) {
-	var dump = "currentPositionSuccess ";
-	dump += "latitude:" + res.coords.latitude + " ";
-	dump += "longitude:" + res.coords.longitude + " ";
-	dump += "altitude:" + res.coords.altitude + " ";
-	dump += "accuracy:" + res.coords.accuracy + " ";
-	dump += "altitudeAccuracy:" + res.coords.altitudeAccuracy + " ";
-	dump += "heading:" + res.coords.heading + " ";
-	dump += "speed:" + res.coords.speed + " ";
-	dump += "timestamp:" + res.timestamp + " ";
-	test_result = "OK" + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function currentPositionError(error) {
-	console.log("currentPostion error");
-	var dump = "";
-	dump += "code:" + error.code + " ";
-	dump += "message:" + error.message + " ";
-	test_result = "OK" + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // ///
