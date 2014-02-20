@@ -161,6 +161,28 @@ function clearWatchShake(finishCallback) {
 // ///
 // 位置情報を一定の時間間隔で取得
 function watchPosition(finishCallback) {
+    var watchPositionError = function(e) {
+	    var dump = "watchPositionError ";
+	    dump += "code:" + e.code + " ";
+	    dump += "message:" + e.message + " ";
+	    document.getElementById("dumpAreaGeolocation").value = dump;
+        $("#hidden_api_result").html(dump);
+    };
+
+    var watchPositionSuccess = function(res) {
+	    var dump = "watchPositionSuccess ";
+	    dump += "latitude:" + res.coords.latitude + " ";
+	    dump += "longitude:" + res.coords.longitude + " ";
+	    dump += "altitude:" + res.coords.altitude + " ";
+	    dump += "accuracy:" + res.coords.accuracy + " ";
+	    dump += "altitudeAccuracy:" + res.coords.altitudeAccuracy + " ";
+	    dump += "heading:" + res.coords.heading + " ";
+	    dump += "speed:" + res.coords.speed + " ";
+	    dump += "timestamp:" + res.timestamp + " ";
+	    document.getElementById("dumpAreaGeolocation").value = dump;
+        $("#hidden_api_result").html(dump);
+    };
+
 	var options = {
 		maximumAge : 0,
 		timeout : 20000,
@@ -168,29 +190,8 @@ function watchPosition(finishCallback) {
 		frequency : 3000
 	};
 	_geolocationWatchID = applican.geolocation.watchPosition(watchPositionSuccess, watchPositionError, options);
-    waitTestAPI(finishCallback);
-}
 
-function watchPositionSuccess(res) {
-	var dump = "watchPositionSuccess ";
-	dump += "latitude:" + res.coords.latitude + " ";
-	dump += "longitude:" + res.coords.longitude + " ";
-	dump += "altitude:" + res.coords.altitude + " ";
-	dump += "accuracy:" + res.coords.accuracy + " ";
-	dump += "altitudeAccuracy:" + res.coords.altitudeAccuracy + " ";
-	dump += "heading:" + res.coords.heading + " ";
-	dump += "speed:" + res.coords.speed + " ";
-	dump += "timestamp:" + res.timestamp + " ";
-	document.getElementById("dumpAreaGeolocation").value = dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function watchPositionError(e) {
-	var dump = "watchPositionError ";
-	dump += "code:" + e.code + " ";
-	dump += "message:" + e.message + " ";
-	document.getElementById("dumpAreaGeolocation").value = dump;
-    $("#hidden_api_result").html(dump);
+    setTimeout(finishCallback, 0);
 }
 
 // ///
@@ -208,20 +209,21 @@ function clearWatchPosition(finishCallback) {
 // ///////////////////
 // キーボード監視(Androidのみ)
 function watchKeyDown(finishCallback) {
+    var watchKeyDownSuccess = function(res) {
+	    var dump = "watchKeyDownSuccess ";
+	    dump += "keyCode:" + res.keyCode + " ";
+	    dump += "shiftKey:" + res.shiftKey + " ";
+	    dump += "ctrlKey:" + res.ctrlKey + " ";
+	    dump += "altKey:" + res.altKey + " ";
+	    document.getElementById("dumpAreaKeyDown").value = dump;
+        $("#hidden_api_result").html(dump);
+    };
+
 	applican.keyboard.watchKeyDown(watchKeyDownSuccess);
 	document.getElementById("dumpAreaKeyDown").value = "watchKeyDown Start!";
     $("#hidden_api_result").html("watch key down start");
-    waitTestAPI(finishCallback);
-}
 
-function watchKeyDownSuccess(res) {
-	var dump = "watchKeyDownSuccess ";
-	dump += "keyCode:" + res.keyCode + " ";
-	dump += "shiftKey:" + res.shiftKey + " ";
-	dump += "ctrlKey:" + res.ctrlKey + " ";
-	dump += "altKey:" + res.altKey + " ";
-	document.getElementById("dumpAreaKeyDown").value = dump;
-    $("#hidden_api_result").html(dump);
+    setTimeout(finishCallback, 0);
 }
 
 function clearWatchKeyDown(finishCallback) {
@@ -234,20 +236,21 @@ function clearWatchKeyDown(finishCallback) {
 }
 
 function watchKeyUp(finishCallback) {
+    var watchKeyUpSuccess = function(res) {
+	    var dump = "watchKeyUpSuccess ";
+	    dump += "keyCode:" + res.keyCode + " ";
+	    dump += "shiftKey:" + res.shiftKey + " ";
+	    dump += "ctrlKey:" + res.ctrlKey + " ";
+	    dump += "altKey:" + res.altKey + " ";
+	    document.getElementById("dumpAreaKeyUp").value = dump;
+        $("#hidden_api_result").html(dump);
+    };
+
 	applican.keyboard.watchKeyUp(watchKeyUpSuccess);
 	document.getElementById("dumpAreaKeyUp").value = "watchKeyUp Start!";
     $("#hidden_api_result").html("watch key up");
-    waitTestAPI(finishCallback);
-}
 
-function watchKeyUpSuccess(res) {
-	var dump = "watchKeyUpSuccess ";
-	dump += "keyCode:" + res.keyCode + " ";
-	dump += "shiftKey:" + res.shiftKey + " ";
-	dump += "ctrlKey:" + res.ctrlKey + " ";
-	dump += "altKey:" + res.altKey + " ";
-	document.getElementById("dumpAreaKeyUp").value = dump;
-    $("#hidden_api_result").html(dump);
+    setTimeout(finishCallback, 0);
 }
 
 function clearWatchKeyUp(finishCallback) {
@@ -264,6 +267,23 @@ function clearWatchKeyUp(finishCallback) {
 
 // サウンドデータをまとめて読み込む
 function loadBGM(finishCallback) {
+    var loadBGMError = function(err) {
+	    var dump = "loadBGMError ";
+	    dump += "code:" + err.code + " ";
+	    document.getElementById("dumpAreaGameSound").value = dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var loadBGMSuccess = function() {
+	    var dump = "loadBGMSuccess ";
+	    document.getElementById("dumpAreaGameSound").value = dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	// BGMを読み込み
 	var bgmList = [{
 		track : 0,
@@ -280,20 +300,6 @@ function loadBGM(finishCallback) {
 	}];
 
 	applican.gamesound.loadBGM(bgmList, loadBGMSuccess, loadBGMError);
-    waitTestAPI(finishCallback);
-}
-
-function loadBGMSuccess() {
-	var dump = "loadBGMSuccess ";
-	document.getElementById("dumpAreaGameSound").value = dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function loadBGMError(err) {
-	var dump = "loadBGMError ";
-	dump += "code:" + err.code + " ";
-	document.getElementById("dumpAreaGameSound").value = dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // BGM再生
