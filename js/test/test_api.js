@@ -1314,29 +1314,27 @@ function getParent2_fail(error) {
 // ///////////////////
 // 画面のサイズと向き
 function getDisplayInfo(finishCallback) {
+    var getDisplayInfo_error = function(e) {
+	    test_result = "NG : " + e;
+        $("#hidden_api_result").html(test_result);
+
+        setTimeout(function() { finishCallback(e); }, 0);
+    };
+
+    var getDisplayInfo_success = function(info) {
+	    var dump = "";
+	    dump += "orientation:" + info.orientation + " ";
+	    dump += "width:" + info.width + " ";
+	    dump += "height:" + info.height + " ";
+	    console.log("getDisplayInfo success " + dump);
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	console.log("getDisplayInfo");
-	try {
-		applican.device.getDisplayInfo(getDisplayInfo_success, getDisplayInfo_error);
-	} catch (e) {
-		getDisplayInfo_error(e);
-	} finally {
-        waitTestAPI(finishCallback);
-    }
-}
-
-function getDisplayInfo_success(info) {
-	var dump = "";
-	dump += "orientation:" + info.orientation + " ";
-	dump += "width:" + info.width + " ";
-	dump += "height:" + info.height + " ";
-	console.log("getDisplayInfo success " + dump);
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function getDisplayInfo_error(e) {
-	test_result = "NG : " + e;
-    $("#hidden_api_result").html(test_result);
+	applican.device.getDisplayInfo(getDisplayInfo_success, getDisplayInfo_error);
 }
 
 // /////////////////
@@ -2133,26 +2131,40 @@ function captureBarcode(finishCallback) {
 // ///
 // 現在向いている方角を取得
 function getCurrentHeading(finishCallback) {
+    // Androidバグ対応
+    var callbackCalled = false;
+    var currentHeadingError = function(e) {
+        if (callbackCalled) {
+            return;
+        }
+        callbackCalled = true;
+	    console.log("getCurrentHeading error" + e);
+	    test_result = "NG : " + e;
+        $("#hidden_api_result").html(test_result);
+
+        setTimeout(function() { finishCallback(e); }, 0);
+    };
+
+    var currentHeadingSuccess = function(res) {
+        if (callbackCalled) {
+            return;
+        }
+        callbackCalled = true;
+	    console.log("getCurrentHeading success");
+	    var dump = "";
+	    dump += "magneticHeading:" + res.magneticHeading + " ";
+	    dump += "trueHeading:" + res.trueHeading + " ";
+	    dump += "headingAccuracy:" + res.headingAccuracy + " ";
+	    dump += "timestamp:" + res.timestamp + " ";
+	    test_result = "OK" + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.compass.getCurrentHeading(currentHeadingSuccess, currentHeadingError);
-    waitTestAPI(finishCallback);
 }
 
-function currentHeadingSuccess(res) {
-	console.log("getCurrentHeading success");
-	var dump = "";
-	dump += "magneticHeading:" + res.magneticHeading + " ";
-	dump += "trueHeading:" + res.trueHeading + " ";
-	dump += "headingAccuracy:" + res.headingAccuracy + " ";
-	dump += "timestamp:" + res.timestamp + " ";
-	test_result = "OK" + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function currentHeadingError(e) {
-	console.log("getCurrentHeading error" + e);
-	test_result = "NG : " + e;
-    $("#hidden_api_result").html(test_result);
-}
 
 // ///
 // 現在の加速度を取得
