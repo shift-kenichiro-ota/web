@@ -39,7 +39,7 @@ var TRACK_NO = 3;
 // wait time
 /**************************************************************/
 var STOP_VIDEO_WAIT_TIME = 500;
-var CLEAR_WAIT_TIME = 300;
+var CLEAR_WAIT_TIME = 1000;
 var PLAY_BGM_WAIT_TIME = 300;
 var SET_BGM_VOLUME_WAIT_TIME = 200;
 var LIGHT_ON_WAIT_TIME = 500;
@@ -97,27 +97,27 @@ function clearWatchHeading(finishCallback) {
 // ///
 // 加速度を一定の時間間隔で取得
 function watchAcceleration(finishCallback) {
+    var watchAccelerationError = function(error) {
+	    var dump = "watchAccelerationError ";
+	    document.getElementById("dumpAreaAcceleration").value = dump;
+        $("#hidden_api_result").html(dump);
+    };
+
+    var watchAccelerationSuccess = function(res) {
+	    var dump = "watchAccelerationSuccess ";
+	    dump += "x:" + res.x + " ";
+	    dump += "y:" + res.y + " ";
+	    dump += "z:" + res.z + " ";
+	    dump += "timestamp:" + res.timestamp + " ";
+	    document.getElementById("dumpAreaAcceleration").value = dump;
+        $("#hidden_api_result").html(dump);
+    };
+
 	var options = {
 		frequency : 100
 	};
 	_accelerationWatchID = applican.accelerometer.watchAcceleration(watchAccelerationSuccess, watchAccelerationError, options);
-    waitTestAPI(finishCallback);
-}
-
-function watchAccelerationSuccess(res) {
-	var dump = "watchAccelerationSuccess ";
-	dump += "x:" + res.x + " ";
-	dump += "y:" + res.y + " ";
-	dump += "z:" + res.z + " ";
-	dump += "timestamp:" + res.timestamp + " ";
-	document.getElementById("dumpAreaAcceleration").value = dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function watchAccelerationError() {
-	var dump = "watchAccelerationError ";
-	document.getElementById("dumpAreaAcceleration").value = dump;
-    $("#hidden_api_result").html(dump);
+    setTimeout(finishCallback, 0);
 }
 
 // ///
@@ -128,7 +128,7 @@ function clearWatchAcceleration(finishCallback) {
     $("#hidden_api_result").html("clear watch acceleration");
     setTimeout(function() {
         finishCallback();
-    }, 0);
+    }, CLEAR_WAIT_TIME);
 }
 
 // ///////////////////
@@ -608,7 +608,7 @@ function fileRead1(finishCallback) {
 
         async.series([
             function(callback) {
-                var reader = new FileReader();
+                //var reader = new FileReader();
                 console.log("fileRead1_reaAsText");
 
                 // フレームワーク側のエンコーディングのバグでAndroidで呼ばれるとクラッシュする
@@ -623,8 +623,8 @@ function fileRead1(finishCallback) {
                     $("#hidden_api_result").html(dump);
                     callback();
                 };
-                */
                 reader.readAsText(file);
+                */
                 callback();
             },
             function(callback) {
@@ -695,6 +695,8 @@ function fileRead2_readDataUrl(file) {
 }
 
 function fileRead2_readAsText(file) {
+    // フレームワーク側のエンコーディングのバグでAndroidで呼ばれるとクラッシュする
+    /*
 	var reader = new FileReader();
     var dump;
 	reader.onloadend = function(evt) {
@@ -706,6 +708,7 @@ function fileRead2_readAsText(file) {
         $("#hidden_api_result").html(dump);
 	};
 	reader.readAsText(file);
+	*/
 }
 
 function fileRead2_fail(error) {
@@ -2143,7 +2146,13 @@ function currentHeadingError(e) {
 // ///
 // 現在の加速度を取得
 function getCurrentAcceleration(finishCallback) {
-    var currentAccelerometerError = function(error) {
+    // Androidバグ対応
+    var callbackCalled = false;
+	var currentAccelerometerError = function(error) {
+        if (callbackCalled) {
+            return;
+        }
+        callbackCalled = true;
 	    test_result = "NG : ";
         $("#hidden_api_result").html(test_result);
 
@@ -2151,8 +2160,12 @@ function getCurrentAcceleration(finishCallback) {
     };
 
     var currentAccelerationSuccess = function(res) {
+        if (callbackCalled) {
+            return;
+        }
 	    console.log(res.x + " " + res.y + " " + res.z);
 	    if (res.x || res.y || res.z || res.timestamp) {
+            callbackCalled = true;
 		    test_result = "OK : ";
             $("#hidden_api_result").html(test_result);
 
