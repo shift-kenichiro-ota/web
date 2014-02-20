@@ -2500,6 +2500,23 @@ function getCurrentPosition1_error(error) {
 // GameSound
 // SEを読み込む
 function loadSE(finishCallback) {
+    var loadSEError = function(err) {
+	    var dump = "";
+	    dump += "code:" + err.code + " ";
+        $("#hidden_api_result").html(dump);
+	    test_result = "NG : " + dump;
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var loadSESuccess = function() {
+	    var dump = "loadSESuccess ";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	// SEを読み込み
 	seList = [{
 		track : 0,
@@ -2540,24 +2557,11 @@ function loadSE(finishCallback) {
 	}];
 
 	applican.gamesound.loadSE(seList, loadSESuccess, loadSEError);
-    waitTestAPI(finishCallback);
-}
-
-function loadSESuccess() {
-	var dump = "loadSESuccess ";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function loadSEError(err) {
-	var dump = "";
-	dump += "code:" + err.code + " ";
-    $("#hidden_api_result").html(dump);
-	test_result = "NG : " + dump;
 }
 
 // SE再生
 function playSE(track, finishCallback) {
+    /*
     async.series([
         function(callback) {
             applican.gamesound.playSE(track);
@@ -2568,6 +2572,9 @@ function playSE(track, finishCallback) {
     ], function() {
         waitTestAPI(finishCallback);
     });
+    */
+    applican.gamesound.playSE(track);
+    setTimeout(finishCallback, 1000);
 }
 
 function playAllSE(num, finishCallback) {
@@ -2584,7 +2591,8 @@ function playAllSE(num, finishCallback) {
     }], function() {
         $("hidden_playSE_track").html(num);
         console.log("play SE test");
-        waitTestAPI(finishCallback);
+        //waitTestAPI(finishCallback);
+        finishCallback();
     });
 }
 
