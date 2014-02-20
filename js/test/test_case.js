@@ -66,7 +66,7 @@ function testCaptureCaptureImage(finishCallback) {
             notificationConfirm("写真撮影が行えること", "captureImageの確認", "OK,NG", callback);
         }], function() {
         console.log("testCaptureCaptureImage");
-        testResult("captureImageの確認", finishCallback);
+        testResult("captureCaptureImageの確認", finishCallback);
     });
 }
 

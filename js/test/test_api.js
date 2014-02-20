@@ -2241,13 +2241,11 @@ function notificationAlert(message, title, buttonName, finishCallback) {
 // ///
 // 確認ダイアログ
 function notificationConfirm(message, title, buttonName, finishCallback) {
-	testCaseTitle = title;
-    finishCallbackFunction = finishCallback;
+    var confirmCallback = function(buttonIndex) {
+        confirmResult(buttonIndex);
+        setTimeout(finishCallback, 0);
+    };
 	applican.notification.confirm(message, confirmCallback, title, buttonName);
-}
-
-function confirmCallback(buttonIndex) {
-	testResult(testCaseTitle, finishCallbackFunction);
 }
 
 function confirmResult(buttonIndex) {
@@ -2434,41 +2432,35 @@ function captureVideoError(err) {
 
 // 画像撮影
 function captureImage(finishCallback) {
+    var captureImageError = function(err) {
+	    test_result = "NG : " + err;
+        $("#hidden_api_result").html(test_result);
+	    captureImageStatus = true;
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var captureImageSuccess = function(mediaFiles) {
+	    console.log("currentImage success");
+	    var dump = "";
+	    for (var i = 0, len = mediaFiles.length; i < len; i++) {
+		    dump += mediaFiles[i].fullPath + " ";
+
+		    _imageData = mediaFiles[i].fullPath;
+	    }
+	    if (dump) {
+		    test_result = "OK : " + dump;
+            $("#hidden_api_result").html(dump);
+	    } else {
+		    test_result = "NG : " + dump;
+            $("#hidden_api_result").html(dump);
+	    }
+	    captureImageStatus = true;
+
+        setTimeout(finishCallback, 0);
+    };
+
     applican.capture.captureImage(captureImageSuccess, captureImageError);
-    waitTestAPI(finishCallback);
-}
-
-function captureImageSuccess(mediaFiles) {
-	console.log("currentImage success");
-	var dump = "";
-	for (var i = 0, len = mediaFiles.length; i < len; i++) {
-		dump += mediaFiles[i].fullPath + " ";
-
-		_imageData = mediaFiles[i].fullPath;
-	}
-	if (dump) {
-		test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
-	} else {
-		test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
-	}
-	captureImageStatus = true;
-	/*
-	 * //送信 var options = new FileUploadOptions(); options.fileKey="file";
-	 * options.fileName="test.jpg"; options.mimeType="image/jpg";
-	 *
-	 * var ft = new FileTransfer();
-	 *
-	 * ft.upload(mediaFiles[0].fullPath, encodeURI("http://+++++.com/file.php"),
-	 * upload1_uploadSuccess, upload1_fail, options);
-	 */
-}
-
-function captureImageError(err) {
-	test_result = "NG : " + err;
-    $("#hidden_api_result").html(test_result);
-	captureImageStatus = true;
 }
 
 // 現在位置取得

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4dd00b32-e8aa-42db-80ea-f55a10890f4d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/test/test_api.js" afterPath="$PROJECT_DIR$/js/test/test_api.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/test/test_case.js" afterPath="$PROJECT_DIR$/js/test/test_case.js" />
     </list>
     <ignored path="web.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,7 +50,7 @@
       <file leaf-file-name="test_api.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2759" column="0" selection-start="77477" selection-end="77477" vertical-scroll-proportion="0.94598156" vertical-offset="40637" max-vertical-offset="53595">
+            <state line="2249" column="0" selection-start="64781" selection-end="64781" vertical-scroll-proportion="0.5704875" vertical-offset="33272" max-vertical-offset="53475">
               <folding />
             </state>
           </provider>
@@ -76,7 +77,7 @@
       <file leaf-file-name="test_case.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="16" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="14580">
+            <state line="65" column="28" selection-start="2032" selection-end="2032" vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="14580">
               <folding />
             </state>
           </provider>
@@ -85,7 +86,7 @@
       <file leaf-file-name="json_test_case.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test_case/json_test_case.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="357" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2985">
+            <state line="8" column="380" selection-start="532" selection-end="532" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2985">
               <folding />
             </state>
           </provider>
@@ -785,7 +786,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test_case/json_test_case.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="357" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2985">
+        <state line="8" column="380" selection-start="532" selection-end="532" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2985">
           <folding />
         </state>
       </provider>
@@ -799,14 +800,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="16" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="14580">
+        <state line="65" column="28" selection-start="2032" selection-end="2032" vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="14580">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2759" column="0" selection-start="77477" selection-end="77477" vertical-scroll-proportion="0.94598156" vertical-offset="40637" max-vertical-offset="53595">
+        <state line="2249" column="0" selection-start="64781" selection-end="64781" vertical-scroll-proportion="0.5704875" vertical-offset="33272" max-vertical-offset="53475">
           <folding />
         </state>
       </provider>
