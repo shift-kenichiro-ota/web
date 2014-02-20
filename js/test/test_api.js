@@ -2109,23 +2109,25 @@ function cleanupPictureError(message) {
 // ///
 // QRコード読み取り
 function captureBarcode(finishCallback) {
+    var captureBarcodeError = function(e) {
+	    test_result = "NG : " + e;
+        $("#hidden_api_result").html(test_result);
+
+        setTimeout(function() { finishCallback(e); }, 0);
+    };
+
+    var captureBarcodeSuccess = function(res) {
+	    if (res.codeData.indexOf("applican") > 0) {
+		    test_result = "OK : " + res;
+            $("#hidden_api_result").html(test_result);
+	    } else {
+		    test_result = "NG";
+            $("#hidden_api_result").html(test_result);
+	    }
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.barcode.captureBarcode(captureBarcodeSuccess, captureBarcodeError);
-    waitTestAPI(finishCallback);
-}
-
-function captureBarcodeSuccess(res) {
-	if (res.codeData.indexOf("applican") > 0) {
-		test_result = "OK : " + res;
-        $("#hidden_api_result").html(test_result);
-	} else {
-		test_result = "NG";
-        $("#hidden_api_result").html(test_result);
-	}
-}
-
-function captureBarcodeError(e) {
-	test_result = "NG : " + e;
-    $("#hidden_api_result").html(test_result);
 }
 
 // ///
