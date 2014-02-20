@@ -59,28 +59,29 @@ var GA_TRACKING_VIEW_WAIT_TIME = 2000;
 // ///
 // コンパス方位を一定の時間間隔で取得
 function watchHeading(finishCallback) {
-	var options = {
+    var watchHeadingError = function(e) {
+	    var dump = "watchHeadingError ";
+	    dump += "code:" + e.code + " ";
+	    document.getElementById("dumpAreaCompass").value = dump;
+        $("#hidden_api_result").html(dump);
+    };
+
+    var watchHeadingSuccess = function(res) {
+	    var dump = "watchHeadingSuccess ";
+	    dump += "magneticHeading:" + res.magneticHeading + " ";
+	    dump += "trueHeading:" + res.trueHeading + " ";
+	    dump += "headingAccuracy:" + res.headingAccuracy + " ";
+	    dump += "timestamp:" + res.timestamp + " ";
+	    document.getElementById("dumpAreaCompass").value = dump;
+        $("#hidden_api_result").html(dump);
+    };
+
+    var options = {
 		frequency : 100
 	};
 	_compassWatchID = applican.compass.watchHeading(watchHeadingSuccess, watchHeadingError, options);
-    waitTestAPI(finishCallback);
-}
 
-function watchHeadingSuccess(res) {
-	var dump = "watchHeadingSuccess ";
-	dump += "magneticHeading:" + res.magneticHeading + " ";
-	dump += "trueHeading:" + res.trueHeading + " ";
-	dump += "headingAccuracy:" + res.headingAccuracy + " ";
-	dump += "timestamp:" + res.timestamp + " ";
-	document.getElementById("dumpAreaCompass").value = dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function watchHeadingError(e) {
-	var dump = "watchHeadingError ";
-	dump += "code:" + e.code + " ";
-	document.getElementById("dumpAreaCompass").value = dump;
-    $("#hidden_api_result").html(dump);
+    setTimeout(finishCallback, 0);
 }
 
 // ///
@@ -117,6 +118,7 @@ function watchAcceleration(finishCallback) {
 		frequency : 100
 	};
 	_accelerationWatchID = applican.accelerometer.watchAcceleration(watchAccelerationSuccess, watchAccelerationError, options);
+
     setTimeout(finishCallback, 0);
 }
 
@@ -134,16 +136,17 @@ function clearWatchAcceleration(finishCallback) {
 // ///////////////////
 // シェイク監視
 function watchShake(finishCallback) {
+    var shakeSuccess = function() {
+	    var dump = "shake: " + parseInt((new Date()) / 1000) + " ";
+	    document.getElementById("dumpAreaShake").value += dump;
+        $("#hidden_api_result").html(dump);
+    };
+
 	applican.accelerometer.watchShake(shakeSuccess);
 	document.getElementById("dumpAreaShake").value = "Start ";
     $("#hidden_api_result").html("watch shake start");
-    waitTestAPI(finishCallback);
-}
 
-function shakeSuccess() {
-	var dump = "shake: " + parseInt((new Date()) / 1000) + " ";
-	document.getElementById("dumpAreaShake").value += dump;
-    $("#hidden_api_result").html(dump);
+    setTimeout(finishCallback, 0);
 }
 
 function clearWatchShake(finishCallback) {
