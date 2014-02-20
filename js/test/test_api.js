@@ -2739,23 +2739,22 @@ function gaTrackEvent(finishCallback) {
 // ///
 // 取得した画像を→ライブラリへ保存
 function saveToPhotoAlbum(finishCallback) {
-	// alert(""+_imageData.length);
-	try {
-		applican.camera.saveToPhotoAlbum(_imageData, saveToPhotoAlbumSuccess, saveToPhotoAlbumError);
-	} catch (e) {
-		saveToPhotoAlbumError(e);
-	}
-    waitTestAPI(finishCallback);
-}
+    var saveToPhotoAlbumError = function(message) {
+	    test_result = "NG";
+        $("#hidden_api_result").html("save to photo album : " + test_result);
 
-function saveToPhotoAlbumSuccess() {
-	test_result = "OK";
-    $("#hidden_api_result").html("save to photo album : " + test_result);
-}
+        setTimeout(function() { finishCallback(message); }, 0);
+    };
 
-function saveToPhotoAlbumError(message) {
-	test_result = "NG";
-    $("#hidden_api_result").html("save to photo album : " + test_result);
+    var saveToPhotoAlbumSuccess = function() {
+	    test_result = "OK";
+        $("#hidden_api_result").html("save to photo album : " + test_result);
+
+
+        setTimeout(finishCallback, 0);
+    };
+
+	applican.camera.saveToPhotoAlbum(_imageData, saveToPhotoAlbumSuccess, saveToPhotoAlbumError);
 }
 
 // ///

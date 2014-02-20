@@ -49,7 +49,7 @@
       <file leaf-file-name="test_api.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2132" column="0" selection-start="61348" selection-end="61348" vertical-scroll-proportion="0.88932806" vertical-offset="31275" max-vertical-offset="53610">
+            <state line="2759" column="0" selection-start="77477" selection-end="77477" vertical-scroll-proportion="0.94598156" vertical-offset="40637" max-vertical-offset="53595">
               <folding />
             </state>
           </provider>
@@ -67,7 +67,7 @@
       <file leaf-file-name="applican-1.2.1.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/libs/applican-1.2.1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="532" column="55" selection-start="15638" selection-end="15638" vertical-scroll-proportion="0.0" vertical-offset="7845" max-vertical-offset="63075">
+            <state line="2186" column="9" selection-start="61370" selection-end="61370" vertical-scroll-proportion="0.0" vertical-offset="32582" max-vertical-offset="63075">
               <folding />
             </state>
           </provider>
@@ -76,7 +76,7 @@
       <file leaf-file-name="test_case.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="22" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14580">
+            <state line="45" column="16" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="14580">
               <folding />
             </state>
           </provider>
@@ -85,7 +85,7 @@
       <file leaf-file-name="json_test_case.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test_case/json_test_case.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="331" selection-start="483" selection-end="483" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2985">
+            <state line="8" column="357" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2985">
               <folding />
             </state>
           </provider>
@@ -783,30 +783,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/libs/applican-1.2.1.js">
+    <entry file="file://$PROJECT_DIR$/js/test_case/json_test_case.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="532" column="55" selection-start="15638" selection-end="15638" vertical-scroll-proportion="0.0" vertical-offset="7845" max-vertical-offset="63075">
+        <state line="8" column="357" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2985">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/test_case/json_test_case.js">
+    <entry file="file://$PROJECT_DIR$/js/libs/applican-1.2.1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="331" selection-start="483" selection-end="483" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2985">
+        <state line="2186" column="9" selection-start="61370" selection-end="61370" vertical-scroll-proportion="0.0" vertical-offset="32582" max-vertical-offset="63075">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="22" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14580">
+        <state line="45" column="16" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="14580">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2132" column="0" selection-start="61348" selection-end="61348" vertical-scroll-proportion="0.88932806" vertical-offset="31275" max-vertical-offset="53610">
+        <state line="2759" column="0" selection-start="77477" selection-end="77477" vertical-scroll-proportion="0.94598156" vertical-offset="40637" max-vertical-offset="53595">
           <folding />
         </state>
       </provider>
