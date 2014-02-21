@@ -147,6 +147,7 @@ define(function() {
                 }, 300);
             },
             function(callback) {
+                var callbackCalled = false;
                 debug = "run";
                 console.log("test name " + testName + "debug : " + debug);
 
@@ -156,7 +157,22 @@ define(function() {
                 console.log("test name : " + strCall);
                 test_name = testName;
                 var testCase = new Function("callback", strCall);
-                testCase(callback);
+
+                // 1分経ってテストケースが終わってなかったら強制的にcallbackを呼び出して抜ける
+                //
+                setTimeout(
+                    function() {
+                        if (!callbackCalled) {
+                            // applican.isFileExecuteとapplican.gamesound.isExecuteロックを強制解除する
+                            applican.isFileExecute = false;
+                            applican.gamesound.isExecute = false;
+                            // 強制的にNGとする
+                            test_result = "NG";
+                            testResult(test_name + "の確認", callback);
+                        }
+                    }, 1000 * 60);
+
+                testCase(function() { callbackCalled = true; callback(); });
             }
 
         ], function() {

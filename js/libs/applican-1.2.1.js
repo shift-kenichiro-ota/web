@@ -4119,7 +4119,6 @@ var applicanRoot = function() {
 		this.isFileExecute = false;
 	}
 
-
 	this.openDatabaseSuccess = null;
 	this.openDatabaseError = null;
 	this.isOpenDatabaseExecute = false;
