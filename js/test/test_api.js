@@ -2026,16 +2026,7 @@ function setSimpleStorage(key, val, finishCallback) {
     };
 
 	applican.simpleStorage.set(key, val + '\'.' + (new Date().getTime()) + "改行前 改行後", setSimpleStorage_success);
-    //waitTestAPI(finishCallback);
 }
-
-/*
-function setSimpleStorage_success() {
-	var dump = "setSimpleStorage_success ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-*/
 
 function getSimpleStorage(key, finishCallback) {
 	applican.simpleStorage.get(key, getSimpleStorage_success);
@@ -2304,14 +2295,14 @@ function notificationVibrate(milliseconds, finishCallback) {
 
 // ///
 // ローカル通知
-function localNotificationSchedule1(finishCallback) {// 5秒後
+function localNotificationSchedule1(finishCallback) {// 2秒後
     var localNotificationSchedule1Error = function(res) {
 	    var dump = "";
 	    dump += "code:" + res.code + " ";
 	    test_result = "NG" + dump;
         $("#hidden_api_result").html(dump);
 
-        setTimeout(function() { finishCallback(res); }, 0);
+        setTimeout(function() { finishCallback(res); }, 5000);
     };
 
     var localNotificationSchedule1Success = function() {
@@ -2319,7 +2310,7 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
 	    test_result = "OK";
         $("#hidden_api_result").html(dump);
 
-        setTimeout(finishCallback, 0);
+        setTimeout(finishCallback, 5000);
     };
 
 	var now = parseInt((new Date()) / 1000);
@@ -2327,7 +2318,7 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
 		alertId : 1,
 		alertBody : "message1",
 		uri : "http://www.yahoo.co.jp/",
-		fireDate : now + 5,
+		fireDate : now + 2,
 		// repeatInterval: "",
 		// iOSのみ
 		alertAction : "開く",
@@ -2335,23 +2326,7 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
 		applicationIconBadgeNumber : 3
 	};
 	applican.localNotification.schedule(localNotificationSchedule1Success, localNotificationSchedule1Error, options);
-    //waitTestAPI(finishCallback);
 }
-
-/*
-function localNotificationSchedule1Success() {
-	var dump = "localNotificationSchedule1Success ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-
-function localNotificationSchedule1Error(res) {
-	var dump = "";
-	dump += "code:" + res.code + " ";
-	test_result = "NG" + dump;
-    $("#hidden_api_result").html(dump);
-}
-*/
 
 function localNotificationCancel1(finishCallback) {// キャンセル
 	var options = {
@@ -2593,18 +2568,6 @@ function loadSE(finishCallback) {
 
 // SE再生
 function playSE(track, finishCallback) {
-    /*
-    async.series([
-        function(callback) {
-            applican.gamesound.playSE(track);
-            setTimeout(function() {
-                callback();
-            }, 1000);
-        }
-    ], function() {
-        waitTestAPI(finishCallback);
-    });
-    */
     applican.gamesound.playSE(track);
     setTimeout(finishCallback, 1000);
 }
@@ -2675,6 +2638,21 @@ function releaseSEAll(finishCallback) {
 // ///////////////////
 // 動画を指定した位置に表示
 function playVideoOverlay(control, finishCallback) {
+    var playVideoOverlay_error = function(error) {
+	    var dump = "playVideoOverlay_error ";
+	    dump += "code:" + error.code + " ";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
+
+    var playVideoOverlay_success = function() {
+	    var dump = "playVideoOverlay_success ";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var options = {
 		top : 10,
 		left : (document.documentElement.clientWidth - 190) / 2,
@@ -2684,18 +2662,6 @@ function playVideoOverlay(control, finishCallback) {
 	};
 
 	applican.video.play('sample_mpeg4.mp4', playVideoOverlay_success, playVideoOverlay_error, options);
-    waitTestAPI(finishCallback);
-}
-
-function playVideoOverlay_success() {
-	var dump = "playVideoOverlay_success ";
-    $("#hidden_api_result").html(dump);
-}
-
-function playVideoOverlay_error(error) {
-	var dump = "playVideoOverlay_error ";
-	dump += "code:" + error.code + " ";
-    $("#hidden_api_result").html(dump);
 }
 
 // 停止
