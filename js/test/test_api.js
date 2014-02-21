@@ -2305,6 +2305,23 @@ function notificationVibrate(milliseconds, finishCallback) {
 // ///
 // ローカル通知
 function localNotificationSchedule1(finishCallback) {// 5秒後
+    var localNotificationSchedule1Error = function(res) {
+	    var dump = "";
+	    dump += "code:" + res.code + " ";
+	    test_result = "NG" + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(res); }, 0);
+    };
+
+    var localNotificationSchedule1Success = function() {
+	    var dump = "localNotificationSchedule1Success ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var now = parseInt((new Date()) / 1000);
 	var options = {
 		alertId : 1,
@@ -2318,9 +2335,10 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
 		applicationIconBadgeNumber : 3
 	};
 	applican.localNotification.schedule(localNotificationSchedule1Success, localNotificationSchedule1Error, options);
-    waitTestAPI(finishCallback);
+    //waitTestAPI(finishCallback);
 }
 
+/*
 function localNotificationSchedule1Success() {
 	var dump = "localNotificationSchedule1Success ";
 	test_result = "OK";
@@ -2333,6 +2351,7 @@ function localNotificationSchedule1Error(res) {
 	test_result = "NG" + dump;
     $("#hidden_api_result").html(dump);
 }
+*/
 
 function localNotificationCancel1(finishCallback) {// キャンセル
 	var options = {
@@ -2702,15 +2721,22 @@ function light1(flg, finishCallback) {
 // スプラッシュ表示
 function showSplash1(finishCallback) {
 	// javascriptでタイムアウト
-	applican.splashscreen.show('splash/splash1_portrait.png', 'splash/splash1_landscape.png');
-
-	setTimeout(function() {
-		applican.splashscreen.hide();
-        document.getElementById("hidden_api_result").value = "show splash";
-	}, 2000);
-    setTimeout(function() {
-        finishCallback();
-    }, SPLASH_WAIT_TIME);
+    async.series([
+        function(callback) {
+            applican.splashscreen.show('splash/splash1_portrait.png', 'splash/splash1_landscape.png');
+            callback();
+        },
+        function(callback) {
+ 	        setTimeout(function() {
+		        applican.splashscreen.hide();
+                document.getElementById("hidden_api_result").value = "show splash";
+                callback();
+	        }, 2000);
+        }], function(err, results) {
+        setTimeout(function() {
+            finishCallback();
+        }, SPLASH_WAIT_TIME);
+    });
 }
 
 function showSplash2(finishCallback) {
