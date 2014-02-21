@@ -3320,21 +3320,6 @@ function pauseRecAudio() {
 	recMedia.pause();
 }
 
-// ///////////////////
-// ポップアップしたWebViewの閉じる検知
-function addLaunchWebviewCloseEventListener() {
-	applican.addLaunchWebviewCloseEventListener(webViewClose);
-	var dump = "addLaunchWebviewCloseEventListener ";
-}
-
-function webViewClose() {
-	var dump = "webViewClose ";
-	var urlParams = get_url_vars();
-	var loop = urlParams[0];
-    loopCnt = Number(loop) + 1;
-    finalCallbackFunction();
-}
-
 function get_url_vars() {
 	var vars = [];
 	var params;

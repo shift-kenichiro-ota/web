@@ -57,7 +57,9 @@ require.config({
 
 define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
 	 'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case'  ], function($) {
-	     document.addEventListener("deviceready", onDeviceReady, false);
+         console.log("second load");
+	    // document.addEventListener("deviceready", onDeviceReady, false);
+        setTimeout(onDeviceReady, 2000);
 	     document.getElementById("showLogBtn").addEventListener("click", showLogConsole, false);
 	 });
 
@@ -71,7 +73,6 @@ define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
 function onDeviceReady() {
     var test_suite = require('test_suite');
     // イベント登録
-    addLaunchWebviewCloseEventListener();
 
     document.addEventListener("resume", onResume, false);
     document.addEventListener("backbutton", onBackKeyDown, false);

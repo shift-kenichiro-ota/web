@@ -68,18 +68,15 @@ define(function() {
                         return i < test_case.length;
                     },
                     function (callback) {
-                        if (loopCnt != 0) {
-                            i = loopCnt;
-                        } else if (urlParams[1] != undefined || urlParams[1] != null) {
-                            i = Number(urlParams[1]);
-                        }
                         console.log("i : " + i + " test suite : " + test_case[i].key);
                         if (test_case[i].WebView == 2) {
-                            finalCallbackFunction = callback;
+                            // WebViewが連続する場合、時間をおかないとクローズの処理中に次のWebViewが開いてしまい失敗するので、3秒待つ
+                            applican.addLaunchWebviewCloseEventListener(function() { setTimeout(callback, 3000); });
                             cmn.openWebView(test_case[i].key, i);
                         } else {
                             testCase(test_case, i, callback);
                         }
+                        console.log("hoge loop i = " + i);
                         i++;
                     },
                     function (err) {
@@ -252,6 +249,7 @@ define(function() {
     }
 
     function webviewTestCaseRun(testName, finishCallback) {
+        var k = 0;
         async.series([
             function(callback) {
                 cmn.deleteInvisibleTestResult();
@@ -260,12 +258,32 @@ define(function() {
                 }, 300);
             },
             function(callback) {
-                var strCall;
-                console.log("test name " + testName);
-                strCall = "test" + testName + "(callback);";
+                var callbackCalled = false;
+                debug = "run";
+                console.log("test name " + testName + "debug : " + debug);
 
+                var strCall = "test" + testName + "(callback);";
+
+                console.log("test name : " + testName + " ,run" + k + " case no : " + caseNo);
+                console.log("test name : " + strCall);
+                test_name = testName;
                 var testCase = new Function("callback", strCall);
-                testCase(callback);
+
+                // 1分経ってテストケースが終わってなかったら強制的にcallbackを呼び出して抜ける
+                //
+                setTimeout(
+                    function() {
+                        if (!callbackCalled) {
+                            // applican.isFileExecuteとapplican.gamesound.isExecuteロックを強制解除する
+                            applican.isFileExecute = false;
+                            applican.gamesound.isExecute = false;
+                            // 強制的にNGとする
+                            test_result = "NG";
+                            testResult(test_name + "の確認", callback);
+                        }
+                    }, 1000 * 60);
+
+                testCase(function() { callbackCalled = true; callback(); });
             }
         ], function() {
             console.log("run test case");
