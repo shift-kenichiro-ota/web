@@ -58,8 +58,18 @@ require.config({
 define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
 	 'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case'  ], function($) {
          console.log("second load");
-	    // document.addEventListener("deviceready", onDeviceReady, false);
-        setTimeout(onDeviceReady, 2000);
+        // 強制的にapplicanを再初期化する
+        async.series([
+            function(callback) {
+               setTimeout(callback, 1000);
+            },
+            function(callback) {
+                applican_init();
+                setTimeout(callback, 1000);
+            }
+        ], function(err, results) {
+            onDeviceReady();
+        });
 	     document.getElementById("showLogBtn").addEventListener("click", showLogConsole, false);
 	 });
 

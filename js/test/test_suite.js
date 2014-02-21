@@ -76,7 +76,7 @@ define(function() {
                         } else {
                             testCase(test_case, i, callback);
                         }
-                        console.log("hoge loop i = " + i);
+                        console.log("in loop i = " + i);
                         i++;
                     },
                     function (err) {
