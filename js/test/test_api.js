@@ -2321,9 +2321,7 @@ function localNotificationSchedule1(finishCallback) {// 2秒後
 	var options = {
 		alertId : 1,
 		alertBody : "message1",
-		uri : "http://www.yahoo.co.jp/",
 		fireDate : now + 2,
-		// repeatInterval: "",
 		// iOSのみ
 		alertAction : "開く",
 		// iOSのみ
