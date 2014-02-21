@@ -2258,8 +2258,12 @@ function notificationAlert(message, title, buttonName, finishCallback) {
 // 確認ダイアログ
 function notificationConfirm(message, title, buttonName, finishCallback) {
     var confirmCallback = function(buttonIndex) {
-        confirmResult(buttonIndex);
-        setTimeout(finishCallback, 0);
+        var result = confirmResult(buttonIndex);
+        if (result === "OK") {
+            setTimeout(finishCallback, 0);
+        } else {
+            setTimeout(function() { finishCallback(result); }, 0);
+        }
     };
 	applican.notification.confirm(message, confirmCallback, title, buttonName);
 }
