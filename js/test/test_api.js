@@ -1450,35 +1450,30 @@ function createTable(finishCallback) {
 
 // 一括処理
 function execTransaction(finishCallback) {
-	if (db === null) {
-		test_result = "NG : データベースを開いていません";
-		return;
-	}
+    var execTransaction_error = function(error) {
+	    var dump = "execTransaction_error ";
+	    dump += error.message + " ";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(error);}, 0);
+    };
+
+    var execTransaction_success = function(result) {
+	    var dump = "execTransaction_success ";
+	    dump += "rowsAffected:" + result.rowsAffected + " ";
+	    dump += "insertId:" + result.insertId + " ";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var sqls = ["DROP TABLE IF EXISTS DEMO", "CREATE TABLE IF NOT EXISTS DEMO (id unique, data, data2)", "INSERT INTO DEMO (id, data, data2) VALUES (1, 'First row', NULL)", "INSERT INTO DEMO (id, data, data2) VALUES (2.1, 'Second row', 'test')"];
 	db.execTransaction(sqls, execTransaction_success, execTransaction_error);
-    waitTestAPI(finishCallback);
-}
-
-function execTransaction_success(result) {
-	var dump = "execTransaction_success ";
-	dump += "rowsAffected:" + result.rowsAffected + " ";
-	dump += "insertId:" + result.insertId + " ";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function execTransaction_error(error) {
-	var dump = "execTransaction_error ";
-	dump += error.message + " ";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 function searchData(finishCallback) {
-	if (db === null) {
-		test_result = "NG : データベースを開いていません";
-		return;
-	}
 	var sql = "SELECT * FROM DEMO";
 	db.query(sql, searchData_success, searchData_error);
     waitTestAPI(finishCallback);
