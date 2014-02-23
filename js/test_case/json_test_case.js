@@ -6,7 +6,7 @@
 var test_case_json =
     [
         {"key" : "01", "exeflg" : true, "val": [
-            "ConnectionType", "DirectoryEntryCreateReader", "FinishFinish"
+            "ConnectionType", "FileEntryRemove", "FinishFinish"
         ], "WebView":1}
 
 

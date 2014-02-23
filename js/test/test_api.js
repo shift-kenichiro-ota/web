@@ -662,26 +662,29 @@ function directoryReader1(finishCallback) {
 
 // ファイル削除
 function deleteFile1(finishCallback) {
+    var deleteFile1_fail = function(error) {
+	    test_result = "NG : delete file fail " + error.code;
+        $("#hidden_api_result").html(test_result);
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
+
+    var deleteFile1_removeSuccess = function() {
+	    var dump = "deleteFile1_removeSuccess ";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+    var deleteFile1_gotFileEntry = function(fileEntry) {
+	    fileEntry.remove(deleteFile1_removeSuccess, deleteFile1_fail);
+    };
+
+    var deleteFile1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile("readme.txt", null, deleteFile1_gotFileEntry, deleteFile1_fail);
+    };
+
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, deleteFile1_gotFS, deleteFile1_fail);
-    waitTestAPI(finishCallback);
-}
-
-function deleteFile1_gotFS(fileSystem) {
-	fileSystem.root.getFile("readme.txt", null, deleteFile1_gotFileEntry, deleteFile1_fail);
-}
-
-function deleteFile1_gotFileEntry(fileEntry) {
-	fileEntry.remove(deleteFile1_removeSuccess, deleteFile1_fail);
-}
-
-function deleteFile1_removeSuccess() {
-	var dump = "deleteFile1_removeSuccess ";
-    $("#hidden_api_result").html(dump);
-}
-
-function deleteFile1_fail(error) {
-	test_result = "NG : delete file fail " + error.code;
-    $("#hidden_api_result").html(test_result);
 }
 
 // ファイル移動
@@ -2495,7 +2498,6 @@ function playAllSE(num, finishCallback) {
     }], function() {
         $("hidden_playSE_track").html(num);
         console.log("play SE test");
-        //waitTestAPI(finishCallback);
         finishCallback();
     });
 }
