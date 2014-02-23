@@ -782,28 +782,31 @@ function toURL1(finishCallback) {
 
 // 親ディレクトリ
 function getParent1(finishCallback) {
+    var getParent1_fail = function(error) {
+	    test_result = "NG getParent fail " + error.code;
+        $("#hidden_api_result").html(test_result);
+
+        setTimeout(function() { finishCallback(error);}, 0);
+    };
+
+    var getParent1_getParentSuccess = function(entry) {
+	    var dump = "OK getParent1_getParentSuccess ";
+	    dump += entry.name + " " + entry.fullPath + " ";
+        test_result = dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+    var getParent1_gotFileEntry = function(fileEntry) {
+	    fileEntry.getParent(getParent1_getParentSuccess, getParent1_fail);
+    };
+
+    var getParent1_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile("readme.txt", null, getParent1_gotFileEntry, getParent1_fail);
+    };
+
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, getParent1_gotFS, getParent1_fail);
-    waitTestAPI(finishCallback);
-}
-
-function getParent1_gotFS(fileSystem) {
-	fileSystem.root.getFile("readme.txt", null, getParent1_gotFileEntry, getParent1_fail);
-}
-
-function getParent1_gotFileEntry(fileEntry) {
-	fileEntry.getParent(getParent1_getParentSuccess, getParent1_fail);
-}
-
-function getParent1_getParentSuccess(entry) {
-	var dump = "getParent1_getParentSuccess ";
-	dump += entry.name + " " + entry.fullPath + " ";
-    test_result = dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function getParent1_fail(error) {
-	test_result = "NG getParent fail " + error.code;
-    $("#hidden_api_result").html(test_result);
 }
 
 // ファイルアップロード
