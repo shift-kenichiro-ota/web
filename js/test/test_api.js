@@ -1249,21 +1249,24 @@ function onWiFi(finishCallback) {
 
 // WiFiをOFF
 function offWiFi(finishCallback) {
+    var offWiFi_Error = function(error) {
+	    var dump = "offWiFi_Error ";
+	    dump += "code:" + error.code + " ";
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
+
+    var offWiFi_Success = function() {
+	    var dump = "offWiFi_Success ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+};
+
 	applican.wifi.off(offWiFi_Success, offWiFi_Error);
-    waitTestAPI(finishCallback);
-}
-
-function offWiFi_Success() {
-	var dump = "offWiFi_Success ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-
-function offWiFi_Error(error) {
-	var dump = "offWiFi_Error ";
-	dump += "code:" + error.code + " ";
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(dump);
 }
 
 // 周囲のSSID一覧を取得

@@ -896,9 +896,18 @@ function testWiFiOn(finishCallback) {
 }
 
 function testWiFiOff(finishCallback) {
+    if (applican.device.platform === "iOS") {
+        test_result = "OK : AnroidのみのAPIのためiOSはスキップ";
+        testResult("wifiOffの確認", finishCallback);
+        return;
+    }
+
     async.series([
         function(callback) {
             offWiFi(callback);
+        },
+        function(callback) {
+            onWiFi(callback);
         }], function() {
         console.log("testWiFiOff");
         testResult("wifiOffの確認", finishCallback);
