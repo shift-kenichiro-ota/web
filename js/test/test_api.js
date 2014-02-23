@@ -1474,30 +1474,39 @@ function execTransaction(finishCallback) {
 }
 
 function searchData(finishCallback) {
+    var searchData_error = function(error) {
+	    var dump = "searchData_error ";
+	    dump += error.message + " ";
+        test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
+
+    var searchData_success = function(result) {
+        // ブラウザでは無条件に1が返ってくるため、移行の処理をしない
+        if (applican.config.debug) {
+            setTimeout(finishCallback, 0);
+            return;
+        }
+	    var cnt = result.rows.length;
+	    var dump = "";
+        var i;
+	    dump += "row cnt:" + cnt + " ";
+	    for (i = 0; i < cnt; i++) {
+		    dump += "id:" + result.rows[i].id + ", data:" + result.rows[i].data + ", data2:" + result.rows[i].data2 + " ";
+	    }
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var sql = "SELECT * FROM DEMO";
 	db.query(sql, searchData_success, searchData_error);
-    waitTestAPI(finishCallback);
 }
 
-function searchData_success(result) {
-	var cnt = result.rows.length;
-	var dump = "";
-	dump += "row cnt:" + cnt + " ";
-	for (var i = 0; i < cnt; i++) {
-		dump += "id:" + result.rows[i].id + ", data:" + result.rows[i].data + ", data2:" + result.rows[i].data2 + " ";
-	}
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function searchData_error(error) {
-	var dump = "searchData_error ";
-	dump += error.message + " ";
-    test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-// ///////////////////
+/ ///////////////////
 // 連絡先を作成
 function createContact(finishCallback) {
 	var myContact = applican.contacts.create({

@@ -457,6 +457,9 @@ function testDatabaseOpenDatabase(finishCallback) {
 function testDatabaseQuery(finishCallback) {
     async.series([
         function(callback) {
+            openDb("", callback);
+        },
+        function(callback) {
             searchData(callback);
         }], function() {
         console.log("testDatabaseQuery");
