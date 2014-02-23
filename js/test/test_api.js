@@ -1082,29 +1082,32 @@ function toURL2(finishCallback) {
 
 // 親ディレクトリ
 function getParent2(finishCallback) {
+    var getParent2_fail = function(error) {
+	    test_result = "NG : " + error.code;
+        document.getElementById("hidden_api_result").value = test_result;
+        $("#hidden_api_result").html(test_result);
+
+       setTimeout(function() { finishCallback(error); }, 0);
+    }
+
+    var getParent2_getParentSuccess = function(entry) {
+	    var dump = "getParent2_getParentSuccess ";
+	    dump += entry.name + " " + entry.fullPath + "";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+    var getParent2_getDirectory = function(directoryEntry) {
+	    directoryEntry.getParent(getParent2_getParentSuccess, getParent2_fail);
+    };
+
+    var getParent2_gotFS = function(fileSystem) {
+	    fileSystem.root.getDirectory("newDir", null, getParent2_getDirectory, getParent2_fail);
+    };
+
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, getParent2_gotFS, getParent2_fail);
-    waitTestAPI(finishCallback);
-}
-
-function getParent2_gotFS(fileSystem) {
-	fileSystem.root.getDirectory("newDir", null, getParent2_getDirectory, getParent2_fail);
-}
-
-function getParent2_getDirectory(directoryEntry) {
-	directoryEntry.getParent(getParent2_getParentSuccess, getParent2_fail);
-}
-
-function getParent2_getParentSuccess(entry) {
-	var dump = "getParent2_getParentSuccess ";
-	dump += entry.name + " " + entry.fullPath + "";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function getParent2_fail(error) {
-	test_result = "NG : " + error.code;
-    document.getElementById("hidden_api_result").value = test_result;
-    $("#hidden_api_result").html(test_result);
 }
 
 // ///////////////////
@@ -1168,6 +1171,24 @@ function httpGet(finishCallback) {
 
 // POST
 function httpPost(finishCallback) {
+    var httpPostError = function(message) {
+	    var dump = "";
+	    dump += "code:" + message + " ";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(message); }, 0);
+    };
+
+    var httpPostSuccess = function(result) {
+	    var dump = "";
+	    dump += "result:" + result + " ";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var postData = {
 		param1 : "applican",
 		param2 : "test"
@@ -1177,42 +1198,30 @@ function httpPost(finishCallback) {
 		timeout : 10000
 	};
 	applican.http.post(postURL, options, httpPostSuccess, httpPostError);
-    waitTestAPI(finishCallback);
-}
-
-function httpPostSuccess(result) {
-	var dump = "";
-	dump += "result:" + result + " ";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function httpPostError(message) {
-	var dump = "";
-	dump += "code:" + message + " ";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // ///////////////////
 // WiFiの状態を取得
 function getWiFiStatus(finishCallback) {
+    var getWiFiStatus_Error = function(error) {
+	    var dump = "getWiFiStatus_Error ";
+	    dump += "code:" + error.code + " ";
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
+
+    var getWiFiStatus_Success = function(status) {
+	    var dump = "getWiFiStatus_callback ";
+	    dump += "status:" + status + " ";
+	    test_result = "OK : " + status;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.wifi.getStatus(getWiFiStatus_Success, getWiFiStatus_Error);
-    waitTestAPI(finishCallback);
-}
-
-function getWiFiStatus_Success(status) {
-	var dump = "getWiFiStatus_callback ";
-	dump += "status:" + status + " ";
-	test_result = "OK : " + status;
-    $("#hidden_api_result").html(dump);
-}
-
-function getWiFiStatus_Error(error) {
-	var dump = "getWiFiStatus_Error ";
-	dump += "code:" + error.code + " ";
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(dump);
 }
 
 // WiFiをON

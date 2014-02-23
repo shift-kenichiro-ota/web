@@ -882,7 +882,8 @@ function testSimpleStorageGet(finishCallback) {
 
 function testWiFiOn(finishCallback) {
     if (applican.device.platform === "iOS") {
-        finishCallback();
+        test_result = "OK : AnroidのみのAPIのためiOSはスキップ";
+        testResult("wifiOnの確認", finishCallback);
         return;
     }
     async.series([
@@ -905,6 +906,12 @@ function testWiFiOff(finishCallback) {
 }
 
 function testWiFiGetStatus(finishCallback) {
+    if (applican.device.platform === "iOS") {
+        test_result = "OK : AnroidのみのAPIのためiOSはスキップ";
+        testResult("wifiGetStatusの確認", finishCallback);
+        return;
+    }
+
     async.series([
         function(callback) {
             getWiFiStatus(callback);
