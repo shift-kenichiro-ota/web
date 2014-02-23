@@ -1271,26 +1271,29 @@ function offWiFi(finishCallback) {
 
 // 周囲のSSID一覧を取得
 function getSSIDList(finishCallback) {
+    var getSSIDList_Error = function(err) {
+	    var dump = "";
+	    dump += "code:" + err.code + " ";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(err);}, 0);
+    };
+
+    var getSSIDList_Success = function(result) {
+	    var dump = "";
+	    var cnt = result.length;
+	    dump += "num: " + cnt + " ";
+	    for (var i = 0; i < cnt; i++) {
+		    dump += "SSID: " + result[i] + " ";
+	    }
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.wifi.getSSIDList(getSSIDList_Success, getSSIDList_Error);
-    waitTestAPI(finishCallback);
-}
-
-function getSSIDList_Success(result) {
-	var dump = "";
-	var cnt = result.length;
-	dump += "num: " + cnt + " ";
-	for (var i = 0; i < cnt; i++) {
-		dump += "SSID: " + result[i] + " ";
-	}
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function getSSIDList_Error(err) {
-	var dump = "";
-	dump += "code:" + err.code + " ";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // 現在接続中のSSIDを取得

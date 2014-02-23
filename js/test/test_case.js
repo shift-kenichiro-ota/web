@@ -951,9 +951,15 @@ function testWiFiConnect(finishCallback) {
 }
 
 function testWiFiGetSSIDList(finishCallback) {
+    if (applican.device.platform === "iOS") {
+        test_result = "OK : AnroidのみのAPIのためiOSはスキップ";
+        testResult("wifiGetStatusの確認", finishCallback);
+        return;
+    }
+
     async.series([
         function(callback) {
-            getCurrentSSID(callback);
+            getSSIDList(callback);
         }], function() {
         console.log("testWiFiGetSSIDList");
         testResult("wifiGetSSIDListの確認", finishCallback);

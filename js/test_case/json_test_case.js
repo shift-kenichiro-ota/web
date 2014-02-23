@@ -6,7 +6,7 @@
 var test_case_json =
     [
         {"key" : "01", "exeflg" : true, "val": [
-            "ConnectionType", "WiFiOff", "FinishFinish"
+            "ConnectionType", "WiFiGetSSIDList", "FinishFinish"
         ], "WebView":1}
 
 
