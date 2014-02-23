@@ -920,27 +920,30 @@ function mkdirInDir(finishCallback) {
 
 // ディレクトリ削除(Recursively)
 function rmdir1(finishCallback) {
+    var rmdir1_fail = function(error) {
+	    test_result = "NG rmdir fail " + error.code;
+        $("#hidden_api_result").html(test_result);
+
+        setTimeout(function() { finishCallback(error);}, 0);
+    };
+
+    var rmdir1_removeRecursivelySuccess = function() {
+	    var dump = "rmdir1_removeRecursivelySuccess ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+    var rmdir1_getDirectory = function(directoryEntry) {
+	    directoryEntry.removeRecursively(rmdir1_removeRecursivelySuccess, rmdir1_fail);
+    };
+
+    var rmdir1_gotFS = function(fileSystem) {
+	    fileSystem.root.getDirectory("newDir", null, rmdir1_getDirectory, rmdir1_fail);
+    };
+
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir1_gotFS, rmdir1_fail);
-    waitTestAPI(finishCallback);
-}
-
-function rmdir1_gotFS(fileSystem) {
-	fileSystem.root.getDirectory("newDir", null, rmdir1_getDirectory, rmdir1_fail);
-}
-
-function rmdir1_getDirectory(directoryEntry) {
-	directoryEntry.removeRecursively(rmdir1_removeRecursivelySuccess, rmdir1_fail);
-}
-
-function rmdir1_removeRecursivelySuccess() {
-	var dump = "rmdir1_removeRecursivelySuccess ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-
-function rmdir1_fail(error) {
-	test_result = "NG rmdir fail " + error.code;
-    $("#hidden_api_result").html(test_result);
 }
 
 // ディレクトリ削除
@@ -1019,32 +1022,35 @@ function moveTo2(finishCallback) {
 
 // ディレクトリコピー
 function copyTo2(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, copyTo2_gotFS, copyTo2_fail);
-    waitTestAPI(finishCallback);
-}
+    var copyTo2_fail = function(error) {
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(test_result);
 
-function copyTo2_gotFS(fileSystem) {
-	fileSystem.root.getDirectory("newDir", null, copyTo2_getDirectory, copyTo2_fail);
-}
+        setTimeout(function() { finishCallback(error); }, 0);
+    };
 
-function copyTo2_getDirectory(directoryEntry) {
-	var tmp = directoryEntry.fullPath;
-	var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
-	var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
-	var parentEntry = new DirectoryEntry(parentName, parentPath);
-	directoryEntry.copyTo(parentEntry, "newDir3", copyTo2_copyToSuccess, copyTo2_fail);
-}
+    var copyTo2_copyToSuccess = function(entry) {
+	    var dump = "copyTo2_copyToSuccess ";
+	    dump += entry.name + " " + entry.fullPath + " ";
+	    test_result = "OK : " + entry.name + " " + entry.fullPath;
+        $("#hidden_api_result").html(dump);
 
-function copyTo2_copyToSuccess(entry) {
-	var dump = "copyTo2_copyToSuccess ";
-	dump += entry.name + " " + entry.fullPath + " ";
-	test_result = "OK : " + entry.name + " " + entry.fullPath;
-    $("#hidden_api_result").html(dump);
-}
+        setTimeout(finishCallback, 0);
+    };
 
-function copyTo2_fail(error) {
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(test_result);
+    var copyTo2_getDirectory = function(directoryEntry) {
+	    var tmp = directoryEntry.fullPath;
+	    var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
+	    var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
+	    var parentEntry = new DirectoryEntry(parentName, parentPath);
+	    directoryEntry.copyTo(parentEntry, "newDir3", copyTo2_copyToSuccess, copyTo2_fail);
+    };
+
+    var copyTo2_gotFS = function(fileSystem) {
+	    fileSystem.root.getDirectory("newDir", null, copyTo2_getDirectory, copyTo2_fail);
+    };
+
+    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, copyTo2_gotFS, copyTo2_fail);
 }
 
 // ディレクトリtoURL
