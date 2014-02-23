@@ -1055,26 +1055,29 @@ function copyTo2(finishCallback) {
 
 // ディレクトリtoURL
 function toURL2(finishCallback) {
+    var toURL2_fail = function(error) {
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(test_result);
+
+        setTimeout(function() { finishCallback(error);}, 0);
+    };
+
+    var toURL2_getDirectory = function(directoryEntry) {
+	    var directoryURL = directoryEntry.toURL();
+	    var dump = "toURL2_getDirectory ";
+	    dump += directoryURL + " ";
+	    console.log(dump);
+        test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+    var toURL2_gotFS = function(fileSystem) {
+	    fileSystem.root.getDirectory("newDir", null, toURL2_getDirectory, toURL2_fail);
+    };
+
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, toURL2_gotFS, toURL2_fail);
-    waitTestAPI(finishCallback);
-}
-
-function toURL2_gotFS(fileSystem) {
-	fileSystem.root.getDirectory("newDir", null, toURL2_getDirectory, toURL2_fail);
-}
-
-function toURL2_getDirectory(directoryEntry) {
-	var directoryURL = directoryEntry.toURL();
-	var dump = "toURL2_getDirectory ";
-	dump += directoryURL + " ";
-	console.log(dump);
-    test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function toURL2_fail(error) {
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(test_result);
 }
 
 // 親ディレクトリ
