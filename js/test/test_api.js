@@ -1299,7 +1299,6 @@ function getSSIDList(finishCallback) {
 // 現在接続中のSSIDを取得
 function getCurrentSSID(finishCallback) {
     var getCurrentSSID_Error = function(err) {
-        console.log("error getCuurentSSID");
 	    var dump = "";
 	    dump += "code:" + err.code + "";
 	    test_result = "NG : " + dump;
@@ -1309,7 +1308,6 @@ function getCurrentSSID(finishCallback) {
     };
 
     var getCurrentSSID_Success = function(result) {
-        console.log("ok getCuurentSSID");
 	    var dump = "";
 	    dump += "SSID: " + result + "";
 	    test_result = "OK : " + dump;
@@ -1318,9 +1316,7 @@ function getCurrentSSID(finishCallback) {
         setTimeout(finishCallback, 0);
     };
 
-    console.log("pre getCuurentSSID");
 	applican.wifi.getCurrentSSID(getCurrentSSID_Success, getCurrentSSID_Error);
-    console.log("post getCuurentSSID");
 }
 
 // Wifi設定を登録して接続(WPA)
