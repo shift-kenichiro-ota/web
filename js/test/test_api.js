@@ -1321,52 +1321,30 @@ function getCurrentSSID(finishCallback) {
 
 // Wifi設定を登録して接続(WPA)
 function connectWifi1(finishCallback) {
+    var connectWifi_Error = function(err) {
+	    var dump = "";
+	    dump += "code:" + err.code + "";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(err);}, 0);
+    };
+
+    var connectWifi_Success = function(result) {
+	    var dump = "";
+	    dump += "result: " + result + "";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var options = {};
 	options.ssid = WIFI_WPA_SSID;
 	options.security = applican.wifi.SecurityType.WPA;
 	options.password = WIFI_WPA_SSID_PASSWD;
 
 	applican.wifi.connect(connectWifi_Success, connectWifi_Error, options);
-    waitTestAPI(finishCallback);
-}
-
-function connectWifi_Success(result) {
-	var dump = "";
-	dump += "result: " + result + "";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function connectWifi_Error(err) {
-	var dump = "";
-	dump += "code:" + err.code + "";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-// Wifi設定を登録して接続(WEP)
-function connectWifi2(finishCallback) {
-	var options = {};
-
-	options.ssid = "applicantest2";
-	options.security = applican.wifi.SecurityType.WEP;
-	options.password = "8756102394858";
-
-	applican.wifi.connect(connectWifi_Success, connectWifi_Error, options);
-    waitTestAPI(finishCallback);
-}
-
-// Wifi設定を登録するだけ
-function connectWifi3(finishCallback) {
-
-	var options = {};
-	options.ssid = "applicantest3";
-	options.security = "WEP";
-	options.password = "1234567890123";
-	options.allowConnect = false;
-
-	applican.wifi.connect(connectWifi_Success, connectWifi_Error, options);
-    waitTestAPI(finishCallback);
 }
 
 // ///////////////////
