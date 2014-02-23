@@ -1298,22 +1298,29 @@ function getSSIDList(finishCallback) {
 
 // 現在接続中のSSIDを取得
 function getCurrentSSID(finishCallback) {
+    var getCurrentSSID_Error = function(err) {
+        console.log("error getCuurentSSID");
+	    var dump = "";
+	    dump += "code:" + err.code + "";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var getCurrentSSID_Success = function(result) {
+        console.log("ok getCuurentSSID");
+	    var dump = "";
+	    dump += "SSID: " + result + "";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+    console.log("pre getCuurentSSID");
 	applican.wifi.getCurrentSSID(getCurrentSSID_Success, getCurrentSSID_Error);
-    waitTestAPI(finishCallback);
-}
-
-function getCurrentSSID_Success(result) {
-	var dump = "";
-	dump += "SSID: " + result + "";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function getCurrentSSID_Error(err) {
-	var dump = "";
-	dump += "code:" + err.code + "";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
+    console.log("post getCuurentSSID");
 }
 
 // Wifi設定を登録して接続(WPA)
@@ -3271,7 +3278,7 @@ function testResult(testcase, finishCallback) {
             fileRead1(callback);
         },
         function(callback) {
-            var sql = "INSERT INTO TESTRESULT (suite_no, case_no, case_name, result) VALUES (" + '"' + suiteNo + '"' + "," + '"' + caseNo + '"' + "," + '"' + testcase + '"' + "," + '"' + test_result + '"' + ")";
+            var sql = "INSERT INTO TESTRESULT (suite_no, case_no, case_name, result) VALUES (" + '"' + suiteNo + '"' + "," + '"' + caseNo + '"' + "," + '"' + testcase + '"' + "," + '"' + encodeURIComponent(test_result) + '"' + ")";
             insertTestResult(testResultDB, sql, callback);
         },
         function(callback) {
@@ -3288,8 +3295,10 @@ function testResult(testcase, finishCallback) {
             varsReset(callback);
         }],
         function(err, results) {
-
-            // 例外があってもテストは続行するためにerrはあえて無視する
+            if (err) {
+                console.log(err);
+                throw err;
+            }
             console.log("テスト結果処理終了");
             finishCallback();
     });
