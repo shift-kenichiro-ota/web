@@ -1527,37 +1527,6 @@ function createContact(finishCallback) {
     }, CREATE_CONTACT_WAIT_TIME);
 }
 
-// 連絡先を検索
-function findContact(finishCallback) {
-	var options = new ContactFindOptions();
-	options.filter = "テスト鈴木";
-	options.multiple = true;
-	var fields = ["*"];
-	applican.contacts.find(fields, findContact_success, findContact_error, options);
-    waitTestAPI(finishCallback);
-}
-
-function findContact_success(contacts) {
-	// var dump = "findContact_success ";
-	var dump = "";
-	console.log(contacts);
-
-	for (var i = 0; i < contacts.length; i++) {
-		dump += contacts[i].displayName + " ";
-		if (contacts[i].urls && contacts[i].urls.length > 0) {
-			dump += contacts[i].urls[0].value + " ";
-		}
-	}
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function findContact_error() {
-	var dump = "findContact_error ";
-	test_result = "NG";
-    $("#hidden_api_result").html(dump);
-}
-
 // 連絡先を保存
 function saveContact(finishCallback) {
 	var myContact = applican.contacts.create({"displayName": "Test User"});
