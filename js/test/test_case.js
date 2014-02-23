@@ -601,7 +601,7 @@ function testDirectoryEntryCreateReader(finishCallback) {
             directoryReader1(callback);
         }], function() {
         console.log("testDirectoryEntryCreateReader");
-        testResult("createReaderの確認", finishCallback);
+        testResult("directoryEntryCreateReaderの確認", finishCallback);
     });
 }
 

@@ -16,7 +16,6 @@ var testCaseTitle = "";
 var seList = null;
 var caseNo = "";
 var suiteNo = "";
-var loopCnt = 0;
 var uploadStatus = false;
 var fileWriteStatus = false;
 var captureImageStatus = false;
@@ -30,9 +29,6 @@ var simpleStorageData = "";
 var test_result = "";
 var DOCOMO_APIKEY1 = "";
 var DOCOMO_APIKEY2 = "";
-
-var finishCallbackFunction = null;
-var finalCallbackFunction = null;
 
 var TRACK_NO = 3;
 
@@ -566,40 +562,6 @@ function fileWriteTest(finishCallback) {
 
 /** ************************************************************ */
 
-// ///
-// ファイル書き込み (一時的なストレージ)
-function fileWrite2(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.TEMPORARY, 0, fileWrite2_gotFS, fileWrite2_fail);
-    waitTestAPI(finishCallback);
-}
-
-function fileWrite2_gotFS(fileSystem) {
-	fileSystem.root.getFile("readme.txt", {
-		create : true,
-		exclusive : false
-	}, fileWrite2_gotFileEntry, fileWrite2_fail);
-}
-
-function fileWrite2_gotFileEntry(fileEntry) {
-	fileEntry.createWriter(fileWrite2_gotFileWriter, fileWrite2_fail);
-}
-
-function fileWrite2_gotFileWriter(writer) {
-	var dump = "fileWrite2_gotFileWriter";
-
-	writer.onwriteend = function(evt) {
-		document.getElementById("dumpAreaFile").value += "ファイルの内容が 'some sample text' となりました ";
-	};
-	writer.write("some sample text 2");
-    $("#hidden_api_result").html(dump);
-}
-
-function fileWrite2_fail(error) {
-	var dump = "fileWrite2_fail";
-	dump += "code:" + error.code;
-    $("#hidden_api_result").html(dump);
-}
-
 // ファイル読み込み (永続的なストレージ)
 function fileRead1(finishCallback) {
     var fileRead1_fail = function (error) {
@@ -668,89 +630,34 @@ function fileRead1(finishCallback) {
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileRead1_gotFS, fileRead1_fail);
 }
 
-// ファイル読み込み (一時的なストレージ)
-function fileRead2(finishCallback) {
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileRead2_gotFS, fileRead2_fail);
-    waitTestAPI(finishCallback);
-}
-
-function fileRead2_gotFS(fileSystem) {
-	fileSystem.root.getFile("readme.txt", null, fileRead2_gotFileEntry, fileRead2_fail);
-}
-
-function fileRead2_gotFileEntry(fileEntry) {
-	fileEntry.file(fileRead2_gotFile, fileRead2_fail);
-}
-
-function fileRead2_gotFile(file) {
-//	document.getElementById("dumpAreaFile").value = "fileRead2_gotFile "
-
-	fileRead2_readAsText(file);
-	fileRead2_readDataUrl(file);
-}
-
-function fileRead2_readDataUrl(file) {
-	var reader = new FileReader();
-    var dump;
-	reader.onloadend = function(evt) {
-        if(evt.target.result) {
-            dump = "データ URL として読み込み " + evt.target.result + " ";
-        } else {
-            dump = "file read2 readDataUrl fail";
-        }
-        $("#hidden_api_result").html(dump);
-	};
-	reader.readAsDataURL(file);
-}
-
-function fileRead2_readAsText(file) {
-    // フレームワーク側のエンコーディングのバグでAndroidで呼ばれるとクラッシュする
-    /*
-	var reader = new FileReader();
-    var dump;
-	reader.onloadend = function(evt) {
-        if (evt.target.result) {
-            dump = "テキストとして読み込み " + evt.target.result + " ";
-        } else {
-            dump = "file read2 readAsText faile";
-        }
-        $("#hidden_api_result").html(dump);
-	};
-	reader.readAsText(file);
-	*/
-}
-
-function fileRead2_fail(error) {
-	var dump = "fileRead2_fail ";
-	dump += "code:" + error.code + " ";
-    $("#hidden_api_result").html(dump);
-}
-
 // ファイル一覧
 function directoryReader1(finishCallback) {
+    var directoryReader1_fail = function(error) {
+	    test_result = "NG : " + error.code;
+        $("#hidden_api_result").html(test_result);
+
+        setTimeout(function() { finishCallback(error); }, 0);
+    }
+
+    var directoryReader1_readEntries = function(entries) {
+	    var dump;
+	    var i;
+
+	    for (i = 0; i < entries.length; i++) {
+		    dump = entries[i].name + (entries[i].isDirectory ? "/" : "") + " ";
+	    }
+        test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+    var directoryReader1_gotFS = function(fileSystem) {
+	    var directoryReader = fileSystem.root.createReader();
+	    directoryReader.readEntries(directoryReader1_readEntries, directoryReader1_fail);
+    };
+
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, directoryReader1_gotFS, directoryReader1_fail);
-    waitTestAPI(finishCallback);
-}
-
-function directoryReader1_gotFS(fileSystem) {
-	var directoryReader = fileSystem.root.createReader();
-	directoryReader.readEntries(directoryReader1_readEntries, directoryReader1_fail);
-}
-
-function directoryReader1_readEntries(entries) {
-	var dump;
-
-	var i;
-	for ( i = 0; i < entries.length; i++) {
-		dump = entries[i].name + (entries[i].isDirectory ? "/" : "") + " ";
-	}
-    test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function directoryReader1_fail(error) {
-	test_result = "NG : " + error.code;
-    $("#hidden_api_result").html(test_result);
 }
 
 // ファイル削除
@@ -3568,6 +3475,3 @@ function waitTestResultDisplay(finishCallback) {
     }, 100);
 }
 
-function waitCancel(finishCallback) {
-
-}
