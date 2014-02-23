@@ -22,6 +22,7 @@ define(function() {
                 testExecute(callback);
             }
         ], function() {
+            notificationAlert("全てのテストが終了しました", "完了", "OK", function() {} );
             console.log("all test finish");
         });
     }

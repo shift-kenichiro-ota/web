@@ -70,7 +70,8 @@ define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
         ], function(err, results) {
             onDeviceReady();
         });
-	     document.getElementById("showLogBtn").addEventListener("click", showLogConsole, false);
+	    document.getElementById("showLogBtn").addEventListener("click", showLogConsole, false);
+        notificationAlert("「テストを開始する」ボタンを押して、WebViewのテストを開始して下さい", "WebView", "OK", function() {} );
 	 });
 
 /*

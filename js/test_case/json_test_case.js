@@ -6,7 +6,7 @@
 var test_case_json =
     [
         {"key" : "01", "exeflg" : true, "val": [
-            "ConnectionType", "ContactClone", "FinishFinish"
+            "ConnectionType", "DeviceGetPushToken", "FinishFinish"
         ], "WebView":1},
         {"key" : "02", "exeflg" : true, "val": [
             "ConnectionType", "ContactClone", "FinishFinish"
@@ -18,7 +18,7 @@ var test_case_json =
             "ConnectionType", "ContactClone", "FinishFinish"
         ], "WebView":2},
         {"key" : "05", "exeflg" : true, "val": [
-            "ConnectionType", "ContactClone", "FinishFinish"
+            "ConnectionType", "DeviceGetPushToken", "FinishFinish"
         ], "WebView":2},
         {"key" : "06", "exeflg" : true, "val": [
             "ConnectionType", "ContactClone", "FinishFinish"
