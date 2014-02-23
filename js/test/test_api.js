@@ -1351,22 +1351,25 @@ function connectWifi1(finishCallback) {
 // Globalization
 // 言語
 function getPreferredLanguage(finishCallback) {
+    var getPreferredLanguageError = function(err) {
+	    var dump = "getPreferredLanguageError ";
+	    dump += "code:" + err.code + " ";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(err);}, 0);
+    };
+
+    var getPreferredLanguageSuccess = function(language) {
+	    var dump = "getPreferredLanguageSuccess ";
+	    dump += "language:" + language.value + " ";
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.globalization.getPreferredLanguage(getPreferredLanguageSuccess, getPreferredLanguageError);
-    waitTestAPI(finishCallback);
-}
-
-function getPreferredLanguageSuccess(language) {
-	var dump = "getPreferredLanguageSuccess ";
-	dump += "language:" + language.value + " ";
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function getPreferredLanguageError(err) {
-	var dump = "getPreferredLanguageError ";
-	dump += "code:" + err.code + " ";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // 現在のロケール
