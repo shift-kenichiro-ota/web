@@ -161,9 +161,10 @@ define(function() {
                 setTimeout(
                     function() {
                         if (!callbackCalled) {
-                            // applican.isFileExecuteとapplican.gamesound.isExecuteロックを強制解除する
+                            // applican.isFileExecuteとapplican.gamesound.isExecute、applican.camera.isExecuteロックを強制解除する
                             applican.isFileExecute = false;
                             applican.gamesound.isExecute = false;
+                            applican.camera.isExecute = false;
                             // 強制的にNGとする
                             test_result = "NG";
                             testResult(test_name + "の確認", callback);
@@ -275,9 +276,10 @@ define(function() {
                 setTimeout(
                     function() {
                         if (!callbackCalled) {
-                            // applican.isFileExecuteとapplican.gamesound.isExecuteロックを強制解除する
+                            // applican.isFileExecuteとapplican.gamesound.isExecute、applican.camera.isExecuteロックを強制解除する
                             applican.isFileExecute = false;
                             applican.gamesound.isExecute = false;
+                            applican.camera.isExecute = false;
                             // 強制的にNGとする
                             test_result = "NG";
                             testResult(test_name + "の確認", callback);

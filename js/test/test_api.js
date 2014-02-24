@@ -1748,7 +1748,7 @@ function captureBarcode(finishCallback) {
     };
 
     var captureBarcodeSuccess = function(res) {
-	    if (res.codeData.indexOf("applican") > 0) {
+	    if (res.codeData.indexOf("applican") > -1) {
 		    test_result = "OK : " + res;
             $("#hidden_api_result").html(test_result);
 	    } else {

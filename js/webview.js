@@ -55,8 +55,11 @@ require.config({
     waitSeconds : 500
 });
 
+// applicanデバッグ設定
+var applican_debug_settings;
 define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
-	 'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case'  ], function($) {
+	 'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case'  ], function(async, applican_debug_settings_args) {
+        applican_debug_settings = applican_debug_settings_args;
         // 強制的にapplicanを再初期化する
         async.series([
             function(callback) {

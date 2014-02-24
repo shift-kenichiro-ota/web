@@ -2192,7 +2192,8 @@ var _Camera = function(config, queue) {
 		this.cameraError = cameraError;
 
 		if(this.config.debug){
-			isExecute = false;
+			this.isExecute = false;
+            // isExecute = false; applicanのバグ
 			cameraSuccess();
 		}else{
 			var scheme = 'applican-api://camera/saveToPhotoAlbum/'+encodeURIComponent(data);

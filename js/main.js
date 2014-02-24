@@ -55,8 +55,11 @@ require.config({
     waitSeconds : 1000
 });
 
+// applicanデバッグ設定
+var applican_debug_settings;
 define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
-        'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case' ], function($) {
+        'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case' ], function(async, applican_debug_settings_args) {
+            applican_debug_settings = applican_debug_settings_args;
             //document.addEventListener("deviceready", onDeviceReady, false);
             async.series([
                 function(callback) {
@@ -71,6 +74,7 @@ define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
             });
             document.getElementById("showLogBtn").addEventListener("click", showLogConsole, false);
             notificationAlert("「テストを開始する」ボタンを押して、テストを開始して下さい", "Main", "OK", function() {} );
+            window.alert(applican_debug_settings.barcode.data);
         });
 
 /*

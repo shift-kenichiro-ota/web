@@ -20,7 +20,7 @@ define( function (){
 
 
 	pfprototype_debug_settings.barcode = {
-		data        : 'http://www.yahoo.co.jp/'
+		data        : 'applican'
 	};
 
 
@@ -31,6 +31,7 @@ define( function (){
 		headingAccuracy  : 0
 		//timestamp        : 1361761130911,
 	};
+
 	return pfprototype_debug_settings;
 });
 
