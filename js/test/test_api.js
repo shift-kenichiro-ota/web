@@ -2106,27 +2106,6 @@ function captureImage(finishCallback) {
     applican.capture.captureImage(captureImageSuccess, captureImageError);
 }
 
-// 現在位置取得
-function getCurrentPosition1(finishCallback) {
-	sound.getCurrentPosition(getCurrentPosition1_success, getCurrentPosition1_error);
-    waitTestAPI(finishCallback);
-}
-
-function getCurrentPosition1_success(position) {
-	var dump = "";
-	dump += "position:" + position;
-	test_result = "OK : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function getCurrentPosition1_error(error) {
-	var dump = "";
-	dump += "code: " + error.code + " ";
-	dump += "message: " + error.message + " ";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
-}
-
 // /////////////////
 // GameSound
 // SEを読み込む
