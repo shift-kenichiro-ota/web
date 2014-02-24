@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4dd00b32-e8aa-42db-80ea-f55a10890f4d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/test_case/json_test_case.js" afterPath="$PROJECT_DIR$/js/test_case/json_test_case.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/test/test_api.js" afterPath="$PROJECT_DIR$/js/test/test_api.js" />
     </list>
     <ignored path="web.iws" />
@@ -68,7 +67,7 @@
       <file leaf-file-name="test_api.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1611" column="3" selection-start="48574" selection-end="48574" vertical-scroll-proportion="0.88456714" vertical-offset="23430" max-vertical-offset="49050">
+            <state line="1650" column="0" selection-start="49690" selection-end="49690" vertical-scroll-proportion="0.846926" vertical-offset="24045" max-vertical-offset="48120">
               <folding />
             </state>
           </provider>
@@ -833,7 +832,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1611" column="3" selection-start="48574" selection-end="48574" vertical-scroll-proportion="0.88456714" vertical-offset="23430" max-vertical-offset="49050">
+        <state line="1650" column="0" selection-start="49690" selection-end="49690" vertical-scroll-proportion="0.846926" vertical-offset="24045" max-vertical-offset="48120">
           <folding />
         </state>
       </provider>

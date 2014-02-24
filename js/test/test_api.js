@@ -1609,37 +1609,6 @@ function saveContact(finishCallback) {
 	myContact.save(saveContact_onSuccess, saveContact_onError);
 }
 
-// 連絡先を削除
-function removeContact(finishCallback) {
-	var options = new ContactFindOptions();
-	options.filter = "テスト鈴木";
-	options.multiple = true;
-	var fields = ["id", "displayName", "name"];
-	applican.contacts.find(fields, removeContact_findSuccess, removeContact_error, options);
-    waitTestAPI(finishCallback);
-}
-
-function removeContact_findSuccess(contacts) {
-    var dump = "";
-	for (var i = 0; i < contacts.length; i++) {
-        dump += contacts[i].id + "," + contacts[i].displayName + " ";
-        $("#hidden_api_result").html(dump);
-		contacts[i].remove(removeContact_success, removeContact_error);
-	}
-
-}
-
-function removeContact_success() {
-	test_result = "OK";
-    $("#hidden_api_result").html(test_result);
-}
-
-function removeContact_error() {
-	// var dump = "removeContact_error ";
-	test_result = "NG";
-    $("#hidden_api_result").html(test_result);
-}
-
 // 連絡先をディープコピー
 function cloneContact(finishCallback) {
 	var dump = "";
@@ -1677,37 +1646,6 @@ function cloneContact(finishCallback) {
 		test_result = "NG" + dump;
 	}
     finishCallback();
-}
-
-// 連絡先を更新
-function updateContact(finishCallback) {
-	var options = new ContactFindOptions();
-	options.filter = "テスト鈴木";
-	options.multiple = false;
-	var fields = ["*"];
-	applican.contacts.find(fields, updateContact_findSuccess, updateContact_error, options);
-    waitTestAPI(finishCallback);
-}
-
-function updateContact_findSuccess(contacts) {
-	if (contacts && contacts.length > 0) {
-		contacts[0].name.givenName += "x";
-		contacts[0].phoneNumbers[0].value = "9876543210";
-		contacts[0].emails[0].value = "hoge@hoga";
-		contacts[0].save(updateContact_success, updateContact_error);
-	} else {
-		test_result = "OK 検索機能正常、検索結果なし";
-	}
-}
-
-function updateContact_success() {
-	test_result = "OK";
-    $("#hidden_api_result").html(test_result);
-}
-
-function updateContact_error() {
-	test_result = "NG";
-    $("#hidden_api_result").html(test_result);
 }
 
 // ///////////////////
