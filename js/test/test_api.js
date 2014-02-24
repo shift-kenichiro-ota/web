@@ -2023,25 +2023,28 @@ function finish() {
 // Capture
 // オーディオ録音
 function captureAudio(finishCallback) {
+    var captureAudioError = function(err) {
+	    var dump = "";
+	    dump += "code:" + err.code + " ";
+	    dump += "message:" + err.message + " ";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var captureAudioSuccess = function(mediaFiles) {
+	    var dump = "";
+	    for (var i = 0, len = mediaFiles.length; i < len; i++) {
+		    dump += mediaFiles[i].fullPath;
+	    }
+	    test_result = "OK : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.capture.captureAudio(captureAudioSuccess, captureAudioError);
-    waitTestAPI(finishCallback);
-}
-
-function captureAudioSuccess(mediaFiles) {
-	var dump = "";
-	for (var i = 0, len = mediaFiles.length; i < len; i++) {
-		dump += mediaFiles[i].fullPath;
-	}
-	test_result = "OK" + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function captureAudioError(err) {
-	var dump = "";
-	dump += "code:" + err.code + " ";
-	dump += "message:" + err.message + " ";
-	test_result = "NG" + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // 動画撮影
