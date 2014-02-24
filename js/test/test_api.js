@@ -1005,8 +1005,7 @@ function moveTo2(finishCallback) {
         console.log("parentName = " + parentName);
 	    var parentEntry = new DirectoryEntry(parentName, parentPath);
         console.log("parentEntry = " + parentEntry);
-	    //directoryEntry.moveTo(parentEntry, "newDir2", moveTo2_moveToSuccess, moveTo2_fail);
-        directoryEntry.moveTo(parentEntry, null, moveTo2_moveToSuccess, moveTo2_fail);
+	    directoryEntry.moveTo(parentEntry, "newDir2", moveTo2_moveToSuccess, moveTo2_fail);
         console.log("in post move2 getdirectory");
     };
 
@@ -1666,9 +1665,9 @@ function getSimpleStorage(key, finishCallback) {
     var getSimpleStorage_success = function(result) {
 	    var dump = "getSimpleStorage_success ";
 	    dump += result + "";
-        console.log("hoge oota" + dump);
 	    test_result = "OK" + dump;
-	    if (result) {
+        // nullではなく"(null)"という文字列が返ってくる
+	    if (result !== "(null)") {
 		    simpleStorageData = simpleStorageData + result + " ";
 	    } else {
 		    simpleStorageData = null;
@@ -1696,7 +1695,6 @@ function removeSimpleStorage(key, finishCallback) {
 function clearSimpleStorage(finishCallback) {
     var clearSimpleStorage_success = function(result) {
 	    var dump = "clearSimpleStorage_success ";
-        console.log("hoge ota" + dump + result);
 	    test_result = "OK" + result;
         $("#hidden_api_result").html(dump);
 
@@ -2215,6 +2213,16 @@ function stopSound(finishCallback) {
 	applican.gamesound.stopAllBGM();
 	applican.gamesound.stopAllSE();
     document.getElementById("hidden_api_result").value = "stop sound";
+    setTimeout(function() {
+        finishCallback();
+    }, STOP_SOUND_WAIT_TIME);
+}
+
+// 全てのSEを停止
+function stopAllSE(finishCallback) {
+	applican.gamesound.stopAllSE();
+    test_result = "OK : ";
+    document.getElementById("hidden_api_result").value = "stop SE";
     setTimeout(function() {
         finishCallback();
     }, STOP_SOUND_WAIT_TIME);

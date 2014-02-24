@@ -232,13 +232,33 @@ function testGameSoundStopSE(finishCallback) {
         },
         function(callback) {
             stopSE(3, callback);
+        },
+        function(callback) {
+            notificationConfirm("各効果音が停止されていること", "stopSEの確認", "OK,NG", callback);
         }], function() {
         console.log("testGameSoundStopSE");
         testResult("stopSEの確認", finishCallback);
     });
 }
 
-function testGEOLocationGetCurrentPosition(finishCallback) {
+function testGameSoundStopAllSE(finishCallback) {
+    async.series([
+        function(callback) {
+            loadSE(callback);
+        },
+        function(callback) {
+            playSE(3, callback);
+        },
+        function(callback) {
+            stopAllSE(callback);
+        },
+        function(callback) {
+            notificationConfirm("各効果音が停止されていること", "stopAllSEの確認", "OK,NG", callback);
+        }], function() {
+        console.log("testGameSoundStopAllSE");
+        testResult("StopAllSEの確認", finishCallback);
+    });
+}function testGEOLocationGetCurrentPosition(finishCallback) {
     async.series([
         function(callback) {
             clearWatchPosition(callback);
@@ -335,6 +355,7 @@ function testLocalNotificationAllCancel(finishCallback) {
 }
 
 function testNotificationVibrate(finishCallback) {
+    test_result = "OK : ";
     console.log("testNotificationVibrate");
     testResult("notificationVibrateの確認", finishCallback);
 }

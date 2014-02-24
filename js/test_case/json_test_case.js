@@ -5,11 +5,42 @@
 
 var test_case_json =
     [
+         {"key" : "01", "exeflg" : true, "val": [
+            "SimpleStorageRemove", "DirectoryEntryRemove", "DirectoryEntryCopyTo", "FileEntryMoveTo", "FinishFinish"
+        ], "WebView":1}
 
+        /*
         {"key" : "01", "exeflg" : true, "val": [
-            "BarcodeCaptureBarcode", "FinishFinish"
+            "ConnectionType", "ContactClone", "DatabaseExec", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryMoveTo", "FileEntryToURL", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageSet", "WiFiOn", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundPlaySE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationSchedule", "NotificationVibrate", "SplashScreenShow", "VideoPlay", "FinishFinish"
         ], "WebView":1},
-
+        {"key" : "02", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseExec", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryRemoveRecursively", "FileEntryToURL", "GlobalizationGetPreferredLanguage", "HTTPGet", "NotificationAlert", "SimpleStorageSet", "WiFiGetStatus", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceLight", "GameSoundLoadSE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationAllCancel", "NotificationVibrate", "SplashScreenShow", "VideoStop", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "03", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseQuery", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryToURL", "FileEntryToURL", "GlobalizationGetPreferredLanguage", "HTTPGet", "NotificationAlert", "SimpleStorageRemove", "WiFiGetCurrentSSID", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureVideo", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundReleaseAllSE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackView", "LocalNotificationSchedule", "NotificationVibrate", "SplashScreenShow", "VideoStop", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "04", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseExecTransaction", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryCopyTo", "FileEntryGetParent", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageClear", "WiFiOff", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundStopSE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationAllCancel", "NotificationVibrate", "SplashScreenHide", "VideoStop", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "05", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseQuery", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryRemoveRecursively", "FileEntryMoveTo", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageGet", "WiFiGetStatus", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraGetPicture", "CaptureCaptureVideo", "CompassGetCurrentHeading", "DeviceLight", "GameSoundStopSE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackView", "LocalNotificationCancel", "NotificationVibrate", "SplashScreenShow", "VideoStop", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "06", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseOpenDatabase", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryToURL", "FileEntryFile", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageRemove", "WiFiConnect", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraGetPicture", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundLoadSE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackView", "LocalNotificationSchedule", "NotificationVibrate", "SplashScreenHide", "VideoStop", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "07", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseOpenDatabase", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryMoveTo", "FileEntryMoveTo", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageRemove", "WiFiGetSSIDList", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraGetPicture", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundStopSE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationCancel", "NotificationVibrate", "SplashScreenShow", "VideoStop", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "08", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseOpenDatabase", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryCopyTo", "FileEntryToURL", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageSet", "WiFiGetCurrentSSID", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraGetPicture", "CaptureCaptureAudio", "CompassGetCurrentHeading", "DeviceLight", "GameSoundReleaseAllSE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationCancel", "NotificationVibrate", "SplashScreenHide", "VideoStop", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "09", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseQuery", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryRemoveRecursively", "FileEntryMoveTo", "GlobalizationGetPreferredLanguage", "HTTPGet", "NotificationAlert", "SimpleStorageRemove", "WiFiConnect", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraGetPicture", "CaptureCaptureVideo", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundStopSE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationCancel", "NotificationVibrate", "SplashScreenShow", "VideoPlay", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "10", "exeflg" : true, "val" : [
+            "ConnectionType", "ContactClone", "DatabaseExec", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryGetDirectory", "FileEntryMoveTo", "GlobalizationGetPreferredLanguage", "HTTPGet", "NotificationAlert", "SimpleStorageSet", "WiFiConnect", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraGetPicture", "CaptureCaptureAudio", "CompassGetCurrentHeading", "DeviceLight", "GameSoundSetSEVolume", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackView", "LocalNotificationCancel", "NotificationVibrate", "SplashScreenShow", "VideoStop", "FinishFinish"
+        ], "WebView":1}
+        */
         /*
         {"key" : "01", "exeflg" : true, "val": [
             "ConnectionType", "ContactClone", "DatabaseExec", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryMoveTo", "FileEntryToURL", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageSet", "WiFiOn", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundPlaySE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationSchedule", "NotificationVibrate", "SplashScreenShow", "VideoPlay", "FinishFinish"

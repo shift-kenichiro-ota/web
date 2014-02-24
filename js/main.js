@@ -74,7 +74,6 @@ define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
             });
             document.getElementById("showLogBtn").addEventListener("click", showLogConsole, false);
             notificationAlert("「テストを開始する」ボタンを押して、テストを開始して下さい", "Main", "OK", function() {} );
-            window.alert(applican_debug_settings.barcode.data);
         });
 
 /*
