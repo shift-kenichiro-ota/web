@@ -6,7 +6,7 @@
 var test_case_json =
     [
         {"key" : "01", "exeflg" : true, "val": [
-            "ConnectionType", "DatabaseQuery", "FinishFinish"
+            "ConnectionType", "ContactSave", "FinishFinish"
         ], "WebView":1}
 
 

@@ -1529,6 +1529,22 @@ function createContact(finishCallback) {
 
 // 連絡先を保存
 function saveContact(finishCallback) {
+    var saveContact_onError = function() {
+	    var dump = "saveContact_onError ";
+	    test_result = "NG" + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(); }, 0);
+    };
+
+    var saveContact_onSuccess = function() {
+	    var dump = "saveContact_onSuccess ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var myContact = applican.contacts.create({"displayName": "Test User"});
 	myContact.displayName = "Test displayName 1";
 	myContact.nickname = "Test nickname 1";
@@ -1591,19 +1607,6 @@ function saveContact(finishCallback) {
 	myContact.photos = [photo];
 
 	myContact.save(saveContact_onSuccess, saveContact_onError);
-    waitTestAPI(finishCallback);
-}
-
-function saveContact_onSuccess() {
-	var dump = "saveContact_onSuccess ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-
-function saveContact_onError() {
-	var dump = "saveContact_onError ";
-	test_result = "NG" + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // 連絡先を削除
