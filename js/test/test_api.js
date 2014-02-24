@@ -1925,14 +1925,14 @@ function confirmResult(buttonIndex) {
 
 // ///
 // ローカル通知
-function localNotificationSchedule1(finishCallback) {// 2秒後
+function localNotificationSchedule1(finishCallback) {// 5秒後
     var localNotificationSchedule1Error = function(res) {
 	    var dump = "";
 	    dump += "code:" + res.code + " ";
 	    test_result = "NG" + dump;
         $("#hidden_api_result").html(dump);
 
-        setTimeout(function() { finishCallback(res); }, 5000);
+        setTimeout(function() { finishCallback(res); }, 0);
     };
 
     var localNotificationSchedule1Success = function() {
@@ -1940,14 +1940,14 @@ function localNotificationSchedule1(finishCallback) {// 2秒後
 	    test_result = "OK";
         $("#hidden_api_result").html(dump);
 
-        setTimeout(finishCallback, 5000);
+        setTimeout(finishCallback, 0);
     };
 
 	var now = parseInt((new Date()) / 1000);
 	var options = {
 		alertId : 1,
 		alertBody : "message1",
-		fireDate : now + 2,
+		fireDate : now + 5,
 		// iOSのみ
 		alertAction : "開く",
 		// iOSのみ
@@ -1971,46 +1971,36 @@ function localNotificationCancel1(finishCallback) {// キャンセル
 
 // notification
 function localNotificationSchedule2(finishCallback) {// 10秒後
+    var localNotificationSchedule2Error = function(res) {
+	    var dump = "localNotificat()ionSchedule2Error ";
+	    dump += "code:" + res.code + " ";
+        test_result = dump;
+	    console.log(dump);
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(res); }, 0);
+    };
+
+    var localNotificationSchedule2Success = function() {
+	    var dump = "localNotificationSchedule2Success ";
+        test_result = "OK : " * dump;
+	    console.log(dump);
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	var now = parseInt((new Date()) / 1000);
 	var options = {
 		alertId : 2,
 		alertBody : "message2",
-		uri : "./index.html",
+		//uri : "./index.html",
 		fireDate : now + 10,
 		// repeatInterval: "",
 		alertAction : "開く", // iOSのみ
 		applicationIconBadgeNumber : 3 // iOSのみ
 	};
 	applican.localNotification.schedule(localNotificationSchedule2Success, localNotificationSchedule2Error, options);
-    waitTestAPI(finishCallback);
-}
-
-function localNotificationSchedule2Success() {
-	var dump = "localNotificationSchedule2Success ";
-    test_result = "OK : " * dump;
-	console.log(dump);
-    $("#hidden_api_result").html(dump);
-}
-
-function localNotificationSchedule2Error(res) {
-	var dump = "localNotificat()ionSchedule2Error ";
-	dump += "code:" + res.code + " ";
-    test_result = dump;
-	console.log(dump);
-    $("#hidden_api_result").html(dump);
-}
-
-function localNotificationCancel2(finishCallback) {// キャンセル
-	var options = {
-		alertId : 2
-	};
-	applican.localNotification.cancel(options);
-
-	var dump = "localNotificationCancel2 ";
-	console.log(dump);
-    setTimeout(function() {
-        finishCallback();
-    }, LOCAL_NOTIFICATION_CANCEL_WAIT_TIME);
 }
 
 // すべてキャンセル
