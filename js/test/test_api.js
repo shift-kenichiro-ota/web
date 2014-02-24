@@ -1663,45 +1663,50 @@ function setSimpleStorage(key, val, finishCallback) {
 }
 
 function getSimpleStorage(key, finishCallback) {
+    var getSimpleStorage_success = function(result) {
+	    var dump = "getSimpleStorage_success ";
+	    dump += result + "";
+        console.log("hoge oota" + dump);
+	    test_result = "OK" + dump;
+	    if (result) {
+		    simpleStorageData = simpleStorageData + result + " ";
+	    } else {
+		    simpleStorageData = null;
+	    }
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    }
+
 	applican.simpleStorage.get(key, getSimpleStorage_success);
-    waitTestAPI(finishCallback);
 }
 
-function getSimpleStorage_success(result) {
-	var dump = "getSimpleStorage_success ";
-	dump += result + "";
-	test_result = "OK" + dump;
-	if (result) {
-		simpleStorageData = simpleStorageData + result + " ";
-	} else {
-		simpleStorageData = null;
-	}
-    $("#hidden_api_result").html(dump);
-}
+function removeSimpleStorage(key, finishCallback) {
+    var removeSimpleStorage_success = function(result) {
+	    var dump = "removeSimpleStorage_success ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
 
-function removeSimpleStorage(finishCallback) {
-	applican.simpleStorage.remove('testkey', removeSimpleStorage_success);
-    waitTestAPI(finishCallback);
-}
+        setTimeout(finishCallback, 0);
+    };
 
-function removeSimpleStorage_success(result) {
-	var dump = "removeSimpleStorage_success ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
+	applican.simpleStorage.remove(key, removeSimpleStorage_success);
 }
 
 function clearSimpleStorage(finishCallback) {
-	applican.simpleStorage.remove('testkey', clearSimpleStorage_success);
-    waitTestAPI(finishCallback);
+    var clearSimpleStorage_success = function(result) {
+	    var dump = "clearSimpleStorage_success ";
+        console.log("hoge ota" + dump + result);
+	    test_result = "OK" + result;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
+	applican.simpleStorage.clear(clearSimpleStorage_success);
 }
 
-function clearSimpleStorage_success(result) {
-	var dump = "clearSimpleStorage_success ";
-	test_result = "OK" + result;
-    $("#hidden_api_result").html(dump);
-}
-
-// ///
+/ ///
 // カメラ画像クリーンアップ
 function cleanupPicture(finishCallback) {
 	applican.camera.cleanup(cleanupPictureSuccess, cleanupPictureError);

@@ -851,7 +851,7 @@ function testSimpleStorageRemove(finishCallback) {
             getSimpleStorage('key1', callback);
         },
         function(callback) {
-            removeSimpleStorage(callback);
+            removeSimpleStorage('key1', callback);
         },
         function(callback) {
             getSimpleStorage('key1', callback);
@@ -865,8 +865,7 @@ function testSimpleStorageRemove(finishCallback) {
             callback();
         }], function() {
         console.log("testSimpleStorageRemove");
-        testResult("simpleStorageClearの確認", finishCallback);
-        finishCallback();
+        testResult("simpleStorageRemoveの確認", finishCallback);
     });
 }
 
