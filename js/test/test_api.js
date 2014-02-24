@@ -2049,25 +2049,28 @@ function captureAudio(finishCallback) {
 
 // 動画撮影
 function captureVideo(finishCallback) {
+    var captureVideoError = function(err) {
+	    var dump = "";
+	    dump += "code:" + err.code + " ";
+	    dump += "message:" + err.message + "";
+	    test_result = "NG : " + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var captureVideoSuccess = function(mediaFiles) {
+	    var dump = "";
+	    for (var i = 0, len = mediaFiles.length; i < len; i++) {
+		    dump += mediaFiles[i].fullPath;
+	    }
+	    test_result = "OK" + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.capture.captureVideo(captureVideoSuccess, captureVideoError);
-    waitTestAPI(finishCallback);
-}
-
-function captureVideoSuccess(mediaFiles) {
-	var dump = "";
-	for (var i = 0, len = mediaFiles.length; i < len; i++) {
-		dump += mediaFiles[i].fullPath;
-	}
-	test_result = "OK" + dump;
-    $("#hidden_api_result").html(dump);
-}
-
-function captureVideoError(err) {
-	var dump = "";
-	dump += "code:" + err.code + " ";
-	dump += "message:" + err.message + "";
-	test_result = "NG : " + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 // 画像撮影

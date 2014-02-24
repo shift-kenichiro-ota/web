@@ -7,7 +7,6 @@
     <list default="true" id="4dd00b32-e8aa-42db-80ea-f55a10890f4d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/test_case/json_test_case.js" afterPath="$PROJECT_DIR$/js/test_case/json_test_case.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/test/test_api.js" afterPath="$PROJECT_DIR$/js/test/test_api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/test/test_case.js" afterPath="$PROJECT_DIR$/js/test/test_case.js" />
     </list>
     <ignored path="web.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,7 +59,7 @@
       <file leaf-file-name="test_case.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="56" selection-start="2644" selection-end="2644" vertical-scroll-proportion="0.0" vertical-offset="857" max-vertical-offset="14970">
+            <state line="92" column="17" selection-start="2878" selection-end="2878" vertical-scroll-proportion="0.0" vertical-offset="857" max-vertical-offset="14970">
               <folding />
             </state>
           </provider>
@@ -69,7 +68,7 @@
       <file leaf-file-name="test_api.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2048" column="0" selection-start="60864" selection-end="60864" vertical-scroll-proportion="0.4918033" vertical-offset="30300" max-vertical-offset="47895">
+            <state line="2109" column="18" selection-start="62529" selection-end="62529" vertical-scroll-proportion="0.6431274" vertical-offset="31095" max-vertical-offset="47940">
               <folding />
             </state>
           </provider>
@@ -103,8 +102,8 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/main.css" />
         <option value="$PROJECT_DIR$/page2.html" />
-        <option value="$PROJECT_DIR$/js/test_case/json_test_case.js" />
         <option value="$PROJECT_DIR$/js/test/test_case.js" />
+        <option value="$PROJECT_DIR$/js/test_case/json_test_case.js" />
         <option value="$PROJECT_DIR$/js/test/test_api.js" />
       </list>
     </option>
@@ -829,14 +828,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="56" selection-start="2644" selection-end="2644" vertical-scroll-proportion="0.0" vertical-offset="857" max-vertical-offset="14970">
+        <state line="92" column="17" selection-start="2878" selection-end="2878" vertical-scroll-proportion="0.0" vertical-offset="857" max-vertical-offset="14970">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2048" column="0" selection-start="60864" selection-end="60864" vertical-scroll-proportion="0.4918033" vertical-offset="30300" max-vertical-offset="47895">
+        <state line="2109" column="18" selection-start="62529" selection-end="62529" vertical-scroll-proportion="0.6431274" vertical-offset="31095" max-vertical-offset="47940">
           <folding />
         </state>
       </provider>
