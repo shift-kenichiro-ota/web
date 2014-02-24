@@ -980,22 +980,6 @@ function testWiFiGetSSIDList(finishCallback) {
     });
 }
 
-function notificationManualTest(finishCallback) {
-    async.series([
-        function(callback) {
-            notificationBeep(4, callback);
-        },
-        function(callback) {
-            notificationVibrate(2000, callback);
-        },
-        function(callback) {
-            notificationAlert("手動テストを開始します。", "手動テスト開始", "OK", callback);
-        }], function() {
-        console.log("notificationManualTest");
-        finishCallback();
-    });
-}
-
 function testFinishFinish() {
     console.log("testFinish");
     finish();

@@ -1924,22 +1924,6 @@ function confirmResult(buttonIndex) {
 }
 
 // ///
-// ビープ音
-function notificationBeep(times, finishCallback) {
-	applican.notification.beep(times);
-    waitTestAPI(finishCallback);
-}
-
-// ///
-// バイブレーション
-function notificationVibrate(milliseconds, finishCallback) {
-	applican.notification.vibrate(milliseconds);
-    setTimeout(function() {
-        finishCallback();
-    }, VIBRATE_WAIT_TIME)
-}
-
-// ///
 // ローカル通知
 function localNotificationSchedule1(finishCallback) {// 2秒後
     var localNotificationSchedule1Error = function(res) {
