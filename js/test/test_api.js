@@ -3142,30 +3142,3 @@ function insertTestResult(db, sql, finishCallback) {
 
     db.exec(sql, insertTestResult_success, insertTestResult_error);
 }
-
-
-// wait処理
-function waitTestAPI(finishCallback) {
-    var timerID;
-    timerID = setInterval(function() {
-        if ($('#hidden_api_result').html()) {
-            clearInterval(timerID);
-            timerID = null;
-            $('#hidden_api_result').html("");
-            finishCallback();
-       }
-    }, 100);
-}
-
-function waitTestResultDisplay(finishCallback) {
-    var timerID;
-    timerID = setInterval(function() {
-        if ($('#hidden_test_case_result').html()) {
-            clearInterval(timerID);
-            timerID = null;
-            console.log("wait test result display timer off");
-            $('#hidden_test_case_result').html("");
-            finishCallback();
-       }
-    }, 100);
-}
