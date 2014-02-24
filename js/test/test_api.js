@@ -1709,21 +1709,24 @@ function clearSimpleStorage(finishCallback) {
 / ///
 // カメラ画像クリーンアップ
 function cleanupPicture(finishCallback) {
+    var cleanupPictureError = function(message) {
+	    var dump = "";
+	    dump += "message:" + message;
+	    test_result = "OK" + dump;
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(function() { finishCallback(message); }, 0);
+    };
+
+    var cleanupPictureSuccess = function() {
+	    var dump = "cleanupPictureSuccess ";
+	    test_result = "OK";
+        $("#hidden_api_result").html(dump);
+
+        setTimeout(finishCallback, 0);
+    };
+
 	applican.camera.cleanup(cleanupPictureSuccess, cleanupPictureError);
-    waitTestAPI(finishCallback);
-}
-
-function cleanupPictureSuccess() {
-	var dump = "cleanupPictureSuccess ";
-	test_result = "OK";
-    $("#hidden_api_result").html(dump);
-}
-
-function cleanupPictureError(message) {
-	var dump = "";
-	dump += "message:" + message;
-	test_result = "OK" + dump;
-    $("#hidden_api_result").html(dump);
 }
 
 /** ******************************************************************************** */

@@ -6,7 +6,7 @@
 var test_case_json =
     [
         {"key" : "01", "exeflg" : true, "val": [
-            "ConnectionType", "SimpleStorageClear", "SimpleStorageRemove", "SimpleStorageGet", "FinishFinish"
+            "ConnectionType", "CameraCleanup",  "FinishFinish"
         ], "WebView":1}
 
 
