@@ -57,7 +57,6 @@ require.config({
 
 define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
         'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case' ], function($) {
-            console.log("first load");
             //document.addEventListener("deviceready", onDeviceReady, false);
             async.series([
                 function(callback) {
@@ -71,6 +70,7 @@ define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
                 onDeviceReady();
             });
             document.getElementById("showLogBtn").addEventListener("click", showLogConsole, false);
+            notificationAlert("「テストを開始する」ボタンを押して、テストを開始して下さい", "Main", "OK", function() {} );
         });
 
 /*

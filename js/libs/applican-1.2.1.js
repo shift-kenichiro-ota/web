@@ -4189,12 +4189,10 @@ applican = new applicanRoot();
 
 
 function applican_init(){
-    console.log("star hogehoge");
 	setTimeout('applican._init()',50);
 }
 
 //document.addEventListener("DOMContentLoaded", applican_init, false);
-console.log("pre star hogehoge");
 window.addEventListener("load", applican_init, false);
 
 

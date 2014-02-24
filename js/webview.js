@@ -57,7 +57,6 @@ require.config({
 
 define([ 'async', 'applican_debug_settings', 'applican', 'test_api', 'jquery',
 	 'jquery.mobile', 'test_case', 'common', 'test_suite', 'json_test_case'  ], function($) {
-         console.log("second load");
         // 強制的にapplicanを再初期化する
         async.series([
             function(callback) {
