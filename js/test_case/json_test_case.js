@@ -13,9 +13,17 @@ var test_case_json =
 
          {"key" : "14", "exeflg" : true, "val" : [
             "ConnectionType", "ContactClone", "DatabaseExecTransaction", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryCopyTo", "FileEntryFile", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageGet", "WiFiGetCurrentSSID", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraGetPicture", "CaptureCaptureVideo", "CompassGetCurrentHeading", "DeviceLight", "GameSoundPlaySE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationSchedule", "NotificationVibrate", "SplashScreenHide", "VideoStop", "FinishFinish"
-        ], "WebView":1}
+        ], "WebView":2},
 
-         /*
+         {"key" : "77", "exeflg" : true, "val": [
+            "FileEntryToURL", "FinishFinish"
+        ], "WebView":1},
+
+        {"key" : "99", "exeflg" : true, "val": [
+            "FileEntryToURL", "FinishFinish"
+        ], "WebView":2}
+
+          /*
         {"key" : "01", "exeflg" : true, "val": [
             "ConnectionType", "ContactClone", "DatabaseExec", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryMoveTo", "FileEntryToURL", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageSet", "WiFiOn", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundPlaySE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationSchedule", "NotificationVibrate", "SplashScreenShow", "VideoPlay", "FinishFinish"
         ], "WebView":1},

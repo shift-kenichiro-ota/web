@@ -21,7 +21,10 @@ define(function() {
             function(callback) {
                 testExecute(callback);
             }
-        ], function() {
+        ], function(err, results) {
+            if (err) {
+                console.log(err);
+            }
             notificationAlert("全てのテストが終了しました", "完了", "OK", function() {} );
             console.log("all test finish");
         });
@@ -71,8 +74,8 @@ define(function() {
                     function (callback) {
                         console.log("i : " + i + " test suite : " + test_case[i].key);
                         if (test_case[i].WebView == 2) {
-                            // WebViewが連続する場合、時間をおかないとクローズの処理中に次のWebViewが開いてしまい失敗するので、3秒待つ
-                            applican.addLaunchWebviewCloseEventListener(function() { setTimeout(callback, 3000); });
+                            // 手動でWebViewから戻ったときにテストを継続させる
+                            document.getElementById("test_continue").onclick = function() {  setTimeout(callback, 3000); document.getElementById("test_continue").onclick = function() {}; };
                             cmn.openWebView(test_case[i].key, i);
                         } else {
                             testCase(test_case, i, callback);
@@ -81,6 +84,10 @@ define(function() {
                         i++;
                     },
                     function (err) {
+                        if (err) {
+                            console.log(err);
+                            throw err;
+                        }
                         console.log('last i = ' + i);
                         callback();
                     }
@@ -202,15 +209,13 @@ define(function() {
                     i = Number(urlParams[2]);
                 }
                 suiteNo = test_case[i].key;
-                nextSuiteNo = test_case[(i+1)].key;
                 webviewTestCase(test_case, i, callback);
                 suiteLoop = i;
             }, function(callback) {
-                notificationAlert("WebViewをクローズしてください。", "dialog", "OK", callback);
+                notificationAlert("WebViewをクローズして、「テストを続ける」ボタンを押して下さい", "WebViewテストスィートの終了", "OK", callback);
             }
         ], function(err, result) {
                 console.log("webview test");
-//                location.href = "./index.html?suiteNo=" + nextSuiteNo + "&loop=" + (Number(suiteLoop) + 1);
             }
         );
     }
