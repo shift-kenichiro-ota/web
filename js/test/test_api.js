@@ -1275,7 +1275,7 @@ function onWiFi(finishCallback) {
 	    test_result = "NG : " + error.code;
         $("#hidden_api_result").html(dump);
 
-        setTimeout(function() { finishCallback(error); }, 0);
+        setTimeout(function() { finishCallback(error); }, 5000);
     };
 
 
@@ -1284,7 +1284,7 @@ function onWiFi(finishCallback) {
 	    test_result = "OK";
         $("#hidden_api_result").html(dump);
 
-        setTimeout(finishCallback, 0);
+        setTimeout(finishCallback, 5000);
     };
 
 	applican.wifi.on(onWiFi_Success, onWiFi_Error);
@@ -1298,7 +1298,7 @@ function offWiFi(finishCallback) {
 	    test_result = "NG : " + error.code;
         $("#hidden_api_result").html(dump);
 
-        setTimeout(function() { finishCallback(error); }, 0);
+        setTimeout(function() { finishCallback(error); }, 5000);
     };
 
     var offWiFi_Success = function() {
@@ -1306,7 +1306,7 @@ function offWiFi(finishCallback) {
 	    test_result = "OK";
         $("#hidden_api_result").html(dump);
 
-        setTimeout(finishCallback, 0);
+        setTimeout(finishCallback, 5000);
 };
 
 	applican.wifi.off(offWiFi_Success, offWiFi_Error);

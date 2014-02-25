@@ -161,13 +161,12 @@ define(function() {
                 setTimeout(
                     function() {
                         if (!callbackCalled) {
-                            // applican.isFileExecuteとapplican.gamesound.isExecute、applican.camera.isExecuteロックを強制解除する
-                            applican.isFileExecute = false;
-                            applican.gamesound.isExecute = false;
-                            applican.camera.isExecute = false;
+
+                            // applicanを強制的に再初期化する
+                            applican_init();
                             // 強制的にNGとする
                             test_result = "NG";
-                            testResult(test_name + "の確認", callback);
+                            testResult(test_name + "の確認", function() { setTimeout(callback, 2000); });
                         }
                     }, 1000 * 60);
 
@@ -276,13 +275,11 @@ define(function() {
                 setTimeout(
                     function() {
                         if (!callbackCalled) {
-                            // applican.isFileExecuteとapplican.gamesound.isExecute、applican.camera.isExecuteロックを強制解除する
-                            applican.isFileExecute = false;
-                            applican.gamesound.isExecute = false;
-                            applican.camera.isExecute = false;
+                            // applicanを強制的に再初期化する
+                            applican_init();
                             // 強制的にNGとする
                             test_result = "NG";
-                            testResult(test_name + "の確認", callback);
+                            testResult(test_name + "の確認", function() { setTimeout(callback, 2000); });
                         }
                     }, 1000 * 60);
 
