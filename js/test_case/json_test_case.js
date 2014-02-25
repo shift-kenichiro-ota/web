@@ -6,7 +6,7 @@
 var test_case_json =
     [
          {"key" : "01", "exeflg" : true, "val": [
-            "SimpleStorageRemove", "DirectoryEntryRemove", "DirectoryEntryCopyTo", "FileEntryMoveTo", "FinishFinish"
+            "FileEntryMoveTo", "FinishFinish"
         ], "WebView":1}
 
         /*

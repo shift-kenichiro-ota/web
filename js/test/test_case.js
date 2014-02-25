@@ -563,7 +563,6 @@ function testDocomoLocationGetCurrentPosition(finishCallback) {
 function testDirectoryEntryMoveTo(finishCallback) {
     async.series([
         function(callback) {
-            alert("mkdir1");
             mkdir1(callback);
         },
         function(callback) {
@@ -572,7 +571,6 @@ function testDirectoryEntryMoveTo(finishCallback) {
             callback();
         },
         function(callback) {
-            alert("rmdir2");
             rmdir2(callback);
         }], function() {
         alert("結果出力");
@@ -602,7 +600,7 @@ function testDirectoryEntryRemoveRecursively(finishCallback) {
             mkdirInDir(callback);
         },
         function(callback) {
-            rmdir1(callback);
+            rmdir1("newDir", callback);
         }], function() {
         console.log("testDirectoryEntryRemoveRecursively");
         testResult("directoryRemoveRecursivelyの確認", finishCallback);
@@ -612,13 +610,16 @@ function testDirectoryEntryRemoveRecursively(finishCallback) {
 function testDirectoryEntryRemove(finishCallback) {
     async.series([
         function(callback) {
+            rmdirFixture("newDir", callback);
+        },
+        function(callback) {
+            rmdirFixture("newDir2", callback);
+        },
+        function(callback) {
             mkdir1(callback);
         },
         function(callback) {
             moveTo2(callback);
-        },
-        function(callback) {
-            rmdir2(callback);
         }], function() {
         console.log("testDirectoryEntryRemove");
         testResult("direcotryRemoveの確認", finishCallback);
@@ -638,13 +639,16 @@ function testDirectoryEntryCreateReader(finishCallback) {
 function testDirectoryEntryCopyTo(finishCallback) {
     async.series([
         function(callback) {
+            rmdirFixture("newDir", callback);
+        },
+        function(callback) {
+            rmdirFixture("newDir3", callback);
+        },
+        function(callback) {
             mkdir1(callback);
         },
         function(callback) {
             copyTo2(callback);
-        },
-        function(callback) {
-            rmdir1(callback);
         }], function() {
         console.log("testDirectoryEntryCopyTo");
         testResult("directoryCopyToの確認", finishCallback);

@@ -919,7 +919,7 @@ function mkdirInDir(finishCallback) {
 }
 
 // ディレクトリ削除(Recursively)
-function rmdir1(finishCallback) {
+function rmdir1(dir, finishCallback) {
     var rmdir1_fail = function(error) {
 	    test_result = "NG rmdir fail " + error.code;
         $("#hidden_api_result").html(test_result);
@@ -940,13 +940,35 @@ function rmdir1(finishCallback) {
     };
 
     var rmdir1_gotFS = function(fileSystem) {
-	    fileSystem.root.getDirectory("newDir", null, rmdir1_getDirectory, rmdir1_fail);
+	    fileSystem.root.getDirectory(dir, null, rmdir1_getDirectory, rmdir1_fail);
     };
 
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir1_gotFS, rmdir1_fail);
 }
 
+// ディレクトリ削除fixture(Recursively)
+function rmdirFixture(dir, finishCallback) {
+    var rmdir_fail = function(error) {
+        setTimeout(finishCallback, 0);
+    };
+
+    var rmdir_removeRecursivelySuccess = function() {
+        setTimeout(finishCallback, 0);
+    };
+
+    var rmdir_getDirectory = function(directoryEntry) {
+	    directoryEntry.removeRecursively(rmdir_removeRecursivelySuccess, rmdir_fail);
+    };
+
+    var rmdir_gotFS = function(fileSystem) {
+	    fileSystem.root.getDirectory(dir, null, rmdir_getDirectory, rmdir_fail);
+    };
+
+	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir_gotFS, rmdir_fail);
+}
+
 // ディレクトリ削除
+
 function rmdir2(finishCallback) {
     var rmdir2_fail = function(error) {
 	    test_result = "NG : " + error.code;
@@ -1666,11 +1688,11 @@ function getSimpleStorage(key, finishCallback) {
 	    var dump = "getSimpleStorage_success ";
 	    dump += result + "";
 	    test_result = "OK" + dump;
-        // nullではなく"(null)"という文字列が返ってくる
-	    if (result !== "(null)") {
-		    simpleStorageData = simpleStorageData + result + " ";
+        // keyに対するvalueが存在しない場合、iOSでは"(null)"がAndroidでは""が返ってくる
+	    if (result === "(null)" || !result) {
+            simpleStorageData = null;
 	    } else {
-		    simpleStorageData = null;
+            simpleStorageData = simpleStorageData + result + " ";
 	    }
         $("#hidden_api_result").html(dump);
 
