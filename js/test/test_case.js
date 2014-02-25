@@ -712,6 +712,9 @@ function testFileEntryMoveTo(finishCallback) {
 function testFileEntryRemove(finishCallback) {
     async.series([
         function(callback) {
+            deleteFileFixture("readme.txt", callback);
+        },
+        function(callback) {
             fileWriteTest(callback);
         },
         function(callback) {
@@ -724,6 +727,12 @@ function testFileEntryRemove(finishCallback) {
 
 function testFileEntryCopyTo(finishCallback) {
     async.series([
+        function(callback) {
+            deleteFileFixture("readme.txt", callback);
+        },
+        function(callback) {
+            deleteFileFixture("readme3.txt", callback);
+        },
         function(callback) {
             fileWriteTest(callback);
         },
@@ -738,6 +747,9 @@ function testFileEntryCopyTo(finishCallback) {
 function testFileEntryToURL(finishCallback) {
     async.series([
         function(callback) {
+            deleteFileFixture("readme.txt", callback);
+        },
+        function(callback) {
             fileWriteTest(callback);
         },
         function(callback) {
@@ -750,6 +762,9 @@ function testFileEntryToURL(finishCallback) {
 
 function testFileEntryGetParent(finishCallback) {
     async.series([
+        function(callback) {
+            deleteFileFixture("readme.txt", callback);
+        },
         function(callback) {
             fileWriteTest(callback);
         },

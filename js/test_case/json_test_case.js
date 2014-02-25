@@ -6,7 +6,7 @@
 var test_case_json =
     [
          {"key" : "01", "exeflg" : true, "val": [
-            "FileEntryMoveTo", "FinishFinish"
+            "FileEntryToURL", "FileEntryGetParent", "FileEntryFile", "FinishFinish"
         ], "WebView":1}
 
         /*
