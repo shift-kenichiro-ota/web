@@ -687,6 +687,28 @@ function deleteFile1(finishCallback) {
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, deleteFile1_gotFS, deleteFile1_fail);
 }
 
+
+// ファイル削除
+function deleteFileFixture(file, finishCallback) {
+    var deleteFile_fail = function(error) {
+        setTimeout(finishCallback, 0);
+    };
+
+    var deleteFile_removeSuccess = function() {
+        setTimeout(finishCallback, 0);
+    };
+
+    var deleteFile_gotFileEntry = function(fileEntry) {
+	    fileEntry.remove(deleteFile_removeSuccess, deleteFile_fail);
+    };
+
+    var deleteFile_gotFS = function(fileSystem) {
+	    fileSystem.root.getFile(file, null, deleteFile_gotFileEntry, deleteFile_fail);
+    };
+
+	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, deleteFile_gotFS, deleteFile_fail);
+}
+
 // ファイル移動
 function moveTo1(finishCallback) {
     var moveTo1_fail = function(error) {

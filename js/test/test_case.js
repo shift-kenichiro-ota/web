@@ -563,26 +563,27 @@ function testDocomoLocationGetCurrentPosition(finishCallback) {
 function testDirectoryEntryMoveTo(finishCallback) {
     async.series([
         function(callback) {
+            rmdirFixture("newDir", callback);
+        },
+        function(callback) {
+            rmdirFixture("newDir2", callback);
+        },
+        function(callback) {
             mkdir1(callback);
         },
         function(callback) {
-            //moveTo2(callback);
-            alert("skip moveTo2");
-            callback();
-        },
-        function(callback) {
-            rmdir2(callback);
+            moveTo2(callback);
         }], function() {
-        alert("結果出力");
         console.log("testDirectoryEntryMoveTo");
-        alert("directoryMoveTo finalCallback");
-
         testResult("directoryMoveToの確認", finishCallback);
     });
 }
 
 function testDirectoryEntryGetDirectory(finishCallback) {
     async.series([
+        function(callback) {
+            rmdirFixture("newDir", callback);
+        },
         function(callback) {
             mkdir1(callback);
         }], function() {
@@ -594,13 +595,13 @@ function testDirectoryEntryGetDirectory(finishCallback) {
 function testDirectoryEntryRemoveRecursively(finishCallback) {
     async.series([
         function(callback) {
+            rmdirFixture("newDir", callback);
+        },
+        function(callback) {
             mkdir1(callback);
         },
         function(callback) {
             mkdirInDir(callback);
-        },
-        function(callback) {
-            rmdir1("newDir", callback);
         }], function() {
         console.log("testDirectoryEntryRemoveRecursively");
         testResult("directoryRemoveRecursivelyの確認", finishCallback);
@@ -658,6 +659,9 @@ function testDirectoryEntryCopyTo(finishCallback) {
 function testDirectoryEntryToURL(finishCallback) {
     async.series([
         function(callback) {
+            rmdirFixture("newDir", callback);
+        },
+        function(callback) {
             mkdir1(callback);
         },
         function(callback) {
@@ -671,6 +675,12 @@ function testDirectoryEntryToURL(finishCallback) {
 function testDirectoryEntryGetParent(finishCallback) {
     async.series([
         function(callback) {
+            rmdirFixture("newDir", callback);
+        },
+        function(callback) {
+            mkdir1(callback);
+        },
+        function(callback) {
             getParent2(callback);
         }], function() {
         console.log("testDirectoryEntryGetParent");
@@ -682,6 +692,12 @@ function testDirectoryEntryGetParent(finishCallback) {
 
 function testFileEntryMoveTo(finishCallback) {
     async.series([
+        function(callback) {
+            deleteFileFixture("readme.txt", callback);
+        },
+        function(callback) {
+            deleteFileFixture("readme2.txt", callback);
+        },
         function(callback) {
             fileWriteTest(callback);
         },
