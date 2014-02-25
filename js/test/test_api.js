@@ -2436,6 +2436,7 @@ function getPicture1(mode, finishCallback) {
 	    var dump = "";
 	    dump += "message:" + message + " ";
 	    test_result = "NG : " + dump;
+        console.log("hogehoge oota : " + test_result);
         $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(message); }, 0);
@@ -2448,6 +2449,7 @@ function getPicture1(mode, finishCallback) {
 	    var image = document.getElementById('myImage');
 	    image.src = "data:image/jpeg;base64," + res;
 	    test_result = "OK : " + dump;
+        console.log("hogehoge oota : " + test_result);
         $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
@@ -2461,7 +2463,9 @@ function getPicture1(mode, finishCallback) {
 		targetWidth : 400,
 		targetHeight : 400
 	};
+    console.log("pre camera hoge");
 	applican.camera.getPicture(getPicture1_getPictureSuccess, getPicture1_getPictureError, options);
+    console.log("post camera hoge");
 }
 
 /** ******************************************************************************** */
@@ -3130,10 +3134,11 @@ function testResult(testcase, finishCallback) {
             varsReset(callback);
         }],
         function(err, results) {
-            if (err) {
-                console.log(err);
-                throw err;
-            }
+            // 途中エラーがあってもfinishCallback()を呼ぶように変更して測定
+            //if (err) {
+            //    console.log(err);
+            //    throw err;
+            //}
             console.log("テスト結果処理終了");
             finishCallback();
     });
