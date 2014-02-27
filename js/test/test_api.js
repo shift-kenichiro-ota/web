@@ -451,7 +451,6 @@ function fileWrite1(contents, finishCallback) {
 	    dump += "code:" + error.code;
 	    console.log(dump);
 	    fileWriteStatus = true;
-        $("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -480,7 +479,6 @@ function fileWrite1(contents, finishCallback) {
 	    writer.write(writeContents);
 	    oldContents = writeContents;
 	    fileWriteStatus = true;
-        $("#hidden_api_result").html(dump);
     };
 
     var fileWrite1_gotFileEntry = function(fileEntry) {
@@ -841,7 +839,6 @@ function upload1(finishCallback) {
 	    dump += "http_status:" + error.http_status + " ";
 	    uploadStatus = true;
 	    console.log(dump);
-        $("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -853,7 +850,6 @@ function upload1(finishCallback) {
 	    uploadStatus = true;
 	    console.log(dump);
         test_result = dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1452,7 +1448,7 @@ function openDb(name, finishCallback) {
 	    var dump = "";
 	    dump += db.name + "";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
+        //$("#hidden_api_result").html(dump);
         setTimeout(finishCallback, 0);
     };
 
@@ -1460,7 +1456,7 @@ function openDb(name, finishCallback) {
 	    var dump = "";
 	    dump += error.message + " ";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
+        //$("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -1475,7 +1471,7 @@ function createTable(finishCallback) {
     var createTable_success = function(result) {
 	    var dump = "createTable_success ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
+        //$("#hidden_api_result").html(dump);
         setTimeout(finishCallback, 0);
     };
 
@@ -1483,7 +1479,7 @@ function createTable(finishCallback) {
 	    var dump = "createTable_error ";
 	    dump += error.message + " ";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
+        //$("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -3135,12 +3131,7 @@ function testResult(testcase, finishCallback) {
             varsReset(callback);
         }],
         function(err, results) {
-            // 途中エラーがあってもfinishCallback()を呼ぶように変更して測定
-            //if (err) {
-            //    console.log(err);
-            //    throw err;
-            //}
-            console.log("テスト結果処理終了");
+           console.log("テスト結果処理終了");
             finishCallback();
     });
 }
@@ -3158,14 +3149,9 @@ function displayResult(testcase, finishCallback) {
 		} else {
             html = html + ' : <span class="ui-error">' + test_result + '</span></li>';
 		}
-        $('#testResultArea').append(html).listview();
-        $('#hidden_test_case_result').html(test_result);
+        $('#testResultArea').append(html);
         callback();
-	},
-    function(callback) {
-        $('#hidden_test_case_result').html("");
-        callback();
-    }], function() {
+	}], function() {
         console.log("display test result finish");
         finishCallback();
 	});
@@ -3181,25 +3167,11 @@ function varsReset(finishCallback) {
 
 function insertTestResult(db, sql, finishCallback) {
     var insertTestResult_success = function(result) {
-        /*
-        var dump = "insertData_success ";
-        if(applican.config.debug) {
-            dump += "insertId:" + result;
-        } else {
-            dump += "insertId:" + result.insertId + " ";
-        }
-        $("#hidden_api_result").html(dump);
-        */
-        finishCallback();
+       finishCallback();
     };
 
     var insertTestResult_error = function (error) {
-        /*
-        var dump = "insertData_error ";
-        dump += error.message + " ";
-        $("#hidden_api_result").html(dump);
-        */
-        finishCallback(error);
+       finishCallback(error);
     };
 
     db.exec(sql, insertTestResult_success, insertTestResult_error);
