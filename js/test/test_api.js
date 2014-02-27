@@ -59,7 +59,6 @@ function watchHeading(finishCallback) {
 	    var dump = "watchHeadingError ";
 	    dump += "code:" + e.code + " ";
 	    document.getElementById("dumpAreaCompass").value = dump;
-        $("#hidden_api_result").html(dump);
     };
 
     var watchHeadingSuccess = function(res) {
@@ -69,7 +68,6 @@ function watchHeading(finishCallback) {
 	    dump += "headingAccuracy:" + res.headingAccuracy + " ";
 	    dump += "timestamp:" + res.timestamp + " ";
 	    document.getElementById("dumpAreaCompass").value = dump;
-        $("#hidden_api_result").html(dump);
     };
 
     var options = {
@@ -85,7 +83,6 @@ function watchHeading(finishCallback) {
 function clearWatchHeading(finishCallback) {
     applican.compass.clearWatch(_compassWatchID);
     document.getElementById("dumpAreaCompass").value =" Stop!!";
-    $("#hidden_api_result").html("Stop");
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -97,7 +94,6 @@ function watchAcceleration(finishCallback) {
     var watchAccelerationError = function(error) {
 	    var dump = "watchAccelerationError ";
 	    document.getElementById("dumpAreaAcceleration").value = dump;
-        $("#hidden_api_result").html(dump);
     };
 
     var watchAccelerationSuccess = function(res) {
@@ -107,7 +103,6 @@ function watchAcceleration(finishCallback) {
 	    dump += "z:" + res.z + " ";
 	    dump += "timestamp:" + res.timestamp + " ";
 	    document.getElementById("dumpAreaAcceleration").value = dump;
-        $("#hidden_api_result").html(dump);
     };
 
 	var options = {
@@ -123,7 +118,6 @@ function watchAcceleration(finishCallback) {
 function clearWatchAcceleration(finishCallback) {
 	applican.accelerometer.clearWatch(_accelerationWatchID);
 	document.getElementById("dumpAreaAcceleration").value = ' Stop!!';
-    $("#hidden_api_result").html("clear watch acceleration");
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -135,12 +129,10 @@ function watchShake(finishCallback) {
     var shakeSuccess = function() {
 	    var dump = "shake: " + parseInt((new Date()) / 1000) + " ";
 	    document.getElementById("dumpAreaShake").value += dump;
-        $("#hidden_api_result").html(dump);
     };
 
 	applican.accelerometer.watchShake(shakeSuccess);
 	document.getElementById("dumpAreaShake").value = "Start ";
-    $("#hidden_api_result").html("watch shake start");
 
     setTimeout(finishCallback, 0);
 }
@@ -148,7 +140,6 @@ function watchShake(finishCallback) {
 function clearWatchShake(finishCallback) {
 	applican.accelerometer.clearWatchShake();
 	document.getElementById("dumpAreaShake").value = "Stop!!";
-    $("#hidden_api_result").html("Stop");
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -162,7 +153,6 @@ function watchPosition(finishCallback) {
 	    dump += "code:" + e.code + " ";
 	    dump += "message:" + e.message + " ";
 	    document.getElementById("dumpAreaGeolocation").value = dump;
-        $("#hidden_api_result").html(dump);
     };
 
     var watchPositionSuccess = function(res) {
@@ -176,7 +166,6 @@ function watchPosition(finishCallback) {
 	    dump += "speed:" + res.coords.speed + " ";
 	    dump += "timestamp:" + res.timestamp + " ";
 	    document.getElementById("dumpAreaGeolocation").value = dump;
-        $("#hidden_api_result").html(dump);
     };
 
 	var options = {
@@ -196,7 +185,6 @@ function clearWatchPosition(finishCallback) {
 	applican.geolocation.clearWatch(_geolocationWatchID);
     var positionValue = document.getElementById("dumpAreaGeolocation").value;
 	document.getElementById("dumpAreaGeolocation").value = positionValue + " Stop!!";
-    $("#hidden_api_result").html("Stop");
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -212,12 +200,10 @@ function watchKeyDown(finishCallback) {
 	    dump += "ctrlKey:" + res.ctrlKey + " ";
 	    dump += "altKey:" + res.altKey + " ";
 	    document.getElementById("dumpAreaKeyDown").value = dump;
-        $("#hidden_api_result").html(dump);
     };
 
 	applican.keyboard.watchKeyDown(watchKeyDownSuccess);
 	document.getElementById("dumpAreaKeyDown").value = "watchKeyDown Start!";
-    $("#hidden_api_result").html("watch key down start");
 
     setTimeout(finishCallback, 0);
 }
@@ -225,7 +211,6 @@ function watchKeyDown(finishCallback) {
 function clearWatchKeyDown(finishCallback) {
 	applican.keyboard.clearWatchKeyDown();
 	document.getElementById("dumpAreaKeyDown").value = "watchKeyDown Stop!";
-    $("#hidden_api_result").html("watch key down stop");
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -239,12 +224,10 @@ function watchKeyUp(finishCallback) {
 	    dump += "ctrlKey:" + res.ctrlKey + " ";
 	    dump += "altKey:" + res.altKey + " ";
 	    document.getElementById("dumpAreaKeyUp").value = dump;
-        $("#hidden_api_result").html(dump);
     };
 
 	applican.keyboard.watchKeyUp(watchKeyUpSuccess);
 	document.getElementById("dumpAreaKeyUp").value = "watchKeyUp Start!";
-    $("#hidden_api_result").html("watch key up");
 
     setTimeout(finishCallback, 0);
 }
@@ -252,7 +235,6 @@ function watchKeyUp(finishCallback) {
 function clearWatchKeyUp(finishCallback) {
 	applican.keyboard.clearWatchKeyUp();
 	document.getElementById("dumpAreaKeyUp").value = "watchKeyUp Stop!";
-    $("#hidden_api_result").html("watch key up stop");
     setTimeout(function() {
         finishCallback();
     }, CLEAR_WAIT_TIME);
@@ -267,7 +249,6 @@ function loadBGM(finishCallback) {
 	    var dump = "loadBGMError ";
 	    dump += "code:" + err.code + " ";
 	    document.getElementById("dumpAreaGameSound").value = dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(err); }, 0);
     };
@@ -275,7 +256,6 @@ function loadBGM(finishCallback) {
     var loadBGMSuccess = function() {
 	    var dump = "loadBGMSuccess ";
 	    document.getElementById("dumpAreaGameSound").value = dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -360,20 +340,16 @@ function docomoLocation(finishCallback) {
 	    dump += address.AdrCode + " ";
 
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
         setTimeout(finishCallback, 0);
     };
 
     var errorCallback = function(err) {
 	    if (err.code === 4001) {
 		    test_result = 'OK : DoCoMoの<a href="' + err.message + '" target="_blank">会員メニュー</a>にて、ご利用の端末の位置情報提供を有効にしてください。' + ' ' + err.code + ' ' + err.message;
-            $("#hidden_api_result").html(test_result);
 	    } else if (err.code > 0) {
 		    test_result = 'NG : ' + err.code + ' ' + err.message;
-            $("#hidden_api_result").html(test_result);
 	    } else {
 		    test_result = 'OK(docomoLocationの確認 DoCoMo回線に接続していなければご利用になれません。)' + err.code + ' ' + err.message;
-            $("#hidden_api_result").html(test_result);
 	    }
         setTimeout(finishCallback, 0);
     };
@@ -394,7 +370,6 @@ function checkDeviceInfo(finishCallback) {
 	} catch (e) {
 		if (applican.device.name === null || typeof (applican.device.name) === 'undefined') {
 			test_result = "NG : " + e;
-            $("#hidden_api_result").html(test_result);
 		} else {
             checkDeviceInfoResult();
 			test_result = "OK : " + e;
@@ -413,7 +388,6 @@ function checkDeviceInfoResult() {
     dump += "バージョン：" + applican.device.version + " ";
     dump += "applican：" + applican.device.applican + " ";
     $('#dumpAreaDeviceInfo').val(dump);
-    $("#hidden_api_result").html(dump);
 }
 
 // ///
@@ -425,7 +399,6 @@ function getPushToken(finishCallback) {
         } else {
             test_result = "NG";
         }
-        $("#hidden_api_result").html(test_result);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -433,7 +406,6 @@ function getPushToken(finishCallback) {
 	    if (res.pushToken) {
             alert("pushTokenSuccess : " + res.pushToken);
 		    test_result = "OK : " + res.pushToken;
-            $("#hidden_api_result").html(test_result);
             setTimeout(finishCallback, 0);
 	    } else {
 		    getPushTokenError(res);
@@ -506,7 +478,6 @@ function fileWriteTest(finishCallback) {
 	    dump += "code:" + error.code;
 	    console.log(dump);
 	    fileWriteStatus = true;
-        $("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -514,7 +485,6 @@ function fileWriteTest(finishCallback) {
 	    var dump = "fileWrite1_fail";
 	    dump += "code:" + error.code;
 	    console.log(dump);
-        $("#hidden_api_result").html(dump);
     };
 
     var fileWrite1_gotFileWriter = function(writer) {
@@ -540,7 +510,6 @@ function fileWriteTest(finishCallback) {
 	    console.log(writeContents);
 	    writer.write(writeContents);
 	    fileWriteStatus = true;
-        $("#hidden_api_result").html(dump);
         setTimeout(finishCallback, 0);
     };
 
@@ -589,7 +558,6 @@ function fileRead1(finishCallback) {
                     } else {
                         dump = "file readAsText fail";
                     }
-                    $("#hidden_api_result").html(dump);
                     callback();
                 };
                 reader.readAsText(file);
@@ -606,7 +574,6 @@ function fileRead1(finishCallback) {
                         dump = "file readDataUrl fail";
                     }
 
-                    $("#hidden_api_result").html(dump);
                     callback();
 	                };
 	            reader.readAsDataURL(file);
@@ -645,7 +612,6 @@ function directoryReader1(finishCallback) {
 		    dump = entries[i].name + (entries[i].isDirectory ? "/" : "") + " ";
 	    }
         test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -662,14 +628,12 @@ function directoryReader1(finishCallback) {
 function deleteFile1(finishCallback) {
     var deleteFile1_fail = function(error) {
 	    test_result = "NG : delete file fail " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var deleteFile1_removeSuccess = function() {
 	    var dump = "deleteFile1_removeSuccess ";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -711,7 +675,6 @@ function deleteFileFixture(file, finishCallback) {
 function moveTo1(finishCallback) {
     var moveTo1_fail = function(error) {
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -720,7 +683,6 @@ function moveTo1(finishCallback) {
 	    var dump = "";
 	    dump += entry.name + " " + entry.fullPath + "";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -745,7 +707,6 @@ function moveTo1(finishCallback) {
 function copyTo1(finishCallback) {
     var copyTo1_fail = function(error) {
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -754,7 +715,6 @@ function copyTo1(finishCallback) {
 	    var dump = "";
 	    dump += entry.name + " " + entry.fullPath + " ";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -788,7 +748,6 @@ function toURL1(finishCallback) {
 	    dump += fileURL + " ";
 	    console.log(dump);
         test_result = "OK : toURL";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     } ;
@@ -804,7 +763,6 @@ function toURL1(finishCallback) {
 function getParent1(finishCallback) {
     var getParent1_fail = function(error) {
 	    test_result = "NG getParent fail " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error);}, 0);
     };
@@ -813,7 +771,6 @@ function getParent1(finishCallback) {
 	    var dump = "OK getParent1_getParentSuccess ";
 	    dump += entry.name + " " + entry.fullPath + " ";
         test_result = dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -887,7 +844,6 @@ function mkdir1(finishCallback) {
     var  mkdir1_fail = function(error) {
 	    test_result = "NG mkdir fail " + error.code;
         console.log("mkdir1 test_result " + test_result);
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -896,7 +852,6 @@ function mkdir1(finishCallback) {
 	    var dump = "mkdir1_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
         test_result = "OK : " + dump;
         console.log("mkdir1 test_result " + test_result);
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -914,14 +869,12 @@ function mkdir1(finishCallback) {
 //ディレクトリ内にディレクトリ作成
 function mkdirInDir(finishCallback) {
     var mkdirInDir_fail = function(error) {
-        $("#hidden_api_result").html(error);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var mkdirInDir_getDirectory = function(directoryEntry) {
 	    var dump = "mkdirInDir_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -940,7 +893,6 @@ function mkdirInDir(finishCallback) {
 function rmdir1(dir, finishCallback) {
     var rmdir1_fail = function(error) {
 	    test_result = "NG rmdir fail " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error);}, 0);
     };
@@ -948,7 +900,6 @@ function rmdir1(dir, finishCallback) {
     var rmdir1_removeRecursivelySuccess = function() {
 	    var dump = "rmdir1_removeRecursivelySuccess ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -990,7 +941,6 @@ function rmdirFixture(dir, finishCallback) {
 function rmdir2(finishCallback) {
     var rmdir2_fail = function(error) {
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -999,7 +949,6 @@ function rmdir2(finishCallback) {
     var rmdir2_removeSuccess = function() {
 	    var dump = "rmdir2_removeSuccess ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1020,7 +969,6 @@ function moveTo2(finishCallback) {
     var moveTo2_fail = function(error) {
         console.log("in move2 fail" + error);
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -1030,7 +978,6 @@ function moveTo2(finishCallback) {
 	    var dump = "moveTo2_moveToSuccess ";
 	    dump += entry.name + " " + entry.fullPath + " ";
 	    test_result = "OK : " + entry.name + " " + entry.fullPath;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1063,7 +1010,6 @@ function moveTo2(finishCallback) {
 function copyTo2(finishCallback) {
     var copyTo2_fail = function(error) {
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -1072,7 +1018,6 @@ function copyTo2(finishCallback) {
 	    var dump = "copyTo2_copyToSuccess ";
 	    dump += entry.name + " " + entry.fullPath + " ";
 	    test_result = "OK : " + entry.name + " " + entry.fullPath;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1096,7 +1041,6 @@ function copyTo2(finishCallback) {
 function toURL2(finishCallback) {
     var toURL2_fail = function(error) {
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error);}, 0);
     };
@@ -1107,7 +1051,6 @@ function toURL2(finishCallback) {
 	    dump += directoryURL + " ";
 	    console.log(dump);
         test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1123,8 +1066,6 @@ function toURL2(finishCallback) {
 function getParent2(finishCallback) {
     var getParent2_fail = function(error) {
 	    test_result = "NG : " + error.code;
-        document.getElementById("hidden_api_result").value = test_result;
-        $("#hidden_api_result").html(test_result);
 
        setTimeout(function() { finishCallback(error); }, 0);
     }
@@ -1133,7 +1074,6 @@ function getParent2(finishCallback) {
 	    var dump = "getParent2_getParentSuccess ";
 	    dump += entry.name + " " + entry.fullPath + "";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1154,7 +1094,6 @@ function getParent2(finishCallback) {
 function getDisplayInfo(finishCallback) {
     var getDisplayInfo_error = function(e) {
 	    test_result = "NG : " + e;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(e); }, 0);
     };
@@ -1166,7 +1105,6 @@ function getDisplayInfo(finishCallback) {
 	    dump += "height:" + info.height + " ";
 	    console.log("getDisplayInfo success " + dump);
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1183,7 +1121,6 @@ function httpGet(finishCallback) {
 	    var dump = "httpGetError ";
 	    dump += "code:" + message + " ";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(message); }, 0);
     };
@@ -1194,7 +1131,6 @@ function httpGet(finishCallback) {
 	    dump += "result:" + result + " ";
 	    if (dump.indexOf('Success') > 0) {
 		    test_result = "OK : " + result;
-            $("#hidden_api_result").html(dump);
 
             setTimeout(finishCallback, 0);
 	    } else {
@@ -1214,7 +1150,6 @@ function httpPost(finishCallback) {
 	    var dump = "";
 	    dump += "code:" + message + " ";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(message); }, 0);
     };
@@ -1223,7 +1158,6 @@ function httpPost(finishCallback) {
 	    var dump = "";
 	    dump += "result:" + result + " ";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1246,7 +1180,6 @@ function getWiFiStatus(finishCallback) {
 	    var dump = "getWiFiStatus_Error ";
 	    dump += "code:" + error.code + " ";
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -1255,7 +1188,6 @@ function getWiFiStatus(finishCallback) {
 	    var dump = "getWiFiStatus_callback ";
 	    dump += "status:" + status + " ";
 	    test_result = "OK : " + status;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1269,7 +1201,6 @@ function onWiFi(finishCallback) {
 	    var dump = "onWiFi_Error ";
 	    dump += "code:" + error.code + " ";
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(error); }, 5000);
     };
@@ -1278,7 +1209,6 @@ function onWiFi(finishCallback) {
     var onWiFi_Success = function() {
 	    var dump = "onWiFi_Success ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 5000);
     };
@@ -1292,7 +1222,6 @@ function offWiFi(finishCallback) {
 	    var dump = "offWiFi_Error ";
 	    dump += "code:" + error.code + " ";
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(error); }, 5000);
     };
@@ -1300,7 +1229,6 @@ function offWiFi(finishCallback) {
     var offWiFi_Success = function() {
 	    var dump = "offWiFi_Success ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 5000);
 };
@@ -1314,7 +1242,6 @@ function getSSIDList(finishCallback) {
 	    var dump = "";
 	    dump += "code:" + err.code + " ";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(err);}, 0);
     };
@@ -1327,7 +1254,6 @@ function getSSIDList(finishCallback) {
 		    dump += "SSID: " + result[i] + " ";
 	    }
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1341,7 +1267,6 @@ function getCurrentSSID(finishCallback) {
 	    var dump = "";
 	    dump += "code:" + err.code + "";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(err); }, 0);
     };
@@ -1350,7 +1275,6 @@ function getCurrentSSID(finishCallback) {
 	    var dump = "";
 	    dump += "SSID: " + result + "";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1364,7 +1288,6 @@ function connectWifi1(finishCallback) {
 	    var dump = "";
 	    dump += "code:" + err.code + "";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(err);}, 0);
     };
@@ -1373,7 +1296,6 @@ function connectWifi1(finishCallback) {
 	    var dump = "";
 	    dump += "result: " + result + "";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1394,7 +1316,6 @@ function getPreferredLanguage(finishCallback) {
 	    var dump = "getPreferredLanguageError ";
 	    dump += "code:" + err.code + " ";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(err);}, 0);
     };
@@ -1403,7 +1324,6 @@ function getPreferredLanguage(finishCallback) {
 	    var dump = "getPreferredLanguageSuccess ";
 	    dump += "language:" + language.value + " ";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1417,7 +1337,6 @@ function getLocaleName(finishCallback) {
 	    var dump = "";
 	    dump += "code:" + err.code + "";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(err); }, 0);
     };
@@ -1427,7 +1346,6 @@ function getLocaleName(finishCallback) {
 	    dump += "locale:" + locale.value + "";
 	    if (dump.indexOf('ja_JP') > 0) {
 		    test_result = "OK : " + dump;
-            $("#hidden_api_result").html(dump);
 
             setTimeout(finishCallback, 0);
 	    } else {
@@ -1448,7 +1366,6 @@ function openDb(name, finishCallback) {
 	    var dump = "";
 	    dump += db.name + "";
 	    test_result = "OK : " + dump;
-        //$("#hidden_api_result").html(dump);
         setTimeout(finishCallback, 0);
     };
 
@@ -1456,7 +1373,6 @@ function openDb(name, finishCallback) {
 	    var dump = "";
 	    dump += error.message + " ";
 	    test_result = "OK : " + dump;
-        //$("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -1471,7 +1387,6 @@ function createTable(finishCallback) {
     var createTable_success = function(result) {
 	    var dump = "createTable_success ";
 	    test_result = "OK";
-        //$("#hidden_api_result").html(dump);
         setTimeout(finishCallback, 0);
     };
 
@@ -1479,7 +1394,6 @@ function createTable(finishCallback) {
 	    var dump = "createTable_error ";
 	    dump += error.message + " ";
 	    test_result = "OK : " + dump;
-        //$("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -1493,7 +1407,6 @@ function execTransaction(finishCallback) {
 	    var dump = "execTransaction_error ";
 	    dump += error.message + " ";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(error);}, 0);
     };
@@ -1503,7 +1416,6 @@ function execTransaction(finishCallback) {
 	    dump += "rowsAffected:" + result.rowsAffected + " ";
 	    dump += "insertId:" + result.insertId + " ";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1517,7 +1429,6 @@ function searchData(finishCallback) {
 	    var dump = "searchData_error ";
 	    dump += error.message + " ";
         test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -1536,7 +1447,6 @@ function searchData(finishCallback) {
 		    dump += "id:" + result.rows[i].id + ", data:" + result.rows[i].data + ", data2:" + result.rows[i].data2 + " ";
 	    }
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1560,7 +1470,6 @@ function createContact(finishCallback) {
 	} else {
 		test_result = "NG : " + dump;
 	}
-    $("#hidden_api_result").html(dump);
     setTimeout(function() {
         finishCallback();
     }, CREATE_CONTACT_WAIT_TIME);
@@ -1571,7 +1480,6 @@ function saveContact(finishCallback) {
     var saveContact_onError = function() {
 	    var dump = "saveContact_onError ";
 	    test_result = "NG" + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(); }, 0);
     };
@@ -1579,7 +1487,6 @@ function saveContact(finishCallback) {
     var saveContact_onSuccess = function() {
 	    var dump = "saveContact_onSuccess ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1693,7 +1600,6 @@ function setSimpleStorage(key, val, finishCallback) {
     var setSimpleStorage_success = function() {
 	    var dump = "setSimpleStorage_success ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1712,7 +1618,6 @@ function getSimpleStorage(key, finishCallback) {
 	    } else {
             simpleStorageData = simpleStorageData + result + " ";
 	    }
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     }
@@ -1724,7 +1629,6 @@ function removeSimpleStorage(key, finishCallback) {
     var removeSimpleStorage_success = function(result) {
 	    var dump = "removeSimpleStorage_success ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1736,7 +1640,6 @@ function clearSimpleStorage(finishCallback) {
     var clearSimpleStorage_success = function(result) {
 	    var dump = "clearSimpleStorage_success ";
 	    test_result = "OK" + result;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1751,7 +1654,6 @@ function cleanupPicture(finishCallback) {
 	    var dump = "";
 	    dump += "message:" + message;
 	    test_result = "OK" + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(message); }, 0);
     };
@@ -1759,7 +1661,6 @@ function cleanupPicture(finishCallback) {
     var cleanupPictureSuccess = function() {
 	    var dump = "cleanupPictureSuccess ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1780,7 +1681,6 @@ function cleanupPicture(finishCallback) {
 function captureBarcode(finishCallback) {
     var captureBarcodeError = function(e) {
 	    test_result = "NG : " + e;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(e); }, 0);
     };
@@ -1788,10 +1688,8 @@ function captureBarcode(finishCallback) {
     var captureBarcodeSuccess = function(res) {
 	    if (res.codeData.indexOf("applican") > -1) {
 		    test_result = "OK : " + res;
-            $("#hidden_api_result").html(test_result);
 	    } else {
 		    test_result = "NG";
-            $("#hidden_api_result").html(test_result);
 	    }
         setTimeout(finishCallback, 0);
     };
@@ -1811,7 +1709,6 @@ function getCurrentHeading(finishCallback) {
         callbackCalled = true;
 	    console.log("getCurrentHeading error" + e);
 	    test_result = "NG : " + e;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(e); }, 0);
     };
@@ -1828,7 +1725,6 @@ function getCurrentHeading(finishCallback) {
 	    dump += "headingAccuracy:" + res.headingAccuracy + " ";
 	    dump += "timestamp:" + res.timestamp + " ";
 	    test_result = "OK" + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1848,7 +1744,6 @@ function getCurrentAcceleration(finishCallback) {
         }
         callbackCalled = true;
 	    test_result = "NG : ";
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -1861,7 +1756,6 @@ function getCurrentAcceleration(finishCallback) {
 	    if (res.x || res.y || res.z || res.timestamp) {
             callbackCalled = true;
 		    test_result = "OK : ";
-            $("#hidden_api_result").html(test_result);
 
             setTimeout(finishCallback, 0);
 	    } else {
@@ -1887,7 +1781,6 @@ function getCurrentPosition(finishCallback) {
 	    dump += "code:" + error.code + " ";
 	    dump += "message:" + error.message + " ";
 	    test_result = "OK" + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -1907,7 +1800,6 @@ function getCurrentPosition(finishCallback) {
 	    dump += "speed:" + res.coords.speed + " ";
 	    dump += "timestamp:" + res.timestamp + " ";
 	    test_result = "OK" + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1926,7 +1818,6 @@ function notificationAlert(message, title, buttonName, finishCallback) {
     var alertCallback = function() {
 	    var dump = "alertCallback ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -1950,11 +1841,9 @@ function notificationConfirm(message, title, buttonName, finishCallback) {
 
 function confirmResult(buttonIndex) {
 	if (buttonIndex == "1") {
-        document.getElementById("hidden_api_result").value = "OK";
         test_result = "OK";
 		return "OK";
 	} else if (buttonIndex == "2") {
-        document.getElementById("hidden_api_result").value = "NG";
         test_result = "NG";
         return "NG";
 	}
@@ -1968,7 +1857,6 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
 	    var dump = "";
 	    dump += "code:" + res.code + " ";
 	    test_result = "NG" + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(res); }, 0);
     };
@@ -1976,7 +1864,6 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
     var localNotificationSchedule1Success = function() {
 	    var dump = "localNotificationSchedule1Success ";
 	    test_result = "OK";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -2000,8 +1887,8 @@ function localNotificationCancel1(finishCallback) {// キャンセル
 	};
 	applican.localNotification.cancel(options);
 
-	var dump = "localNotificationCancel1 ";
-    document.getElementById("hidden_api_result").value = dump;
+	var dump = "OK : localNotificationCancel1 ";
+    test_result = dump;
     setTimeout(function() {
         finishCallback();
     }, LOCAL_NOTIFICATION_CANCEL_WAIT_TIME);
@@ -2014,7 +1901,6 @@ function localNotificationSchedule2(finishCallback) {// 10秒後
 	    dump += "code:" + res.code + " ";
         test_result = dump;
 	    console.log(dump);
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(res); }, 0);
     };
@@ -2023,7 +1909,6 @@ function localNotificationSchedule2(finishCallback) {// 10秒後
 	    var dump = "localNotificationSchedule2Success ";
         test_result = "OK : " * dump;
 	    console.log(dump);
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -2066,7 +1951,6 @@ function captureAudio(finishCallback) {
 	    dump += "code:" + err.code + " ";
 	    dump += "message:" + err.message + " ";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(err); }, 0);
     };
@@ -2077,7 +1961,6 @@ function captureAudio(finishCallback) {
 		    dump += mediaFiles[i].fullPath;
 	    }
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -2092,7 +1975,6 @@ function captureVideo(finishCallback) {
 	    dump += "code:" + err.code + " ";
 	    dump += "message:" + err.message + "";
 	    test_result = "NG : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(err); }, 0);
     };
@@ -2103,7 +1985,6 @@ function captureVideo(finishCallback) {
 		    dump += mediaFiles[i].fullPath;
 	    }
 	    test_result = "OK" + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -2115,7 +1996,6 @@ function captureVideo(finishCallback) {
 function captureImage(finishCallback) {
     var captureImageError = function(err) {
 	    test_result = "NG : " + err;
-        $("#hidden_api_result").html(test_result);
 	    captureImageStatus = true;
 
         setTimeout(function() { finishCallback(err); }, 0);
@@ -2131,10 +2011,8 @@ function captureImage(finishCallback) {
 	    }
 	    if (dump) {
 		    test_result = "OK : " + dump;
-            $("#hidden_api_result").html(dump);
 	    } else {
 		    test_result = "NG : " + dump;
-            $("#hidden_api_result").html(dump);
 	    }
 	    captureImageStatus = true;
 
@@ -2151,7 +2029,6 @@ function loadSE(finishCallback) {
     var loadSEError = function(err) {
 	    var dump = "";
 	    dump += "code:" + err.code + " ";
-        $("#hidden_api_result").html(dump);
 	    test_result = "NG : " + dump;
 
         setTimeout(function() { finishCallback(err); }, 0);
@@ -2160,7 +2037,6 @@ function loadSE(finishCallback) {
     var loadSESuccess = function() {
 	    var dump = "loadSESuccess ";
 	    test_result = "OK : " + dump;
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -2252,7 +2128,6 @@ function setSEVolume(track, volume, finishCallback) {
 function stopSound(finishCallback) {
 	applican.gamesound.stopAllBGM();
 	applican.gamesound.stopAllSE();
-    document.getElementById("hidden_api_result").value = "stop sound";
     setTimeout(function() {
         finishCallback();
     }, STOP_SOUND_WAIT_TIME);
@@ -2262,7 +2137,6 @@ function stopSound(finishCallback) {
 function stopAllSE(finishCallback) {
 	applican.gamesound.stopAllSE();
     test_result = "OK : ";
-    document.getElementById("hidden_api_result").value = "stop SE";
     setTimeout(function() {
         finishCallback();
     }, STOP_SOUND_WAIT_TIME);
@@ -2271,7 +2145,6 @@ function stopAllSE(finishCallback) {
 // サウンドデータを開放する
 function releaseAllBGM(finishCallback) {
 	applican.gamesound.releaseAllBGM();
-    document.getElementById("hidden_api_result").value = "release all BGM";
     setTimeout(function() {
         finishCallback();
     }, RELEASE_SOUND_DATA_WAIT_TIME);
@@ -2279,7 +2152,6 @@ function releaseAllBGM(finishCallback) {
 
 function releaseSEAll(finishCallback) {
 	applican.gamesound.releaseAllSE();
-    document.getElementById("hidden_api_result").value = "release se all";
     setTimeout(function() {
         finishCallback();
     }, RELEASE_SOUND_DATA_WAIT_TIME);
@@ -2291,14 +2163,12 @@ function playVideoOverlay(control, finishCallback) {
     var playVideoOverlay_error = function(error) {
 	    var dump = "playVideoOverlay_error ";
 	    dump += "code:" + error.code + " ";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var playVideoOverlay_success = function() {
 	    var dump = "playVideoOverlay_success ";
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
@@ -2317,7 +2187,6 @@ function playVideoOverlay(control, finishCallback) {
 // 停止
 function stopVideo(finishCallback) {
 	applican.video.stop();
-    document.getElementById("hidden_api_result").value = "stop video";
     setTimeout(function() {
         finishCallback();
     }, STOP_VIDEO_WAIT_TIME);
@@ -2327,7 +2196,6 @@ function stopVideo(finishCallback) {
 // ライトをON/OFF
 function light1(flg, finishCallback) {
 	applican.device.light(flg);
-    document.getElementById("hidden_api_result").value = "light on/off";
     setTimeout(function() {
         finishCallback();
     }, LIGHT_ON_WAIT_TIME);
@@ -2345,7 +2213,6 @@ function showSplash1(finishCallback) {
         function(callback) {
  	        setTimeout(function() {
 		        applican.splashscreen.hide();
-                document.getElementById("hidden_api_result").value = "show splash";
                 callback();
 	        }, 2000);
         }], function(err, results) {
@@ -2359,7 +2226,6 @@ function showSplash2(finishCallback) {
 	// プラットフォーム側でタイムアウト
 	applican.splashscreen.show('splash/splash2_portrait.png', 'splash/splash2_landscape.png', 3000);
     setTimeout(function() {
-        document.getElementById("hidden_api_result").value = "show splash";
     }, 3000);
     setTimeout(function() {
         finishCallback();
@@ -2408,14 +2274,12 @@ function gaTrackEvent(finishCallback) {
 function saveToPhotoAlbum(finishCallback) {
     var saveToPhotoAlbumError = function(message) {
 	    test_result = "NG";
-        $("#hidden_api_result").html("save to photo album : " + test_result);
 
         setTimeout(function() { finishCallback(message); }, 0);
     };
 
     var saveToPhotoAlbumSuccess = function() {
 	    test_result = "OK";
-        $("#hidden_api_result").html("save to photo album : " + test_result);
 
 
         setTimeout(finishCallback, 0);
@@ -2432,8 +2296,6 @@ function getPicture1(mode, finishCallback) {
 	    var dump = "";
 	    dump += "message:" + message + " ";
 	    test_result = "NG : " + dump;
-        console.log("hogehoge oota : " + test_result);
-        $("#hidden_api_result").html(dump);
 
         setTimeout(function() { finishCallback(message); }, 0);
     };
@@ -2446,7 +2308,6 @@ function getPicture1(mode, finishCallback) {
 	    image.src = "data:image/jpeg;base64," + res;
 	    test_result = "OK : " + dump;
         console.log("hogehoge oota : " + test_result);
-        $("#hidden_api_result").html(dump);
 
         setTimeout(finishCallback, 0);
     };
