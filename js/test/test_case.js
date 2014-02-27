@@ -5,6 +5,10 @@
 var async = require('async');
 var $ = require('jquery');
 
+function testNull(finishCallback) {
+    test_result = "OK :";
+    testResult("何も実行しない", finishCallback);
+}
 function testBarcodeCaptureBarcode(finishCallback) {
     async.series([
         function(callback) {

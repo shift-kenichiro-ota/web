@@ -3114,7 +3114,8 @@ function testResult(testcase, finishCallback) {
 	console.log("testResult testcase" + testcase);
 	async.series([
         function(callback) {
-            fileRead1(callback);
+            callback();
+            //fileRead1(callback);
         },
         function(callback) {
             var sql = "INSERT INTO TESTRESULT (suite_no, case_no, case_name, result) VALUES (" + '"' + suiteNo + '"' + "," + '"' + caseNo + '"' + "," + '"' + testcase + '"' + "," + '"' + encodeURIComponent(test_result) + '"' + ")";
@@ -3180,6 +3181,7 @@ function varsReset(finishCallback) {
 
 function insertTestResult(db, sql, finishCallback) {
     var insertTestResult_success = function(result) {
+        /*
         var dump = "insertData_success ";
         if(applican.config.debug) {
             dump += "insertId:" + result;
@@ -3187,13 +3189,16 @@ function insertTestResult(db, sql, finishCallback) {
             dump += "insertId:" + result.insertId + " ";
         }
         $("#hidden_api_result").html(dump);
-            finishCallback();
+        */
+        finishCallback();
     };
 
     var insertTestResult_error = function (error) {
+        /*
         var dump = "insertData_error ";
         dump += error.message + " ";
         $("#hidden_api_result").html(dump);
+        */
         finishCallback(error);
     };
 
