@@ -5,12 +5,23 @@
 
 var test_case_json =
     [
-        /*
          {"key" : "01", "exeflg" : true, "val": [
-            "CameraGetPicture","CameraGetPicture", "CameraGetPicture", "CameraGetPicture", "CameraGetPicture", "FinishFinish"
-        ], "WebView":1}
-        */
+            "DatabaseExec", "FinishFinish"
+        ], "WebView":1},
 
+         {"key" : "02", "exeflg" : true, "val": [
+            "DatabaseExec", "FinishFinish"
+        ], "WebView":1},
+         {"key" : "03", "exeflg" : true, "val": [
+            "DatabaseExec", "FinishFinish"
+        ], "WebView":1},
+         {"key" : "04", "exeflg" : true, "val": [
+            "DatabaseExec", "FinishFinish"
+        ], "WebView":1},
+         {"key" : "05", "exeflg" : true, "val": [
+            "DatabaseExec", "FinishFinish"
+        ], "WebView":1},
+        /*
         {"key" : "01", "exeflg" : true, "val": [
             "ConnectionType", "ContactClone", "DatabaseExec", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryMoveTo", "FileEntryToURL", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageSet", "WiFiOn", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundPlaySE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationSchedule", "NotificationVibrate", "SplashScreenShow", "VideoPlay", "FinishFinish"
         ], "WebView":1},
@@ -191,6 +202,7 @@ var test_case_json =
         {"key" : "60", "exeflg" : true, "val" : [
             "ConnectionType", "ContactSave", "DatabaseExecTransaction", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryRemoveRecursively", "FileEntryFile", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageClear", "WiFiGetCurrentSSID", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundSetSEVolume", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackView", "LocalNotificationAllCancel", "NotificationVibrate", "SplashScreenHide", "VideoPlay", "FinishFinish"
         ], "WebView":1}
+        */
 
         /*
         {"key" : "01", "exeflg" : true, "val": [

@@ -61,15 +61,19 @@ define(function() {
                 }, 300);
             },function(callback) {
                 var i = 0;
-                if (urlParams[1] != null || urlParams[1] != undefined) {
-                    suiteNo = urlParams[0];
-                    i = Number(urlParams[1]);
-                } else {
-                    i = 0;
+                var endTestSuite = test_case.length;
+                var parsedStartTestSuite = parseInt($("#start_test_suite").val(), 10);
+                var parsedEndTestSuite = parseInt($("#end_test_suite").val(), 10);
+
+                if (parsedStartTestSuite && 1 <= parsedStartTestSuite && parsedStartTestSuite <= endTestSuite) {
+                    i = parsedStartTestSuite - 1; // 画面からの入力の基数は1
+                }
+                if (parsedEndTestSuite && i + 1 <= parsedEndTestSuite && parsedEndTestSuite <= endTestSuite) {
+                    endTestSuite = parsedEndTestSuite;
                 }
                 async.whilst(
                     function() {
-                        return i < test_case.length;
+                        return i < endTestSuite;
                     },
                     function (callback) {
                         console.log("i : " + i + " test suite : " + test_case[i].key);
