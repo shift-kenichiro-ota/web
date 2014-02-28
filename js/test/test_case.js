@@ -10,6 +10,8 @@ function testNull(finishCallback) {
     testResult("何も実行しない", finishCallback);
 }
 function testBarcodeCaptureBarcode(finishCallback) {
+    testResult("captureBarcodeの確認", finishCallback);
+    /*
     async.series([
         function(callback) {
             notificationAlert("アプリカンのバーコードを読み込んでください。", "バーコード読み取り", "OK", callback);
@@ -20,6 +22,7 @@ function testBarcodeCaptureBarcode(finishCallback) {
         console.log("testBarcodeCaptureBarcode");
         testResult("captureBarcodeの確認", finishCallback);
     });
+    */
 }
 
 function testCameraGetPicture(finishCallback) {
