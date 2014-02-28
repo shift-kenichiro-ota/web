@@ -2304,8 +2304,7 @@ function getPicture1(mode, finishCallback) {
 	    _imageData = res;
 	    var dump = "";
 	    dump += "size:" + res.length + " ";
-	    var image = document.getElementById('myImage');
-	    image.src = "data:image/jpeg;base64," + res;
+        document.getElementById('myImage').src = "data:image/jpeg;base64," + res;
 	    test_result = "OK : " + dump;
 
         setTimeout(finishCallback, 0);
@@ -2316,8 +2315,8 @@ function getPicture1(mode, finishCallback) {
 		destinationType : applican.camera.DestinationType.DATA_URL,
 		sourceType : applican.camera.PictureSourceType.CAMERA,
 		encodingType : applican.camera.EncodingType.JPEG,
-		targetWidth : 400,
-		targetHeight : 400
+		targetWidth : 200,
+		targetHeight : 200
 	};
 	applican.camera.getPicture(getPicture1_getPictureSuccess, getPicture1_getPictureError, options);
 }

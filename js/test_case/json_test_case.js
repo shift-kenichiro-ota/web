@@ -7,10 +7,9 @@ var test_case_json =
     [
         /*
          {"key" : "01", "exeflg" : true, "val": [
-            "FileEntryToURL", "FileEntryGetParent", "FileEntryFile", "FinishFinish"
+            "CameraGetPicture","CameraGetPicture", "CameraGetPicture", "CameraGetPicture", "CameraGetPicture", "FinishFinish"
         ], "WebView":1}
         */
-
 
         {"key" : "01", "exeflg" : true, "val": [
             "ConnectionType", "ContactClone", "DatabaseExec", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryMoveTo", "FileEntryToURL", "GlobalizationGetLocaleName", "HTTPGet", "NotificationAlert", "SimpleStorageSet", "WiFiOn", "CameraCleanup", "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "DeviceGetDisplayInfo", "GameSoundPlaySE", "GEOLocationGetCurrentPosition", "GoogleAnalyticsTrackEvent", "LocalNotificationSchedule", "NotificationVibrate", "SplashScreenShow", "VideoPlay", "FinishFinish"

@@ -220,6 +220,9 @@ function testGameSoundPlaySE(finishCallback) {
         },
         function(callback) {
             notificationConfirm("各効果音が停止されていること", "stopSEの確認", "OK,NG", callback);
+        },
+        function(callback) {
+            releaseSEAll(callback);
         }], function() {
         console.log("testGameSoundPlaySE");
         testResult("playSEの確認", finishCallback);
@@ -239,6 +242,9 @@ function testGameSoundStopSE(finishCallback) {
         },
         function(callback) {
             notificationConfirm("各効果音が停止されていること", "stopSEの確認", "OK,NG", callback);
+        },
+        function(callback) {
+            releaseSEAll(callback);
         }], function() {
         console.log("testGameSoundStopSE");
         testResult("stopSEの確認", finishCallback);
@@ -258,6 +264,9 @@ function testGameSoundStopAllSE(finishCallback) {
         },
         function(callback) {
             notificationConfirm("各効果音が停止されていること", "stopAllSEの確認", "OK,NG", callback);
+        },
+        function(callback) {
+            releaseSEAll(callback);
         }], function() {
         console.log("testGameSoundStopAllSE");
         testResult("StopAllSEの確認", finishCallback);
