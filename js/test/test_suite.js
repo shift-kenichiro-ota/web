@@ -8,8 +8,14 @@ define(function() {
     var $ = require('jquery');
     var loop = 0;
     var debug;
+    var started = false;
 
     function execute() {
+        // ボタン二度押し防止
+        if (started) {
+            return;
+        }
+        started = true;
         console.log("test start");
         async.series([
             function(callback) {
@@ -20,13 +26,17 @@ define(function() {
             },
             function(callback) {
                 testExecute(callback);
+            },
+            function(callback) {
+               cmn.backgroundFinish(callback);
             }
         ], function(err, results) {
             if (err) {
                 console.log(err);
             }
-            notificationAlert("全てのテストが終了しました", "完了", "OK", function() {} );
+            //notificationAlert("全てのテストが終了しました", "完了", "OK", function() {} );
             console.log("all test finish");
+            started = false;
         });
     }
 

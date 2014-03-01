@@ -165,6 +165,9 @@ function testGameSoundLoadSE(finishCallback) {
     async.series([
         function(callback) {
             loadSE(callback);
+        },
+        function(callback) {
+            releaseSEAll(callback);
         }], function() {
         console.log("testGameSoundLoadSE");
         testResult("loadSEの確認", finishCallback);
@@ -191,6 +194,9 @@ function testGameSoundSetSEVolume(finishCallback) {
         },
         function(callback) {
             notificationConfirm("効果音のボリュームが大きくなること", "setSEVolumeの確認", "OK,NG", callback);
+        },
+        function(callback) {
+            releaseSEAll(callback);
         }], function() {
         console.log("testGameSoundSetSEVolume");
         testResult("setSEVolumeの確認", finishCallback);

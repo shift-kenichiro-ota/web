@@ -124,7 +124,7 @@ define(function() {
 		console.log("backgroundTest");
 	}
 
-	function backgroundFinish() {
+	function backgroundFinish(finishCallback) {
         async.series([
             function(callback) {
                 notificationAlert("テストがすべて終了しました。", "テスト終了", "OK", callback);
@@ -149,9 +149,12 @@ define(function() {
             },
             function(callback) {
                 stopSound(callback);
+            },
+            function(callback) {
+                releaseAllBGM(callback);
             }
         ], function() {
-            testFinishFinish();
+            finishCallback();
         });
 	}
 
