@@ -40,10 +40,8 @@ var PLAY_BGM_WAIT_TIME = 300;
 var SET_BGM_VOLUME_WAIT_TIME = 200;
 var LIGHT_ON_WAIT_TIME = 500;
 var RELEASE_SOUND_DATA_WAIT_TIME = 500;
-var PAUSE_SOUND_WAIT_TIME = 300;
 var STOP_SOUND_WAIT_TIME = 300;
 var CREATE_CONTACT_WAIT_TIME = 1000;
-var VIBRATE_WAIT_TIME = 3000;
 var LOCAL_NOTIFICATION_CANCEL_WAIT_TIME = 1000;
 var SPLASH_WAIT_TIME = 1000;
 var GA_TRACKING_VIEW_WAIT_TIME = 2000;
@@ -52,7 +50,6 @@ var GA_TRACKING_VIEW_WAIT_TIME = 2000;
 * バックグラウンドで動かし続ける処理
 */
 /** ******************************************************************************** */
-// ///
 // コンパス方位を一定の時間間隔で取得
 function watchHeading(finishCallback) {
     var watchHeadingError = function(e) {
@@ -78,7 +75,6 @@ function watchHeading(finishCallback) {
     setTimeout(finishCallback, 0);
 }
 
-// ///
 // コンパスの監視を停止
 function clearWatchHeading(finishCallback) {
     applican.compass.clearWatch(_compassWatchID);
@@ -88,12 +84,10 @@ function clearWatchHeading(finishCallback) {
     }, CLEAR_WAIT_TIME);
 }
 
-// ///
 // 加速度を一定の時間間隔で取得
 function watchAcceleration(finishCallback) {
     var watchAccelerationError = function(error) {
-	    var dump = "watchAccelerationError ";
-	    document.getElementById("dumpAreaAcceleration").value = dump;
+	    document.getElementById("dumpAreaAcceleration").value = "watchAccelerationError ";
     };
 
     var watchAccelerationSuccess = function(res) {
@@ -113,7 +107,6 @@ function watchAcceleration(finishCallback) {
     setTimeout(finishCallback, 0);
 }
 
-// ///
 // 加速度の監視を停止
 function clearWatchAcceleration(finishCallback) {
 	applican.accelerometer.clearWatch(_accelerationWatchID);
@@ -123,12 +116,10 @@ function clearWatchAcceleration(finishCallback) {
     }, CLEAR_WAIT_TIME);
 }
 
-// ///////////////////
 // シェイク監視
 function watchShake(finishCallback) {
     var shakeSuccess = function() {
-	    var dump = "shake: " + parseInt((new Date()) / 1000) + " ";
-	    document.getElementById("dumpAreaShake").value += dump;
+	    document.getElementById("dumpAreaShake").value += "shake: " + parseInt((new Date()) / 1000) + " ";
     };
 
 	applican.accelerometer.watchShake(shakeSuccess);
@@ -145,7 +136,6 @@ function clearWatchShake(finishCallback) {
     }, CLEAR_WAIT_TIME);
 }
 
-// ///
 // 位置情報を一定の時間間隔で取得
 function watchPosition(finishCallback) {
     var watchPositionError = function(e) {
@@ -179,7 +169,6 @@ function watchPosition(finishCallback) {
     setTimeout(finishCallback, 0);
 }
 
-// ///
 // 位置情報の監視を停止
 function clearWatchPosition(finishCallback) {
 	applican.geolocation.clearWatch(_geolocationWatchID);
@@ -190,7 +179,6 @@ function clearWatchPosition(finishCallback) {
     }, CLEAR_WAIT_TIME);
 }
 
-// ///////////////////
 // キーボード監視(Androidのみ)
 function watchKeyDown(finishCallback) {
     var watchKeyDownSuccess = function(res) {
@@ -240,7 +228,6 @@ function clearWatchKeyUp(finishCallback) {
     }, CLEAR_WAIT_TIME);
 }
 
-// /////////////////
 // GameSound
 
 // サウンドデータをまとめて読み込む
@@ -254,8 +241,7 @@ function loadBGM(finishCallback) {
     };
 
     var loadBGMSuccess = function() {
-	    var dump = "loadBGMSuccess ";
-	    document.getElementById("dumpAreaGameSound").value = dump;
+	    document.getElementById("dumpAreaGameSound").value = "loadBGMSuccess ";
 
         setTimeout(finishCallback, 0);
     };
@@ -287,30 +273,6 @@ function playBGM(track, finishCallback) {
     setTimeout(function() {
         finishCallback();
     }, PLAY_BGM_WAIT_TIME);
-}
-
-// BGM一時停止
-function pauseBGM(track, finishCallback) {
-	applican.gamesound.pauseBGM(track);
-    setTimeout(function() {
-        finishCallback();
-    }, PAUSE_SOUND_WAIT_TIME);
-}
-
-// BGM終了
-function stopBGM(track, finishCallback) {
-	applican.gamesound.stopBGM(track);
-    setTimeout(function() {
-        finishCallback();
-    }, STOP_SOUND_WAIT_TIME);
-}
-
-// BGMボリューム
-function setBGMVolume(track, volume, finishCallback) {
-	applican.gamesound.setBGMVolume(track, volume);
-    setTimeout(function() {
-        finishCallback();
-    }, SET_BGM_VOLUME_WAIT_TIME);
 }
 
 /** ******************************************************************************** */
@@ -361,7 +323,6 @@ function docomoLocation(finishCallback) {
 	applican.docomolocation.getCurrentPosition(successCallback, errorCallback, option);
 }
 
-// ///
 // 端末情報取得
 function checkDeviceInfo(finishCallback) {
 	try {
@@ -390,7 +351,6 @@ function checkDeviceInfoResult() {
     $('#dumpAreaDeviceInfo').val(dump);
 }
 
-// ///
 // Pushトークンを取得
 function getPushToken(finishCallback) {
     var getPushTokenError = function(error) {
@@ -415,7 +375,6 @@ function getPushToken(finishCallback) {
     applican.device.getPushToken(getPushTokenSuccess, getPushTokenError, {});
 }
 
-// ///
 // ファイル書き込み (永続的なストレージ)
 function fileWrite1(contents, finishCallback) {
     var fileWrite1_fail = function(error) {
@@ -470,7 +429,6 @@ function fileWrite1(contents, finishCallback) {
 
 /** ************************************************************ */
 
-// ///
 // ファイル書き込み (永続的なストレージ)
 function fileWriteTest(finishCallback) {
     var fileWrite1_fail = function(error) {
@@ -570,8 +528,6 @@ function fileRead1(finishCallback) {
                     if(evt.target.result) {
                         var dump = "データ URL として読み込み : " + evt.target.result;
                         console.log(dump);
-                    } else {
-                        dump = "file readDataUrl fail";
                     }
 
                     callback();
@@ -602,7 +558,7 @@ function directoryReader1(finishCallback) {
         $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
-    }
+    };
 
     var directoryReader1_readEntries = function(entries) {
 	    var dump;
@@ -633,7 +589,6 @@ function deleteFile1(finishCallback) {
     };
 
     var deleteFile1_removeSuccess = function() {
-	    var dump = "deleteFile1_removeSuccess ";
 
         setTimeout(finishCallback, 0);
     };
@@ -874,8 +829,6 @@ function mkdirInDir(finishCallback) {
     };
 
     var mkdirInDir_getDirectory = function(directoryEntry) {
-	    var dump = "mkdirInDir_getDirectory " + directoryEntry.name + " " + directoryEntry.fullPath + " ";
-
         setTimeout(finishCallback, 0);
     };
 
@@ -887,32 +840,6 @@ function mkdirInDir(finishCallback) {
     };
 
     applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, mkdirInDir_gotFS, mkdirInDir_fail);
-}
-
-// ディレクトリ削除(Recursively)
-function rmdir1(dir, finishCallback) {
-    var rmdir1_fail = function(error) {
-	    test_result = "NG rmdir fail " + error.code;
-
-        setTimeout(function() { finishCallback(error);}, 0);
-    };
-
-    var rmdir1_removeRecursivelySuccess = function() {
-	    var dump = "rmdir1_removeRecursivelySuccess ";
-	    test_result = "OK";
-
-        setTimeout(finishCallback, 0);
-    };
-
-    var rmdir1_getDirectory = function(directoryEntry) {
-	    directoryEntry.removeRecursively(rmdir1_removeRecursivelySuccess, rmdir1_fail);
-    };
-
-    var rmdir1_gotFS = function(fileSystem) {
-	    fileSystem.root.getDirectory(dir, null, rmdir1_getDirectory, rmdir1_fail);
-    };
-
-	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir1_gotFS, rmdir1_fail);
 }
 
 // ディレクトリ削除fixture(Recursively)
@@ -936,34 +863,6 @@ function rmdirFixture(dir, finishCallback) {
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir_gotFS, rmdir_fail);
 }
 
-// ディレクトリ削除
-
-function rmdir2(finishCallback) {
-    var rmdir2_fail = function(error) {
-	    test_result = "NG : " + error.code;
-
-        setTimeout(function() { finishCallback(error); }, 0);
-    };
-
-
-    var rmdir2_removeSuccess = function() {
-	    var dump = "rmdir2_removeSuccess ";
-	    test_result = "OK";
-
-        setTimeout(finishCallback, 0);
-    };
-
-    var rmdir2_getDirectory = function(directoryEntry) {
-	    directoryEntry.remove(rmdir2_removeSuccess, rmdir2_fail);
-    };
-
-    var rmdir2_gotFS = function(fileSystem) {
-	    fileSystem.root.getDirectory("newDir", null, rmdir2_getDirectory, rmdir2_fail);
-    };
-
-    applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, rmdir2_gotFS, rmdir2_fail);
-}
-
 // ディレクトリ移動
 function moveTo2(finishCallback) {
     var moveTo2_fail = function(error) {
@@ -975,8 +874,6 @@ function moveTo2(finishCallback) {
 
     var moveTo2_moveToSuccess = function(entry) {
         console.log("in move2 suc");
-	    var dump = "moveTo2_moveToSuccess ";
-	    dump += entry.name + " " + entry.fullPath + " ";
 	    test_result = "OK : " + entry.name + " " + entry.fullPath;
 
         setTimeout(finishCallback, 0);
@@ -1015,8 +912,6 @@ function copyTo2(finishCallback) {
     };
 
     var copyTo2_copyToSuccess = function(entry) {
-	    var dump = "copyTo2_copyToSuccess ";
-	    dump += entry.name + " " + entry.fullPath + " ";
 	    test_result = "OK : " + entry.name + " " + entry.fullPath;
 
         setTimeout(finishCallback, 0);
@@ -1068,7 +963,7 @@ function getParent2(finishCallback) {
 	    test_result = "NG : " + error.code;
 
        setTimeout(function() { finishCallback(error); }, 0);
-    }
+    };
 
     var getParent2_getParentSuccess = function(entry) {
 	    var dump = "getParent2_getParentSuccess ";
@@ -1089,7 +984,6 @@ function getParent2(finishCallback) {
 	applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, getParent2_gotFS, getParent2_fail);
 }
 
-// ///////////////////
 // 画面のサイズと向き
 function getDisplayInfo(finishCallback) {
     var getDisplayInfo_error = function(e) {
@@ -1113,7 +1007,6 @@ function getDisplayInfo(finishCallback) {
 	applican.device.getDisplayInfo(getDisplayInfo_success, getDisplayInfo_error);
 }
 
-// /////////////////
 // Http通信
 // GET
 function httpGet(finishCallback) {
@@ -1173,20 +1066,15 @@ function httpPost(finishCallback) {
 	applican.http.post(postURL, options, httpPostSuccess, httpPostError);
 }
 
-// ///////////////////
 // WiFiの状態を取得
 function getWiFiStatus(finishCallback) {
     var getWiFiStatus_Error = function(error) {
-	    var dump = "getWiFiStatus_Error ";
-	    dump += "code:" + error.code + " ";
 	    test_result = "NG : " + error.code;
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var getWiFiStatus_Success = function(status) {
-	    var dump = "getWiFiStatus_callback ";
-	    dump += "status:" + status + " ";
 	    test_result = "OK : " + status;
 
         setTimeout(finishCallback, 0);
@@ -1198,8 +1086,6 @@ function getWiFiStatus(finishCallback) {
 // WiFiをON
 function onWiFi(finishCallback) {
     var onWiFi_Error = function(error) {
-	    var dump = "onWiFi_Error ";
-	    dump += "code:" + error.code + " ";
 	    test_result = "NG : " + error.code;
 
         setTimeout(function() { finishCallback(error); }, 5000);
@@ -1207,7 +1093,6 @@ function onWiFi(finishCallback) {
 
 
     var onWiFi_Success = function() {
-	    var dump = "onWiFi_Success ";
 	    test_result = "OK";
 
         setTimeout(finishCallback, 5000);
@@ -1219,15 +1104,12 @@ function onWiFi(finishCallback) {
 // WiFiをOFF
 function offWiFi(finishCallback) {
     var offWiFi_Error = function(error) {
-	    var dump = "offWiFi_Error ";
-	    dump += "code:" + error.code + " ";
 	    test_result = "NG : " + error.code;
 
         setTimeout(function() { finishCallback(error); }, 5000);
     };
 
     var offWiFi_Success = function() {
-	    var dump = "offWiFi_Success ";
 	    test_result = "OK";
 
         setTimeout(finishCallback, 5000);
@@ -1308,7 +1190,6 @@ function connectWifi1(finishCallback) {
 	applican.wifi.connect(connectWifi_Success, connectWifi_Error, options);
 }
 
-// ///////////////////
 // Globalization
 // 言語
 function getPreferredLanguage(finishCallback) {
@@ -1356,7 +1237,6 @@ function getLocaleName(finishCallback) {
 	applican.globalization.getLocaleName(getLocaleNameSuccess, getLocaleNameError);
 }
 
-// ///////////////////
 // データベース
 var db = null;
 var testResultDB = null;
@@ -1385,7 +1265,6 @@ function openDb(name, finishCallback) {
 
 function createTable(finishCallback) {
     var createTable_success = function(result) {
-	    var dump = "createTable_success ";
 	    test_result = "OK";
         setTimeout(finishCallback, 0);
     };
@@ -1455,7 +1334,6 @@ function searchData(finishCallback) {
 	db.query(sql, searchData_success, searchData_error);
 }
 
-/ ///////////////////
 // 連絡先を作成
 function createContact(finishCallback) {
 	var myContact = applican.contacts.create({
@@ -1485,7 +1363,6 @@ function saveContact(finishCallback) {
     };
 
     var saveContact_onSuccess = function() {
-	    var dump = "saveContact_onSuccess ";
 	    test_result = "OK";
 
         setTimeout(finishCallback, 0);
@@ -1594,11 +1471,9 @@ function cloneContact(finishCallback) {
     finishCallback();
 }
 
-// ///////////////////
 // 簡易データ保存
 function setSimpleStorage(key, val, finishCallback) {
     var setSimpleStorage_success = function() {
-	    var dump = "setSimpleStorage_success ";
 	    test_result = "OK";
 
         setTimeout(finishCallback, 0);
@@ -1620,14 +1495,13 @@ function getSimpleStorage(key, finishCallback) {
 	    }
 
         setTimeout(finishCallback, 0);
-    }
+    };
 
 	applican.simpleStorage.get(key, getSimpleStorage_success);
 }
 
 function removeSimpleStorage(key, finishCallback) {
     var removeSimpleStorage_success = function(result) {
-	    var dump = "removeSimpleStorage_success ";
 	    test_result = "OK";
 
         setTimeout(finishCallback, 0);
@@ -1638,7 +1512,6 @@ function removeSimpleStorage(key, finishCallback) {
 
 function clearSimpleStorage(finishCallback) {
     var clearSimpleStorage_success = function(result) {
-	    var dump = "clearSimpleStorage_success ";
 	    test_result = "OK" + result;
 
         setTimeout(finishCallback, 0);
@@ -1647,7 +1520,6 @@ function clearSimpleStorage(finishCallback) {
 	applican.simpleStorage.clear(clearSimpleStorage_success);
 }
 
-/ ///
 // カメラ画像クリーンアップ
 function cleanupPicture(finishCallback) {
     var cleanupPictureError = function(message) {
@@ -1659,7 +1531,6 @@ function cleanupPicture(finishCallback) {
     };
 
     var cleanupPictureSuccess = function() {
-	    var dump = "cleanupPictureSuccess ";
 	    test_result = "OK";
 
         setTimeout(finishCallback, 0);
@@ -1676,7 +1547,6 @@ function cleanupPicture(finishCallback) {
 
 /** ******************************************************************************** */
 
-// ///
 // QRコード読み取り
 function captureBarcode(finishCallback) {
     var captureBarcodeError = function(e) {
@@ -1697,7 +1567,6 @@ function captureBarcode(finishCallback) {
 	applican.barcode.captureBarcode(captureBarcodeSuccess, captureBarcodeError);
 }
 
-// ///
 // 現在向いている方角を取得
 function getCurrentHeading(finishCallback) {
     // Androidバグ対応
@@ -1733,7 +1602,6 @@ function getCurrentHeading(finishCallback) {
 }
 
 
-// ///
 // 現在の加速度を取得
 function getCurrentAcceleration(finishCallback) {
     // Androidバグ対応
@@ -1766,7 +1634,6 @@ function getCurrentAcceleration(finishCallback) {
     applican.accelerometer.getCurrentAcceleration(currentAccelerationSuccess,currentAccelerometerError);
 }
 
-// ///
 // 位置情報を取得
 function getCurrentPosition(finishCallback) {
     // Androidバグ対応
@@ -1812,11 +1679,9 @@ function getCurrentPosition(finishCallback) {
 	applican.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, options);
 }
 
-// ///
 // 通知ダイアログ
 function notificationAlert(message, title, buttonName, finishCallback) {
     var alertCallback = function() {
-	    var dump = "alertCallback ";
 	    test_result = "OK";
 
         setTimeout(finishCallback, 0);
@@ -1825,7 +1690,6 @@ function notificationAlert(message, title, buttonName, finishCallback) {
     applican.notification.alert(message, alertCallback, title, buttonName);
 }
 
-// ///
 // 確認ダイアログ
 function notificationConfirm(message, title, buttonName, finishCallback) {
     var confirmCallback = function(buttonIndex) {
@@ -1862,7 +1726,6 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
     };
 
     var localNotificationSchedule1Success = function() {
-	    var dump = "localNotificationSchedule1Success ";
 	    test_result = "OK";
 
         setTimeout(finishCallback, 0);
@@ -1887,8 +1750,7 @@ function localNotificationCancel1(finishCallback) {// キャンセル
 	};
 	applican.localNotification.cancel(options);
 
-	var dump = "OK : localNotificationCancel1 ";
-    test_result = dump;
+    test_result = "OK : localNotificationCancel1 ";
     setTimeout(function() {
         finishCallback();
     }, LOCAL_NOTIFICATION_CANCEL_WAIT_TIME);
@@ -1936,13 +1798,11 @@ function localNotificationAllCancel(finishCallback) {
     }, LOCAL_NOTIFICATION_CANCEL_WAIT_TIME);
 }
 
-// ///////////////////
 // アプリ終了(Androidのみ)
 function finish() {
 	applican.finish();
 }
 
-// ///////////////////
 // Capture
 // オーディオ録音
 function captureAudio(finishCallback) {
@@ -2022,7 +1882,6 @@ function captureImage(finishCallback) {
     applican.capture.captureImage(captureImageSuccess, captureImageError);
 }
 
-// /////////////////
 // GameSound
 // SEを読み込む
 function loadSE(finishCallback) {
@@ -2157,18 +2016,14 @@ function releaseSEAll(finishCallback) {
     }, RELEASE_SOUND_DATA_WAIT_TIME);
 }
 
-// ///////////////////
 // 動画を指定した位置に表示
 function playVideoOverlay(control, finishCallback) {
     var playVideoOverlay_error = function(error) {
-	    var dump = "playVideoOverlay_error ";
-	    dump += "code:" + error.code + " ";
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var playVideoOverlay_success = function() {
-	    var dump = "playVideoOverlay_success ";
 
         setTimeout(finishCallback, 0);
     };
@@ -2192,7 +2047,6 @@ function stopVideo(finishCallback) {
     }, STOP_VIDEO_WAIT_TIME);
 }
 
-// ///////////////////
 // ライトをON/OFF
 function light1(flg, finishCallback) {
 	applican.device.light(flg);
@@ -2201,7 +2055,6 @@ function light1(flg, finishCallback) {
     }, LIGHT_ON_WAIT_TIME);
 }
 
-// ///////////////////
 // スプラッシュ表示
 function showSplash1(finishCallback) {
 	// javascriptでタイムアウト
@@ -2222,17 +2075,6 @@ function showSplash1(finishCallback) {
     });
 }
 
-function showSplash2(finishCallback) {
-	// プラットフォーム側でタイムアウト
-	applican.splashscreen.show('splash/splash2_portrait.png', 'splash/splash2_landscape.png', 3000);
-    setTimeout(function() {
-    }, 3000);
-    setTimeout(function() {
-        finishCallback();
-    }, SPLASH_WAIT_TIME);
-}
-
-// ///////////////////
 // GoogleAnalytics
 function gaTrackView(finishCallback) {
     async.series([
@@ -2269,7 +2111,6 @@ function gaTrackEvent(finishCallback) {
 
 }
 
-// ///
 // 取得した画像を→ライブラリへ保存
 function saveToPhotoAlbum(finishCallback) {
     var saveToPhotoAlbumError = function(message) {
@@ -2288,7 +2129,6 @@ function saveToPhotoAlbum(finishCallback) {
 	applican.camera.saveToPhotoAlbum(_imageData, saveToPhotoAlbumSuccess, saveToPhotoAlbumError);
 }
 
-// ///
 // カメラ撮影(PhoneGap形式) base64で取得
 var _imageData = null;
 function getPicture1(mode, finishCallback) {
@@ -2328,7 +2168,6 @@ function getPicture1(mode, finishCallback) {
 */
 
 /** ******************************************************************************** */
-// ///////////////////
 // ログ画面表示
 function showLogConsole(finishCallback) {
 	applican.showLogConsole();

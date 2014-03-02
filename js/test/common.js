@@ -21,7 +21,6 @@ define(function() {
                 callback(null);
             },
             function(callback) {
-                console.log("debug1");
                 applican.openDatabase('testresult',
                     function(db_obj) {
                         testResultDB = db_obj;
@@ -85,10 +84,6 @@ define(function() {
 		location.href = "page2.html?launch_webview=yes&suiteNo=" + suiteNo + "&loop=" + loop;
 	}
 
-	function notificationCloseWebView() {
-		notificationAlert("WebViewをクローズしてください。", "WebViewのクローズ", "OK");
-	}
-
     function backgroundStart(finishCallback) {
 		console.log("background start");
 		async.series([
@@ -118,10 +113,6 @@ define(function() {
 		}], function(err, results) {
             finishCallback();
 		});
-	}
-
-	function backgroundTest(finishCallback) {
-		console.log("backgroundTest");
 	}
 
 	function backgroundFinish(finishCallback) {
@@ -174,7 +165,6 @@ define(function() {
     }
 
 	return {
-        backgroundTest : backgroundTest,
         backgroundStart : backgroundStart,
         backgroundFinish : backgroundFinish,
         openWebView : openWebView,
