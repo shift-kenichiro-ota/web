@@ -6,7 +6,7 @@
 var test_case_json =
     [
          {"key" : "01", "exeflg" : true, "val": [
-            "GameSoundLoadSE", "GameSoundSetSEVolume", "GameSoundPlaySE", "GameSoundStopSE", "GameSoundStopAllSE", "FinishFinish"
+            "CaptureCaptureAudio", "CaptureCaptureVideo", "FinishFinish"
         ], "WebView":1}
 
         /*

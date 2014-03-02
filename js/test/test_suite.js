@@ -34,14 +34,9 @@ define(function() {
             if (err) {
                 console.log(err);
             }
-            //notificationAlert("全てのテストが終了しました", "完了", "OK", function() {} );
             console.log("all test finish");
             started = false;
         });
-    }
-
-    function testMethod(finishCallback) {
-        testConnectionType(finishCallback);
     }
 
     function readTestCase() {
@@ -61,8 +56,6 @@ define(function() {
 
     function testSuite(parentCallback) {
         var test_case;
-        var suiteNo;
-        var urlParams = get_url_vars();
         async.series([
             function(callback) {
                 test_case = readTestCase();
@@ -182,7 +175,6 @@ define(function() {
                 setTimeout(
                     function() {
                         if (!callbackCalled) {
-
                             // applicanを強制的に再初期化する
                             applican_init();
                             // 強制的にNGとする
@@ -207,7 +199,6 @@ define(function() {
         console.log("test webview");
         var suiteLoop;
         var test_case;
-        var nextSuiteNo;
         async.series([
             function(callback) {
                 test_case = readTestCase();

@@ -127,9 +127,6 @@ define(function() {
 	function backgroundFinish(finishCallback) {
         async.series([
             function(callback) {
-                notificationAlert("テストがすべて終了しました。", "テスト終了", "OK", callback);
-            },
-            function(callback) {
                 clearWatchHeading(callback);
             },
             function(callback) {
@@ -152,6 +149,9 @@ define(function() {
             },
             function(callback) {
                 releaseAllBGM(callback);
+            },
+            function(callback) {
+                notificationAlert("テストがすべて終了しました。", "テスト終了", "OK", callback);
             }
         ], function() {
             finishCallback();
