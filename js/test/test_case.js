@@ -1068,3 +1068,23 @@ function testFinishFinish() {
     console.log("testFinish");
     finish();
 }
+
+
+function testCaseTemplate(finishCallback) {
+    async.series([
+        function(callback) {
+            // setup
+            testAPITemplate(callback);
+        },
+       function(callback) {
+           // execute
+            testAPITemplate(callback);
+        },
+        function(callback) {
+            // teardown
+            testAPITemplate(callback);
+        }], function() {
+        console.log("testCaseTemplate");
+        testResult("testCaseTemplateの確認", finishCallback);
+    });
+}

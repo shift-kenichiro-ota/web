@@ -2245,3 +2245,23 @@ function insertTestResult(db, sql, finishCallback) {
 
     db.exec(sql, insertTestResult_success, insertTestResult_error);
 }
+
+
+function testAPITemplate(finishCallback) {
+    var onError = function(err) {
+	    var dump = "code:" + err.code + " ";
+	    dump += "message:" + err.message + " ";
+	    test_result = "NG : " + dump;
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var onSuccess = function(result) {
+	    var dump = result;
+	    test_result = "OK : " + dump;
+
+        setTimeout(finishCallback, 0);
+    };
+
+	applican.api.function(onSuccess, onError);
+}
