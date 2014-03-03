@@ -6,8 +6,14 @@
 var test_case_json =
     [
         /*
-         {"key" : "01", "exeflg" : true, "val": [
-            "CaptureCaptureAudio", "CaptureCaptureVideo", "FinishFinish"
+        {"key" : "01", "exeflg" : true, "val": [
+            "ConnectionType", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "02", "exeflg" : true, "val": [
+            "ConnectionType", "FinishFinish"
+        ], "WebView":2},
+        {"key" : "03", "exeflg" : true, "val": [
+            "ConnectionType", "FinishFinish"
         ], "WebView":1}
         */
 

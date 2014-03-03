@@ -82,7 +82,7 @@ define(function() {
                         console.log("i : " + i + " test suite : " + test_case[i].key);
                         if (test_case[i].WebView == 2) {
                             // 手動でWebViewから戻ったときにテストを継続させる
-                            document.getElementById("test_continue").onclick = function() {  setTimeout(callback, 3000); document.getElementById("test_continue").onclick = function() {}; };
+                            document.getElementById("test_continue").onclick = function() {  setTimeout(callback, 3000); document.getElementById("test_continue").onclick = null; };
                             cmn.openWebView(test_case[i].key, i);
                         } else {
                             testCase(test_case, i, callback);
