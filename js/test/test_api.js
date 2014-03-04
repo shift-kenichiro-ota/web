@@ -2131,20 +2131,18 @@ function saveToPhotoAlbum(finishCallback) {
 
 // カメラ撮影(PhoneGap形式) base64で取得
 var _imageData = null;
-function getPicture1(mode, finishCallback) {
-    var getPicture1_getPictureError = function(message) {
-	    var dump = "";
-	    dump += "message:" + message + " ";
+function getPicture1(finishCallback) {
+    var onError = function(message) {
+	    var dump = "message:" + message + " ";
 	    test_result = "NG : " + dump;
 
         setTimeout(function() { finishCallback(message); }, 0);
     };
 
-    var getPicture1_getPictureSuccess = function(res) {
+    var onSuccess = function(res) {
 	    _imageData = res;
-	    var dump = "";
-	    dump += "size:" + res.length + " ";
         document.getElementById('myImage').src = "data:image/jpeg;base64," + res;
+	    var dump = "size:" + res.length + " ";
 	    test_result = "OK : " + dump;
 
         setTimeout(finishCallback, 0);
@@ -2158,7 +2156,7 @@ function getPicture1(mode, finishCallback) {
 		targetWidth : 200,
 		targetHeight : 200
 	};
-	applican.camera.getPicture(getPicture1_getPictureSuccess, getPicture1_getPictureError, options);
+	applican.camera.getPicture(onSuccess, onError, options);
 }
 
 /** ******************************************************************************** */

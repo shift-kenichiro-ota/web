@@ -31,7 +31,7 @@ function testCameraGetPicture(finishCallback) {
             notificationAlert("カメラ起動後に写真撮影を行ってください。", "getPictureの確認", "OK", callback);
         },
         function(callback) {
-            getPicture1("", callback);
+            getPicture1(callback);
         },
         function(callback) {
             notificationConfirm("写真撮影が行えること", "getPictureの確認", "OK,NG", callback);
@@ -47,7 +47,7 @@ function testCameraSaveToPhotoAlbum(finishCallback) {
             notificationAlert('saveToPhoAlbumの確認のため,写真撮影を行ってください。', "saveToPhotoの確認", "OK", callback);
         },
         function(callback) {
-            getPicture1("", callback);
+            getPicture1(callback);
         },
         function(callback) {
             saveToPhotoAlbum(callback);
@@ -443,7 +443,7 @@ function testCameraCleanup(finishCallback) {
             notificationAlert("カメラ撮影を行ってください。", "cleanupの確認", "OK", callback);
         },
         function(callback) {
-            getPicture1("", callback);
+            getPicture1(callback);
         },
         function(callback) {
             cleanupPicture(callback);

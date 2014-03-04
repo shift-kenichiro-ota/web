@@ -65,29 +65,55 @@ define(function() {
             },function(callback) {
                 var i = 0;
                 var endTestSuite = test_case.length;
+                var specifiedtestSuiteString = $("#specified_test_suite").val();
+                var specifiedtestSuiteStrings;
                 var parsedStartTestSuite = parseInt($("#start_test_suite").val(), 10);
                 var parsedEndTestSuite = parseInt($("#end_test_suite").val(), 10);
-
-                if (parsedStartTestSuite && 1 <= parsedStartTestSuite && parsedStartTestSuite <= endTestSuite) {
-                    i = parsedStartTestSuite - 1; // 画面からの入力の基数は1
-                }
-                if (parsedEndTestSuite && i + 1 <= parsedEndTestSuite && parsedEndTestSuite <= endTestSuite) {
-                    endTestSuite = parsedEndTestSuite;
+                var testCasePointer = [];
+                var s;
+                var suiteId;
+                var p;
+                // テストスィート指定を最優先
+                if (specifiedtestSuiteString) {
+                    //testCasePointer = specifiedtestSuiteString.split(",").map(function(id) { return parseInt(id, 10) - 1; });
+                    specifiedtestSuiteStrings = specifiedtestSuiteString.split(",");
+                    for (s = 0; s < specifiedtestSuiteStrings.length; s++) {
+                        suiteId = parseInt(specifiedtestSuiteStrings[s], 10) - 1;
+                        if (0 <= suiteId && suiteId < endTestSuite) {
+                            testCasePointer.push(suiteId);
+                        } else {
+                            window.alert("テストスィートの範囲外の番号は指定できません : " +  specifiedtestSuiteStrings[s]);
+                            callback();
+                            return;
+                        }
+                    }
+                    endTestSuite = testCasePointer.length;
+                } else {
+                    // 範囲指定はテストスィート指定をしてない場合のみ
+                    if (parsedStartTestSuite && 1 <= parsedStartTestSuite && parsedStartTestSuite <= endTestSuite) {
+                        i = parsedStartTestSuite - 1; // 画面からの入力の基数は1
+                    }
+                    if (parsedEndTestSuite && i + 1 <= parsedEndTestSuite && parsedEndTestSuite <= endTestSuite) {
+                        endTestSuite = parsedEndTestSuite;
+                    }
+                    for (p = i; p < endTestSuite; p++) {
+                        testCasePointer[p] = p;
+                    }
                 }
                 async.whilst(
                     function() {
                         return i < endTestSuite;
                     },
                     function (callback) {
-                        console.log("i : " + i + " test suite : " + test_case[i].key);
+                        console.log("testCasePointer[i] : " + testCasePointer[i] + " test suite : " + test_case[testCasePointer[i]].key);
                         if (test_case[i].WebView == 2) {
                             // 手動でWebViewから戻ったときにテストを継続させる
                             document.getElementById("test_continue").onclick = function() {  setTimeout(callback, 3000); document.getElementById("test_continue").onclick = null; };
-                            cmn.openWebView(test_case[i].key, i);
+                            cmn.openWebView(test_case[i].key, testCasePointer[i]);
                         } else {
-                            testCase(test_case, i, callback);
+                            testCase(test_case, testCasePointer[i], callback);
                         }
-                        console.log("in loop i = " + i);
+                        console.log("in loop testCasePointer[i] = " + testCasePointer[i]);
                         i++;
                     },
                     function (err) {
