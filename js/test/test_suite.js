@@ -108,7 +108,7 @@ define(function() {
                         console.log("testCasePointer[i] : " + testCasePointer[i] + " test suite : " + test_case[testCasePointer[i]].key);
                         if (test_case[i].WebView == 2) {
                             // 手動でWebViewから戻ったときにテストを継続させる
-                            document.getElementById("test_continue").onclick = function() {  setTimeout(callback, 3000); document.getElementById("test_continue").onclick = null; };
+                            document.getElementById("test_continue").onclick = function() { document.getElementById("test_continue").onclick = null; setTimeout(callback, 3000); };
                             cmn.openWebView(test_case[i].key, testCasePointer[i]);
                         } else {
                             testCase(test_case, testCasePointer[i], callback);
