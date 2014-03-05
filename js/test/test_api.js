@@ -1680,6 +1680,13 @@ function getCurrentPosition(finishCallback) {
 }
 
 // 通知ダイアログ
+function notificationVibrate(milliseconds, finishCallback) {
+    applican.notification.vibrate(milliseconds);
+    test_result = "OK";
+    setTimeout(finishCallback, milliseconds + 1000);
+}
+
+// 通知ダイアログ
 function notificationAlert(message, title, buttonName, finishCallback) {
     var alertCallback = function() {
 	    test_result = "OK";

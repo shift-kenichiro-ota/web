@@ -376,11 +376,6 @@ function testLocalNotificationAllCancel(finishCallback) {
     });
 }
 
-function testNotificationVibrate(finishCallback) {
-    test_result = "OK : ";
-    console.log("testNotificationVibrate");
-    testResult("notificationVibrateの確認", finishCallback);
-}
 
 function testSplashScreenShow(finishCallback) {
     async.series([
@@ -861,6 +856,19 @@ function testNotificationAlert(finishCallback) {
     });
 }
 
+function testNotificationVibrate(finishCallback) {
+    async.series([
+       function(callback) {
+            notificationVibrate(1000, callback);
+        },
+        function(callback) {
+            notificationConfirm("1秒バイブレーションすること", "notificationVibrateの確認", "OK,NG", callback);
+        }], function() {
+        console.log("testNotificationVibrate");
+        testResult("notificationVibrateの確認", finishCallback);
+    });
+}
+
 function testGameSoundReleaseAllSE(finishCallback) {
     async.series([
         function(callback) {
@@ -1064,9 +1072,11 @@ function testWiFiGetSSIDList(finishCallback) {
     });
 }
 
-function testFinishFinish() {
-    console.log("testFinish");
+function testFinishFinish(finishCallback) {
     finish();
+    test_result = "OK : finish";
+    console.log("testFinish");
+    tetResult("finishFnishの確認", finishCallback);
 }
 
 
