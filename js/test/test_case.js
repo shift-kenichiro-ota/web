@@ -67,7 +67,6 @@ function testCaptureCaptureImage(finishCallback) {
         },
         function(callback) {
             captureImage(callback);
-            alert("captureImage API呼び出し")
         },
         function(callback) {
             notificationConfirm("写真撮影が行えること", "captureImageの確認", "OK,NG", callback);
@@ -570,7 +569,6 @@ function testDocomoLocationGetCurrentPosition(finishCallback) {
     async.series([
         function(callback) {
             docomoLocation(callback);
-            alert("API呼び出し")
         }], function() {
         console.log("testDocomoLocationGetCurrentPosition");
         testResult("docomoLocationの確認", finishCallback);
