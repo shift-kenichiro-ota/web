@@ -1430,6 +1430,59 @@ function saveContact(finishCallback) {
 	myContact.photos = [photo];
 
 	myContact.save(saveContact_onSuccess, saveContact_onError);
+
+    return myContact;
+}
+
+function findContact(finishCallback) {
+    var onError = function(err) {
+        var dump = "code:" + err.code + " ";
+        dump += "message:" + err.message + " ";
+        test_result = "NG : " + dump;
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var onSuccess = function(contacts) {
+        var i;
+        var dump = "";
+        for (i = 0; i < contacts.length; i++) {
+            dump += contacts[i].displayName + "\n";
+            if(contacts[i].urls && contacts[i].urls.length > 0) {
+                dump += contacts[i].urls[0].value + "\n";
+            }
+        }
+        test_result = "OK : " + dump;
+
+        setTimeout(finishCallback, 0);
+    };
+
+    var options = new ContactFindOptions();
+    options.filter = "Test";
+    options.multiple = true;
+    var fields = ["*"];
+    applican.contacts.find(fields, onSuccess, onError, options);
+}
+
+function contactFixture(name, finishCallback) {
+    var onError = function(err) {
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var onSuccess = function(contacts) {
+        var i;
+        for (i = 0; i < contacts.length; i++) {
+            // removeの検証自体は別テストケースで実施する
+            contacts[i].remove(function() { }, function () { });
+        }
+        setTimeout(finishCallback, 0);
+    };
+
+    var options = new ContactFindOptions();
+    options.filter = name;
+    options.multiple = true;
+    var fields = ["*"];
+    applican.contacts.find(fields, onSuccess, onError, options);
 }
 
 // 連絡先をディープコピー

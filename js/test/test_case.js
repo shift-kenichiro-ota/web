@@ -460,6 +460,9 @@ function testContactCreate(finishCallback) {
 function testContactSave(finishCallback) {
     async.series([
         function(callback) {
+            contactFixture("Test", callback);
+        },
+        function(callback) {
             saveContact(callback);
         }], function() {
         console.log("testContactSave");
@@ -483,8 +486,19 @@ function testContactClone(finishCallback) {
 }
 
 function testContactFind(finishCallback) {
-    console.log("testContactFind");
-    testResult("contactFindの確認", finishCallback);
+    async.series([
+        function(callback) {
+            contactFixture("Test", callback);
+        },
+        function(callback) {
+            saveContact(callback);
+        },
+        function(callback) {
+            findContact(callback);
+        }], function() {
+        console.log("testContactFind");
+        testResult("contactFindの確認", finishCallback);
+    });
 }
 
 function testDatabaseOpenDatabase(finishCallback) {
