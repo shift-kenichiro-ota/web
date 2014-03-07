@@ -79,14 +79,12 @@ function watchHeading(finishCallback) {
 function clearWatchHeading(finishCallback) {
     applican.compass.clearWatch(_compassWatchID);
     document.getElementById("dumpAreaCompass").value =" Stop!!";
-    setTimeout(function() {
-        finishCallback();
-    }, CLEAR_WAIT_TIME);
+    setTimeout(finishCallback, CLEAR_WAIT_TIME);
 }
 
 // 加速度を一定の時間間隔で取得
 function watchAcceleration(finishCallback) {
-    var watchAccelerationError = function(error) {
+    var watchAccelerationError = function() {
 	    document.getElementById("dumpAreaAcceleration").value = "watchAccelerationError ";
     };
 
@@ -111,9 +109,7 @@ function watchAcceleration(finishCallback) {
 function clearWatchAcceleration(finishCallback) {
 	applican.accelerometer.clearWatch(_accelerationWatchID);
 	document.getElementById("dumpAreaAcceleration").value = ' Stop!!';
-    setTimeout(function() {
-        finishCallback();
-    }, CLEAR_WAIT_TIME);
+    setTimeout(finishCallback, CLEAR_WAIT_TIME);
 }
 
 // シェイク監視
@@ -131,9 +127,7 @@ function watchShake(finishCallback) {
 function clearWatchShake(finishCallback) {
 	applican.accelerometer.clearWatchShake();
 	document.getElementById("dumpAreaShake").value = "Stop!!";
-    setTimeout(function() {
-        finishCallback();
-    }, CLEAR_WAIT_TIME);
+    setTimeout(finishCallback, CLEAR_WAIT_TIME);
 }
 
 // 位置情報を一定の時間間隔で取得
@@ -174,9 +168,7 @@ function clearWatchPosition(finishCallback) {
 	applican.geolocation.clearWatch(_geolocationWatchID);
     var positionValue = document.getElementById("dumpAreaGeolocation").value;
 	document.getElementById("dumpAreaGeolocation").value = positionValue + " Stop!!";
-    setTimeout(function() {
-        finishCallback();
-    }, CLEAR_WAIT_TIME);
+    setTimeout(finishCallback, CLEAR_WAIT_TIME);
 }
 
 // キーボード監視(Androidのみ)
@@ -199,9 +191,7 @@ function watchKeyDown(finishCallback) {
 function clearWatchKeyDown(finishCallback) {
 	applican.keyboard.clearWatchKeyDown();
 	document.getElementById("dumpAreaKeyDown").value = "watchKeyDown Stop!";
-    setTimeout(function() {
-        finishCallback();
-    }, CLEAR_WAIT_TIME);
+    setTimeout(finishCallback, CLEAR_WAIT_TIME);
 }
 
 function watchKeyUp(finishCallback) {
@@ -223,9 +213,7 @@ function watchKeyUp(finishCallback) {
 function clearWatchKeyUp(finishCallback) {
 	applican.keyboard.clearWatchKeyUp();
 	document.getElementById("dumpAreaKeyUp").value = "watchKeyUp Stop!";
-    setTimeout(function() {
-        finishCallback();
-    }, CLEAR_WAIT_TIME);
+    setTimeout(finishCallback, CLEAR_WAIT_TIME);
 }
 
 // GameSound
@@ -270,9 +258,7 @@ function playBGM(track, finishCallback) {
 	options.track = track;
 	options.loop = true;
 	applican.gamesound.playBGM(options);
-    setTimeout(function() {
-        finishCallback();
-    }, PLAY_BGM_WAIT_TIME);
+    setTimeout(finishCallback, PLAY_BGM_WAIT_TIME);
 }
 
 /** ******************************************************************************** */
@@ -389,20 +375,20 @@ function fileWrite1(contents, finishCallback) {
 	    var dump = "fileWrite1_gotFileWriter";
 	    console.log(dump);
 
-	    writer.onwritestart = function(evt) {
+	    writer.onwritestart = function() {
 		    console.log("onwrite test start");
 	    };
-	    writer.onabort = function(evt) {
+	    writer.onabort = function() {
 		    console.log("onabort");
 	    };
-	    writer.onwrite = function(evt) {
+	    writer.onwrite = function() {
 		    console.log("onwrite");
 	    };
-	    writer.onerror = function(evt) {
+	    writer.onerror = function() {
 		    console.log("onerror");
 	    };
 
-	    writer.onwriteend = function(evt) {
+	    writer.onwriteend = function() {
 		    console.log("onwrite end");
             setTimeout(finishCallback, 0);
 	    };
@@ -449,20 +435,20 @@ function fileWriteTest(finishCallback) {
 	    var dump = "fileWrite1_gotFileWriter";
 	    console.log(dump);
 
-	    writer.onwritestart = function(evt) {
+	    writer.onwritestart = function() {
 		    console.log("onwrite test start");
 	    };
-	    writer.onabort = function(evt) {
+	    writer.onabort = function() {
 		    console.log("onabort");
 	    };
-	    writer.onwrite = function(evt) {
+	    writer.onwrite = function() {
 		    console.log("onwrite");
 	    };
-	    writer.onerror = function(evt) {
+	    writer.onerror = function() {
 		    console.log("onerror");
 	    };
 
-	    writer.onwriteend = function(evt) {
+	    writer.onwriteend = function() {
 		    console.log("onwrite end");
 	    };
 	    console.log(writeContents);
@@ -607,7 +593,7 @@ function deleteFile1(finishCallback) {
 
 // ファイル削除
 function deleteFileFixture(file, finishCallback) {
-    var deleteFile_fail = function(error) {
+    var deleteFile_fail = function() {
         setTimeout(finishCallback, 0);
     };
 
@@ -828,7 +814,7 @@ function mkdirInDir(finishCallback) {
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
-    var mkdirInDir_getDirectory = function(directoryEntry) {
+    var mkdirInDir_getDirectory = function() {
         setTimeout(finishCallback, 0);
     };
 
@@ -844,7 +830,7 @@ function mkdirInDir(finishCallback) {
 
 // ディレクトリ削除fixture(Recursively)
 function rmdirFixture(dir, finishCallback) {
-    var rmdir_fail = function(error) {
+    var rmdir_fail = function() {
         setTimeout(finishCallback, 0);
     };
 
@@ -1187,7 +1173,7 @@ function getPreferredLanguage(finishCallback) {
 	    dump += "code:" + err.code + " ";
 	    test_result = "NG : " + dump;
 
-        setTimeout(function() { finishCallback(err);}, 0);
+        setTimeout(function() { finishCallback(err); }, 0);
     };
 
     var getPreferredLanguageSuccess = function(language) {
@@ -1253,7 +1239,7 @@ function openDb(name, finishCallback) {
 }
 
 function createTable(finishCallback) {
-    var createTable_success = function(result) {
+    var createTable_success = function() {
 	    test_result = "OK";
         setTimeout(finishCallback, 0);
     };
@@ -1569,7 +1555,7 @@ function getSimpleStorage(key, finishCallback) {
 }
 
 function removeSimpleStorage(key, finishCallback) {
-    var removeSimpleStorage_success = function(result) {
+    var removeSimpleStorage_success = function() {
 	    test_result = "OK";
 
         setTimeout(finishCallback, 0);
@@ -2281,7 +2267,7 @@ function varsReset(finishCallback) {
 }
 
 function insertTestResult(db, sql, finishCallback) {
-    var insertTestResult_success = function(result) {
+    var insertTestResult_success = function() {
        finishCallback();
     };
 

@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4dd00b32-e8aa-42db-80ea-f55a10890f4d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/test/test_api.js" afterPath="$PROJECT_DIR$/js/test/test_api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="web.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -104,7 +103,7 @@
       <file leaf-file-name="test_api.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2286" column="0" selection-start="64536" selection-end="64536" vertical-scroll-proportion="0.1552901" vertical-offset="34169" max-vertical-offset="34755">
+            <state line="2275" column="4" selection-start="64337" selection-end="64337" vertical-scroll-proportion="0.2320819" vertical-offset="33959" max-vertical-offset="34545">
               <folding />
             </state>
           </provider>
@@ -869,7 +868,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2286" column="0" selection-start="64536" selection-end="64536" vertical-scroll-proportion="0.1552901" vertical-offset="34169" max-vertical-offset="34755">
+        <state line="2275" column="4" selection-start="64337" selection-end="64337" vertical-scroll-proportion="0.2320819" vertical-offset="33959" max-vertical-offset="34545">
           <folding />
         </state>
       </provider>
