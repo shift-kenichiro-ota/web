@@ -1430,8 +1430,6 @@ function saveContact(finishCallback) {
 	myContact.photos = [photo];
 
 	myContact.save(saveContact_onSuccess, saveContact_onError);
-
-    return myContact;
 }
 
 function findContact(finishCallback) {
@@ -1483,6 +1481,33 @@ function contactFixture(name, finishCallback) {
     options.multiple = true;
     var fields = ["*"];
     applican.contacts.find(fields, onSuccess, onError, options);
+}
+
+
+function removeContact(name, finishCallback) {
+    var onError = function(err) {
+	    var dump = "code:" + err.code + " ";
+	    dump += "message:" + err.message + " ";
+	    test_result = "NG : " + dump;
+
+        setTimeout(function() { finishCallback(err); }, 0);
+    };
+
+    var onSuccess = function() {
+	    test_result = "OK : contact remove";
+
+        setTimeout(finishCallback, 0);
+    };
+
+    var onFindSuccess = function(contacts) {
+        contacts[0].remove(onSuccess, onError);
+    };
+
+    var options = new ContactFindOptions();
+    options.filter = name;
+    options.multiple = true;
+    var fields = ["*"];
+    applican.contacts.find(fields, onFindSuccess, onError, options);
 }
 
 // 連絡先をディープコピー

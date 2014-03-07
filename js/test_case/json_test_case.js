@@ -1,9 +1,10 @@
 define(function() {
     var test_case_json = [
-        {"key" : "01", "exeflg" : true, "val": [
-            "ContactSave", "ContactFind", "FinishFinish"
-        ], "WebView":1}
         /*
+        {"key" : "01", "exeflg" : true, "val": [
+            "ContactFind", "ContactSave", "ContactRemove", "FinishFinish"
+        ], "WebView":1}
+        */
         {"key" : "01", "exeflg" : true, "val" : [
             "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraCleanup", "CaptureCaptureVideo", "CompassGetCurrentHeading", "ConnectionType", "ContactFind", "DatabaseExecTransaction", "DeviceGetDisplayInfo", "DocomoLocationGetCurrentPosition", "DirectoryEntryToURL", "FileEntryFile", "GameSoundStopSE", "GEOLocationGetCurrentPosition", "GlobalizationGetPreferredLanguage", "GoogleAnalyticsTrackView", "HTTPGet", "LocalNotificationAllCancel", "NotificationAlert", "SimpleStorageClear", "SplashScreenHide", "VideoPlay", "WiFiOn", "FinishFinish"
         ], "WebView" : 1},
@@ -163,7 +164,6 @@ define(function() {
         {"key" : "53", "exeflg" : true, "val" : [
             "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraSaveToPhotoAlbum", "CaptureCaptureImage", "CompassGetCurrentHeading", "ConnectionType", "ContactCreate", "DatabaseExec", "DeviceGetPushToken", "DocomoLocationGetCurrentPosition", "DirectoryEntryMoveTo", "FileEntryCopyTo", "GameSoundLoadSE", "GEOLocationGetCurrentPosition", "GlobalizationGetPreferredLanguage", "GoogleAnalyticsTrackEvent", "HTTPGet", "LocalNotificationCancel", "NotificationVibrate", "SimpleStorageClear", "SplashScreenHide", "VideoPlay", "WiFiOff", "FinishFinish"
         ], "WebView" : 1}
-        */
     ];
     return {
         test_case_list : test_case_json 

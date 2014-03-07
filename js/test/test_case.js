@@ -471,8 +471,21 @@ function testContactSave(finishCallback) {
 }
 
 function testContactRemove(finishCallback) {
-    console.log("testContactRemove");
-    testResult("contactRemoveの確認", finishCallback);
+    async.series([
+        function(callback) {
+            // Testは全部削除しておく
+            contactFixture("Test", callback);
+        },
+        function(callback) {
+            saveContact(callback);
+        },
+        function(callback) {
+            // 追加した一つのTestだけ削除できれば成功
+            removeContact("Test", callback);
+        }], function() {
+        console.log("testContactRemove");
+        testResult("contactRemoveの確認", finishCallback);
+    });
 }
 
 function testContactClone(finishCallback) {
