@@ -866,41 +866,30 @@ function rmdirFixture(dir, finishCallback) {
 // ディレクトリ移動
 function moveTo2(finishCallback) {
     var moveTo2_fail = function(error) {
-        console.log("in move2 fail" + error);
 	    test_result = "NG : " + error.code;
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var moveTo2_moveToSuccess = function(entry) {
-        console.log("in move2 suc");
 	    test_result = "OK : " + entry.name + " " + entry.fullPath;
 
         setTimeout(finishCallback, 0);
     };
 
     var moveTo2_getDirectory = function(directoryEntry) {
-        console.log("in pre move2 getdirectory");
 	    var tmp = directoryEntry.fullPath;
-        console.log("tmp = " + tmp);
 	    var parentPath = tmp.substring(0, tmp.lastIndexOf('/'));
-        console.log("parentPath = " + parentPath);
 	    var parentName = parentPath.substring(parentPath.lastIndexOf('/') + 1);
-        console.log("parentName = " + parentName);
 	    var parentEntry = new DirectoryEntry(parentName, parentPath);
-        console.log("parentEntry = " + parentEntry);
 	    directoryEntry.moveTo(parentEntry, "newDir2", moveTo2_moveToSuccess, moveTo2_fail);
-        console.log("in post move2 getdirectory");
     };
 
     var moveTo2_gotFS = function(fileSystem) {
-        console.log("in move2 gotfs");
 	    fileSystem.root.getDirectory("newDir", null, moveTo2_getDirectory, moveTo2_fail);
     };
 
-    console.log("in pre move2");
     applican.requestFileSystem(LocalFileSystem.PERSISTENT, 0, moveTo2_gotFS, moveTo2_fail);
-    console.log("in post move2");
 }
 
 // ディレクトリコピー
@@ -1473,6 +1462,7 @@ function contactFixture(name, finishCallback) {
             // removeの検証自体は別テストケースで実施する
             contacts[i].remove(function() { }, function () { });
         }
+
         setTimeout(finishCallback, 0);
     };
 
@@ -1671,7 +1661,7 @@ function getCurrentHeading(finishCallback) {
 	    dump += "trueHeading:" + res.trueHeading + " ";
 	    dump += "headingAccuracy:" + res.headingAccuracy + " ";
 	    dump += "timestamp:" + res.timestamp + " ";
-	    test_result = "OK" + dump;
+	    test_result = "OK : " + dump;
 
         setTimeout(finishCallback, 0);
     };
@@ -1725,7 +1715,7 @@ function getCurrentPosition(finishCallback) {
 	    var dump = "";
 	    dump += "code:" + error.code + " ";
 	    dump += "message:" + error.message + " ";
-	    test_result = "OK" + dump;
+	    test_result = "OK : " + dump;
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -1744,7 +1734,7 @@ function getCurrentPosition(finishCallback) {
 	    dump += "heading:" + res.coords.heading + " ";
 	    dump += "speed:" + res.coords.speed + " ";
 	    dump += "timestamp:" + res.timestamp + " ";
-	    test_result = "OK" + dump;
+	    test_result = "OK : " + dump;
 
         setTimeout(finishCallback, 0);
     };
@@ -1805,7 +1795,7 @@ function localNotificationSchedule1(finishCallback) {// 5秒後
     var localNotificationSchedule1Error = function(res) {
 	    var dump = "";
 	    dump += "code:" + res.code + " ";
-	    test_result = "NG" + dump;
+	    test_result = "NG : " + dump;
 
         setTimeout(function() { finishCallback(res); }, 0);
     };
@@ -1844,9 +1834,9 @@ function localNotificationCancel1(finishCallback) {// キャンセル
 // notification
 function localNotificationSchedule2(finishCallback) {// 10秒後
     var localNotificationSchedule2Error = function(res) {
-	    var dump = "localNotificat()ionSchedule2Error ";
+	    var dump = "localNotificationSchedule2Error";
 	    dump += "code:" + res.code + " ";
-        test_result = dump;
+        test_result = "NG : " + dump;
 	    console.log(dump);
 
         setTimeout(function() { finishCallback(res); }, 0);
@@ -1929,7 +1919,7 @@ function captureVideo(finishCallback) {
 	    for (var i = 0, len = mediaFiles.length; i < len; i++) {
 		    dump += mediaFiles[i].fullPath;
 	    }
-	    test_result = "OK" + dump;
+	    test_result = "OK : " + dump;
 
         setTimeout(finishCallback, 0);
     };
@@ -2047,58 +2037,45 @@ function playAllSE(num, finishCallback) {
     }], function() {
         $("hidden_playSE_track").html(num);
         console.log("play SE test");
-        finishCallback();
+        setTimeout(finishCallback, 0);
     });
 }
 
 // SE終了
 function stopSE(track, finishCallback) {
 	applican.gamesound.stopSE(track);
-    setTimeout(function() {
-        finishCallback();
-    }, STOP_SOUND_WAIT_TIME);
+    setTimeout(finishCallback, STOP_SOUND_WAIT_TIME);
 }
 
 // SEボリューム
 function setSEVolume(track, volume, finishCallback) {
 	applican.gamesound.setSEVolume(track, volume);
-    setTimeout(function() {
-        finishCallback();
-    }, SET_BGM_VOLUME_WAIT_TIME);
-
+    setTimeout(finishCallback , SET_BGM_VOLUME_WAIT_TIME);
 }
 
 // 全てのサウンドを停止
 function stopSound(finishCallback) {
 	applican.gamesound.stopAllBGM();
 	applican.gamesound.stopAllSE();
-    setTimeout(function() {
-        finishCallback();
-    }, STOP_SOUND_WAIT_TIME);
+    setTimeout(finishCallback, STOP_SOUND_WAIT_TIME);
 }
 
 // 全てのSEを停止
 function stopAllSE(finishCallback) {
 	applican.gamesound.stopAllSE();
     test_result = "OK : ";
-    setTimeout(function() {
-        finishCallback();
-    }, STOP_SOUND_WAIT_TIME);
+    setTimeout(finishCallback, STOP_SOUND_WAIT_TIME);
 }
 
 // サウンドデータを開放する
 function releaseAllBGM(finishCallback) {
 	applican.gamesound.releaseAllBGM();
-    setTimeout(function() {
-        finishCallback();
-    }, RELEASE_SOUND_DATA_WAIT_TIME);
+    setTimeout(finishCallback, RELEASE_SOUND_DATA_WAIT_TIME);
 }
 
 function releaseSEAll(finishCallback) {
 	applican.gamesound.releaseAllSE();
-    setTimeout(function() {
-        finishCallback();
-    }, RELEASE_SOUND_DATA_WAIT_TIME);
+    setTimeout(finishCallback, RELEASE_SOUND_DATA_WAIT_TIME);
 }
 
 // 動画を指定した位置に表示
@@ -2127,17 +2104,13 @@ function playVideoOverlay(control, finishCallback) {
 // 停止
 function stopVideo(finishCallback) {
 	applican.video.stop();
-    setTimeout(function() {
-        finishCallback();
-    }, STOP_VIDEO_WAIT_TIME);
+    setTimeout(finishCallback, STOP_VIDEO_WAIT_TIME);
 }
 
 // ライトをON/OFF
 function light1(flg, finishCallback) {
 	applican.device.light(flg);
-    setTimeout(function() {
-        finishCallback();
-    }, LIGHT_ON_WAIT_TIME);
+    setTimeout(finishCallback, LIGHT_ON_WAIT_TIME);
 }
 
 // スプラッシュ表示
@@ -2154,9 +2127,7 @@ function showSplash1(finishCallback) {
                 callback();
 	        }, 2000);
         }], function(err, results) {
-        setTimeout(function() {
-            finishCallback();
-        }, SPLASH_WAIT_TIME);
+        setTimeout(finishCallback, SPLASH_WAIT_TIME);
     });
 }
 
@@ -2165,34 +2136,28 @@ function gaTrackView(finishCallback) {
     async.series([
         function(callback) {
             applican.googleAnalytics.trackView('screen_name');
-            setTimeout(function() {
-                callback();
-            }, GA_TRACKING_VIEW_WAIT_TIME);
+            setTimeout(callback, GA_TRACKING_VIEW_WAIT_TIME);
         },
         function(callback) {
             notificationAlert("GoogleAnalyticsを確認して下さい", "GA trackView", "OK", callback);
         }
     ], function() {
-        finishCallback();
-    })
-
-
+        setTimeout(finishCallback, 0);
+    });
 }
 
 function gaTrackEvent(finishCallback) {
     async.series([
         function(callback) {
             applican.googleAnalytics.trackEvent('category_name', 'action_name', 'label_name', 100);
-            setTimeout(function() {
-                callback();
-            }, GA_TRACKING_VIEW_WAIT_TIME);
+            setTimeout(callback, GA_TRACKING_VIEW_WAIT_TIME);
         },
         function(callback) {
             notificationAlert("GoogleAnalyticsを確認して下さい", "GA trackEvent", "OK", callback);
         }
     ], function() {
-        finishCallback();
-    })
+        setTimeout(finishCallback, 0);
+    });
 
 }
 
@@ -2206,7 +2171,6 @@ function saveToPhotoAlbum(finishCallback) {
 
     var saveToPhotoAlbumSuccess = function() {
 	    test_result = "OK";
-
 
         setTimeout(finishCallback, 0);
     };
@@ -2252,7 +2216,7 @@ function getPicture1(finishCallback) {
 
 /** ******************************************************************************** */
 // ログ画面表示
-function showLogConsole(finishCallback) {
+function showLogConsole() {
 	applican.showLogConsole();
 }
 
@@ -2263,7 +2227,6 @@ function testResult(testcase, finishCallback) {
 	async.series([
         function(callback) {
             callback();
-            //fileRead1(callback);
         },
         function(callback) {
             var sql = "INSERT INTO TESTRESULT (suite_no, case_no, case_name, result) VALUES (" + '"' + suiteNo + '"' + "," + '"' + caseNo + '"' + "," + '"' + testcase + '"' + "," + '"' + encodeURIComponent(test_result) + '"' + ")";
