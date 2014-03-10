@@ -379,7 +379,7 @@ function testLocalNotificationAllCancel(finishCallback) {
 function testSplashScreenShow(finishCallback) {
     async.series([
         function(callback) {
-            showSplash1(callback);
+            showSplash(callback);
         },
         function(callback) {
             notificationConfirm("スプラッシュが表示されること", "Splashのshowの確認", "OK,NG", callback);
@@ -392,10 +392,10 @@ function testSplashScreenShow(finishCallback) {
 function testSplashScreenHide(finishCallback) {
     async.series([
         function(callback) {
-            showSplash1(callback);
+            hideSplash(callback);
         },
         function(callback) {
-            notificationConfirm("スプラッシュが表示になること", "Splashのhideの確認", "OK,NG", callback);
+            notificationConfirm("スプラッシュが非表示になること", "Splashのhideの確認", "OK,NG", callback);
         }], function() {
         console.log("testSplashScreenHide");
         testResult("Splashのhideの確認", finishCallback);

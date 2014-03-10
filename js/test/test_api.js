@@ -2100,20 +2100,25 @@ function light1(flg, finishCallback) {
 }
 
 // スプラッシュ表示
-function showSplash1(finishCallback) {
+function showSplash(finishCallback) {
+	// javascriptでタイムアウト
+    applican.splashscreen.show('splash/splash1_portrait.png', 'splash/splash1_landscape.png', SPLASH_WAIT_TIME);
+    setTimeout(finishCallback, SPLASH_WAIT_TIME + 1000);
+}
+
+// スプラッシュ表示
+function hideSplash(finishCallback) {
 	// javascriptでタイムアウト
     async.series([
         function(callback) {
             applican.splashscreen.show('splash/splash1_portrait.png', 'splash/splash1_landscape.png');
-            callback();
+            setTimeout(callback, SPLASH_WAIT_TIME + 1000);
         },
         function(callback) {
- 	        setTimeout(function() {
-		        applican.splashscreen.hide();
-                callback();
-	        }, 2000);
+		    applican.splashscreen.hide();
+            setTimeout(callback, SPLASH_WAIT_TIME);
         }], function(err, results) {
-        setTimeout(finishCallback, SPLASH_WAIT_TIME);
+        setTimeout(finishCallback, 0);
     });
 }
 
