@@ -2300,5 +2300,5 @@ function testAPITemplate(finishCallback) {
         setTimeout(finishCallback, 0);
     };
 
-	applican.api.function(onSuccess, onError);
+	//applican.api.function(onSuccess, onError);
 }
