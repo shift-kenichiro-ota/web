@@ -16,9 +16,11 @@ define(function() {
                 //var colItem = '<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b" id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
                 var colItem = document.createElement("li");
                 colItem.id = "test_case_num" + suiteNo;
+                colItem.setAttribute("data-role", "list-divider");
+                colItem.setAttribute("role", "heading");
+                colItem.className = "ui-li ui-li-divider ui-bar-b";
                 colItem.appendChild(document.createTextNode("API組み合わせ番号" + suiteNo));
                 document.getElementById("testResult").appendChild(colItem);
-                //$('#testResult').append(colItem);
                 callback();
             },
             function(callback) {
