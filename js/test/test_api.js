@@ -2064,12 +2064,12 @@ function releaseSEAll(finishCallback) {
 // 動画を指定した位置に表示
 function playVideoOverlay(control, finishCallback) {
     var playVideoOverlay_error = function(error) {
-
+        test_result = "NG : ";
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
     var playVideoOverlay_success = function() {
-
+        test_result = "OK : ";
         setTimeout(finishCallback, 0);
     };
 
@@ -2087,6 +2087,7 @@ function playVideoOverlay(control, finishCallback) {
 // 停止
 function stopVideo(finishCallback) {
 	applican.video.stop();
+    test_result = "OK : ";
     setTimeout(finishCallback, STOP_VIDEO_WAIT_TIME);
 }
 
