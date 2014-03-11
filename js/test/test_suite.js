@@ -177,8 +177,6 @@ define(function() {
         var test_name = "";
         async.series([
             function(callback) {
-                cmn.deleteInvisibleTestResult();
-
                 setTimeout(function() {
                     callback();
                 }, 300);
@@ -288,7 +286,6 @@ define(function() {
         var k = 0;
         async.series([
             function(callback) {
-                cmn.deleteInvisibleTestResult();
                 setTimeout(function() {
                     callback();
                 }, 300);

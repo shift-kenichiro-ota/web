@@ -4,7 +4,6 @@
 
 define(function() {
 	var async = require('async');
-	var $ = require('jquery');
 
 	// テスト開始時に行うこと
 	function beforeTest(finishCallback) {
@@ -15,18 +14,18 @@ define(function() {
                 console.log("テスト開始前処理");
 
                 //var colItem = '<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b" id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
-                var colItem = '<li id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
-                //if($("#test_case_num" + suiteNo).html() !== undefined || $("#test_case_num" + suiteNo).html() !== "") {
-                    //$('#testResult').append(colItem).collapsibleset();
-                    $('#testResult').append(colItem);
-                //}
-                callback(null);
+                var colItem = document.createElement("li");
+                colItem.id = "test_case_num" + suiteNo;
+                colItem.appendChild(document.createTextNode("API組み合わせ番号" + suiteNo));
+                document.getElementById("testResult").appendChild(colItem);
+                //$('#testResult').append(colItem);
+                callback();
             },
             function(callback) {
                 applican.openDatabase('testresult',
                     function(db_obj) {
                         testResultDB = db_obj;
-                        callback(null);
+                        callback();
                     },
                     function(error) {
                         console.log(error.message);
@@ -37,14 +36,12 @@ define(function() {
                 testResultDB.exec(sql,
                     function(result) {
                         test_result = "OK";
-                        $("#hidden_api_result").html("createTable_success ");
                         callback();
                     },
                     function(error) {
                         var dump = "createTable_error ";
                         dump += error.message + " ";
                         test_result = "NG : " + dump;
-                        $("#hidden_api_result").html(dump);
                         callback(error);
                     });
             },
@@ -162,18 +159,13 @@ define(function() {
 		return vars;
 	}
 
-    function deleteInvisibleTestResult() {
-        $('#hidden_test_case_result').html("");
-    }
-
 	return {
         backgroundStart : backgroundStart,
         backgroundFinish : backgroundFinish,
         openWebView : openWebView,
         beforeTest : beforeTest,
         outputDeviceName : outputDeviceName,
-        getURLVars : get_url_vars,
-        deleteInvisibleTestResult : deleteInvisibleTestResult
+        getURLVars : get_url_vars
 	};
 
 });
