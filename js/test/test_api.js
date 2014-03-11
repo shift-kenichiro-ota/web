@@ -2240,20 +2240,25 @@ function testResult(testcase, finishCallback) {
 }
 
 function displayResult(testcase, finishCallback) {
-	var html = "";
 	async.series([
 	function(callback) {
+        var html;
+        var span;
 		console.log("display result suiteNo :" + suiteNo);
 		console.log("testcase : " + testcase + " result : " + test_result);
 		//html = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-hover-c">CaseNo-' + caseNo + " : " + testcase;
-        html = '<li>CaseNo-' + caseNo + " : " + testcase;
+        html = document.createElement("li");
+        html.appendChild(document.createTextNode("CaseNo-" + caseNo + " : " + testcase + " : "));
 
-		if (test_result.indexOf("OK") >= 0) {
-            html = html + ' : <span>' + test_result + '</span></li>';
-		} else {
-            html = html + ' : <span class="ui-error">' + test_result + '</span></li>';
+        span = document.createElement("span");
+        if (test_result.indexOf("OK") < 0) {
+            span.className = "ui-error";
 		}
-        $('#testResultArea').append(html);
+        span.appendChild(document.createTextNode(test_result));
+
+        html.appendChild(span);
+
+        document.getElementById("testResultArea").appendChild(html);
         setTimeout(callback, 0); // 遅い端末対応
 	}], function() {
         console.log("display test result finish");
