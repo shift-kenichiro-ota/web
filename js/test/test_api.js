@@ -334,7 +334,7 @@ function checkDeviceInfoResult() {
     dump += "UUID：" + applican.device.uuid + " ";
     dump += "バージョン：" + applican.device.version + " ";
     dump += "applican：" + applican.device.applican + " ";
-    $('#dumpAreaDeviceInfo').val(dump);
+    document.getElementById('dumpAreaDeviceInfo').value = dump;
 }
 
 // Pushトークンを取得
@@ -479,7 +479,6 @@ function fileRead1(finishCallback) {
 	    var dump = "fileRead1_fail ";
 	    dump += "code:" + error.code + " ";
 	    console.log(dump);
-        $("#hidden_api_result").html(dump);
         setTimeout(function() { finishCallback(error); }, 0);
     };
 
@@ -541,7 +540,6 @@ function fileRead1(finishCallback) {
 function directoryReader1(finishCallback) {
     var directoryReader1_fail = function(error) {
 	    test_result = "NG : " + error.code;
-        $("#hidden_api_result").html(test_result);
 
         setTimeout(function() { finishCallback(error); }, 0);
     };
@@ -2021,7 +2019,6 @@ function playAllSE(num, finishCallback) {
     function(callback) {
         stopSE(num, callback);
     }], function() {
-        $("hidden_playSE_track").html(num);
         console.log("play SE test");
         setTimeout(finishCallback, 0);
     });

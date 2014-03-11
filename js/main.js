@@ -32,7 +32,7 @@ require.config({
         exports : 'common'
 	},
 	'test_case' : {
-        deps : ['async', 'jquery']
+        deps : ['async']
 	},
 	'test_suite' : {
         deps : [ 'async', 'test_api', 'test_case', 'common', 'json_test_case'],
