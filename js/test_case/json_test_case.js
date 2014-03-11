@@ -2,7 +2,7 @@ define(function() {
     var test_case_json = [
         /*
         {"key" : "01", "exeflg" : true, "val": [
-            "SplashScreenShow", "SplashScreenHide", "FinishFinish"
+            "VideoPlay", "FinishFinish"
         ], "WebView":1}
         */
         {"key" : "01", "exeflg" : true, "val" : [

@@ -5,7 +5,6 @@
 define(function() {
     var async = require('async');
     var cmn = require('common');
-    var $ = require('jquery');
     var loop = 0;
     var debug;
     var started = false;
@@ -65,10 +64,10 @@ define(function() {
             },function(callback) {
                 var i = 0;
                 var endTestSuite = test_case.length;
-                var specifiedtestSuiteString = $("#specified_test_suite").val();
+                var specifiedtestSuiteString = document.getElementById("specified_test_suite").value;
                 var specifiedtestSuiteStrings;
-                var parsedStartTestSuite = parseInt($("#start_test_suite").val(), 10);
-                var parsedEndTestSuite = parseInt($("#end_test_suite").val(), 10);
+                var parsedStartTestSuite = parseInt(document.getElementById("start_test_suite").value, 10);
+                var parsedEndTestSuite = parseInt(document.getElementById("end_test_suite").value, 10);
                 var testCasePointer = [];
                 var s;
                 var suiteId;

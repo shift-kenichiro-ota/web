@@ -3,13 +3,13 @@
  */
 
 var async = require('async');
-var $ = require('jquery');
 
 function testNull(finishCallback) {
     test_result = "OK :";
     testResult("何も実行しない", finishCallback);
 }
 function testBarcodeCaptureBarcode(finishCallback) {
+    test_result = "OK :";
     testResult("captureBarcodeの確認", finishCallback);
     /*
     async.series([

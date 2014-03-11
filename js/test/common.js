@@ -14,9 +14,11 @@ define(function() {
                 console.log("before test start");
                 console.log("テスト開始前処理");
 
-                var colItem = '<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b" id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
+                //var colItem = '<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b" id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
+                var colItem = '<li id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
                 if($("#test_case_num" + suiteNo).html() !== undefined || $("#test_case_num" + suiteNo).html() !== "") {
-                    $('#testResult').append(colItem).collapsibleset();
+                    //$('#testResult').append(colItem).collapsibleset();
+                    $('#testResult').append(colItem);
                 }
                 callback(null);
             },

@@ -2248,7 +2248,8 @@ function displayResult(testcase, finishCallback) {
 	function(callback) {
 		console.log("display result suiteNo :" + suiteNo);
 		console.log("testcase : " + testcase + " result : " + test_result);
-		html = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-hover-c">CaseNo-' + caseNo + " : " + testcase;
+		//html = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-hover-c">CaseNo-' + caseNo + " : " + testcase;
+        html = '<li>CaseNo-' + caseNo + " : " + testcase;
 
 		if (test_result.indexOf("OK") >= 0) {
             html = html + ' : <span>' + test_result + '</span></li>';
@@ -2256,7 +2257,7 @@ function displayResult(testcase, finishCallback) {
             html = html + ' : <span class="ui-error">' + test_result + '</span></li>';
 		}
         $('#testResultArea').append(html);
-        callback();
+        setTimeout(callback, 0); // 遅い端末対応
 	}], function() {
         console.log("display test result finish");
         finishCallback();
