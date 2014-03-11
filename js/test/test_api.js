@@ -2248,6 +2248,14 @@ function displayResult(testcase, finishCallback) {
 		console.log("testcase : " + testcase + " result : " + test_result);
 		//html = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-hover-c">CaseNo-' + caseNo + " : " + testcase;
         html = document.createElement("li");
+        html.setAttribute("data-corners", "false");
+        html.setAttribute("data-shadow", "false");
+        html.setAttribute("data-iconshadow", "true");
+        html.setAttribute("data-wrapperels", "div");
+        html.setAttribute("data-icon", "arrow-r");
+        html.setAttribute("data-iconpos", "right");
+        html.setAttribute("data-theme", "c");
+        html.className = "ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-hover-c";
         html.appendChild(document.createTextNode("CaseNo-" + caseNo + " : " + testcase + " : "));
 
         span = document.createElement("span");
