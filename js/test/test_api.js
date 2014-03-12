@@ -1738,8 +1738,16 @@ function notificationVibrate(milliseconds, finishCallback) {
     setTimeout(finishCallback, milliseconds + 1000);
 }
 
-// 通知ダイアログ
+// 通知ダイアログ汎用
 function notificationAlert(message, title, buttonName, finishCallback) {
+    */
+    window.alert(message);
+    test_result = "OK";
+    finishCallback();
+}
+
+// 通知ダイアログテスト用
+function notificationAlertForTest(message, title, buttonName, finishCallback) {
     var alertCallback = function() {
 	    test_result = "OK";
 
@@ -1751,26 +1759,14 @@ function notificationAlert(message, title, buttonName, finishCallback) {
 
 // 確認ダイアログ
 function notificationConfirm(message, title, buttonName, finishCallback) {
-    var confirmCallback = function(buttonIndex) {
-        var result = confirmResult(buttonIndex);
-        if (result === "OK") {
-            setTimeout(finishCallback, 0);
-        } else {
-            setTimeout(function() { finishCallback(result); }, 0);
-        }
-    };
-	applican.notification.confirm(message, confirmCallback, title, buttonName);
-}
-
-function confirmResult(buttonIndex) {
-	if (buttonIndex == "1") {
+   var result = window.confirm(message);
+    if (result) {
         test_result = "OK";
-		return "OK";
-	} else if (buttonIndex == "2") {
+        setTimeout(finishCallback, 0);
+    } else {
         test_result = "NG";
-        return "NG";
-	}
-	return "保留";
+        setTimeout(function() { finishCallback(result); }, 0);
+    }
 }
 
 // ///

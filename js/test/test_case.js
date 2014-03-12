@@ -874,7 +874,7 @@ function testHTTPPost(finishCallback) {
 function testNotificationAlert(finishCallback) {
     async.series([
         function(callback) {
-            notificationAlert("alertが表示されることの確認", "notificationAlertの確認", "OK", callback);
+            notificationAlertForTest("alertが表示されることの確認", "notificationAlertの確認", "OK", callback);
         }], function() {
         console.log("testNotificationAlert");
         testResult("notificationAlertの確認", finishCallback);
