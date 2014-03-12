@@ -31,7 +31,7 @@
       <file leaf-file-name="test_suite.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test/test_suite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="288" column="0" selection-start="11096" selection-end="11096" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5205">
+            <state line="288" column="0" selection-start="11096" selection-end="11096" vertical-scroll-proportion="0.0" vertical-offset="4320" max-vertical-offset="5205">
               <folding />
             </state>
           </provider>
@@ -40,7 +40,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="3" selection-start="1064" selection-end="1064" vertical-scroll-proportion="-3.125" vertical-offset="435" max-vertical-offset="2295">
+            <state line="34" column="3" selection-start="1064" selection-end="1064" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="2295">
               <folding />
             </state>
           </provider>
@@ -49,7 +49,7 @@
       <file leaf-file-name="page2.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/page2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="4" selection-start="1349" selection-end="1349" vertical-scroll-proportion="-13.125" vertical-offset="210" max-vertical-offset="2040">
+            <state line="35" column="4" selection-start="1349" selection-end="1349" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2040">
               <folding />
             </state>
           </provider>
@@ -58,7 +58,7 @@
       <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="5" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2820">
+            <state line="75" column="12" selection-start="2229" selection-end="2229" vertical-scroll-proportion="0.0" vertical-offset="388" max-vertical-offset="2820">
               <folding />
             </state>
           </provider>
@@ -67,7 +67,7 @@
       <file leaf-file-name="common.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test/common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="0" selection-start="998" selection-end="998" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2685">
+            <state line="23" column="0" selection-start="998" selection-end="998" vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="2685">
               <folding />
             </state>
           </provider>
@@ -82,10 +82,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="json_test_case.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="json_test_case.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test_case/json_test_case.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="48" selection-start="230" selection-end="230" vertical-scroll-proportion="0.1392573" vertical-offset="0" max-vertical-offset="2655">
+            <state line="7" column="48" selection-start="230" selection-end="230" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="2655">
               <folding />
             </state>
           </provider>
@@ -94,16 +94,16 @@
       <file leaf-file-name="test_case.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="876" column="25" selection-start="25450" selection-end="25450" vertical-scroll-proportion="0.0" vertical-offset="12705" max-vertical-offset="16950">
+            <state line="33" column="17" selection-start="916" selection-end="916" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="16950">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_api.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="test_api.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1748" column="29" selection-start="50499" selection-end="50499" vertical-scroll-proportion="0.0" vertical-offset="25834" max-vertical-offset="34800">
+            <state line="2196" column="25" selection-start="61876" selection-end="61876" vertical-scroll-proportion="0.8302387" vertical-offset="32284" max-vertical-offset="34755">
               <folding />
             </state>
           </provider>
@@ -112,7 +112,7 @@
       <file leaf-file-name="applican-1.2.1.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/libs/applican-1.2.1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2231" column="9" selection-start="62481" selection-end="62481" vertical-scroll-proportion="0.0" vertical-offset="33214" max-vertical-offset="63075">
+            <state line="2121" column="9" selection-start="59920" selection-end="59920" vertical-scroll-proportion="0.0" vertical-offset="31429" max-vertical-offset="63075">
               <folding />
             </state>
           </provider>
@@ -420,6 +420,14 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -430,23 +438,19 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="CHROME" />
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
-      <setting name="configLocationType" value="CONFIG_FILE" />
-      <setting name="settingsFile" value="" />
-      <setting name="serverType" value="INTERNAL" />
-      <setting name="preferredDebugBrowser" value="CHROME" />
+    <configuration default="true" type="NodeJSRemoteDebug" factoryName="Node.js Remote Debug">
+      <node-js-remote-debug />
       <method />
     </configuration>
     <configuration default="true" type="NodeunitConfigurationType" factoryName="Nodeunit">
@@ -457,10 +461,6 @@
       <setting name="workingDirectory" value="$PROJECT_DIR$" />
       <setting name="testType" value="JS_FILE" />
       <setting name="jsFile" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="NodeJSRemoteDebug" factoryName="Node.js Remote Debug">
-      <node-js-remote-debug />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -474,6 +474,10 @@
       <ui>BDD</ui>
       <require />
       <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <browser start="false" url="" with-js-debugger="false" />
       <method />
     </configuration>
     <configuration default="true" type="XSLT" factoryName="XSLT">
@@ -490,10 +494,6 @@
       <OutputType value="CONSOLE" save-to-file="false" />
       <FileType name="XML" />
       <JdkChoice value="FROM_MODULE" />
-      <method />
-    </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
-      <browser start="false" url="" with-js-debugger="false" />
       <method />
     </configuration>
     <list size="0" />
@@ -543,8 +543,8 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39838222" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39838222" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -561,9 +561,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11772152" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3994812" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -798,9 +798,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_case/test_case.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="20" selection-start="5457" selection-end="5457" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="2820">
-          <folding />
-        </state>
+        <state line="25" column="20" selection-start="5457" selection-end="5457" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="2820" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/index.html">
@@ -812,14 +810,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/page2.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="4" selection-start="1349" selection-end="1349" vertical-scroll-proportion="-13.125" vertical-offset="210" max-vertical-offset="2040">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="5" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2820">
+        <state line="35" column="4" selection-start="1349" selection-end="1349" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2040">
           <folding />
         </state>
       </provider>
@@ -833,7 +824,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="3" selection-start="1064" selection-end="1064" vertical-scroll-proportion="-3.125" vertical-offset="435" max-vertical-offset="2295">
+        <state line="34" column="3" selection-start="1064" selection-end="1064" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="2295">
           <folding />
         </state>
       </provider>
@@ -852,30 +843,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
+    <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="876" column="25" selection-start="25450" selection-end="25450" vertical-scroll-proportion="0.0" vertical-offset="12705" max-vertical-offset="16950">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1748" column="29" selection-start="50499" selection-end="50499" vertical-scroll-proportion="0.0" vertical-offset="25834" max-vertical-offset="34800">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/libs/applican-1.2.1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2231" column="9" selection-start="62481" selection-end="62481" vertical-scroll-proportion="0.0" vertical-offset="33214" max-vertical-offset="63075">
+        <state line="75" column="12" selection-start="2229" selection-end="2229" vertical-scroll-proportion="0.0" vertical-offset="388" max-vertical-offset="2820">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/test_case/json_test_case.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="48" selection-start="230" selection-end="230" vertical-scroll-proportion="0.1392573" vertical-offset="0" max-vertical-offset="2655">
+        <state line="7" column="48" selection-start="230" selection-end="230" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="2655">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/test/test_case.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="17" selection-start="916" selection-end="916" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="16950">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/libs/applican-1.2.1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2121" column="9" selection-start="59920" selection-end="59920" vertical-scroll-proportion="0.0" vertical-offset="31564" max-vertical-offset="63075">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/test/test_api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2196" column="25" selection-start="61876" selection-end="61876" vertical-scroll-proportion="0.8302387" vertical-offset="32284" max-vertical-offset="34755">
           <folding />
         </state>
       </provider>

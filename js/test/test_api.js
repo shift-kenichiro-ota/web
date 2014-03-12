@@ -1577,7 +1577,7 @@ function cleanupPicture(finishCallback) {
     var cleanupPictureError = function(message) {
 	    var dump = "";
 	    dump += "message:" + message;
-	    test_result = "OK" + dump;
+	    test_result = "NG" + dump;
 
         setTimeout(function() { finishCallback(message); }, 0);
     };
@@ -2214,9 +2214,6 @@ function showLogConsole() {
 function testResult(testcase, finishCallback) {
 	console.log("testResult testcase" + testcase);
 	async.series([
-        function(callback) {
-            callback();
-        },
         function(callback) {
             var sql = "INSERT INTO TESTRESULT (suite_no, case_no, case_name, result) VALUES (" + '"' + suiteNo + '"' + "," + '"' + caseNo + '"' + "," + '"' + testcase + '"' + "," + '"' + encodeURIComponent(test_result) + '"' + ")";
             insertTestResult(testResultDB, sql, callback);
