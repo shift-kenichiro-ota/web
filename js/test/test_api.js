@@ -1740,7 +1740,6 @@ function notificationVibrate(milliseconds, finishCallback) {
 
 // 通知ダイアログ汎用
 function notificationAlert(message, title, buttonName, finishCallback) {
-    */
     window.alert(message);
     test_result = "OK";
     finishCallback();
@@ -1910,7 +1909,7 @@ function captureVideo(finishCallback) {
 // 画像撮影
 function captureImage(finishCallback) {
     var captureImageError = function(err) {
-	    test_result = "NG : " + err;
+	    test_result = "NG : " + "code : " + err.code + " message : " +  err.message;
 	    captureImageStatus = true;
 
         setTimeout(function() { finishCallback(err); }, 0);
@@ -2219,7 +2218,7 @@ function testResult(testcase, finishCallback) {
         },
         function(callback) {
             console.log(testcase + "," + test_result + " ");
-            fileWrite1(testcase + "," + test_result + " ", callback);
+            fileWrite1(testcase + " : " + test_result + ", ", callback);
         },
         function(callback) {
             upload1(callback);
