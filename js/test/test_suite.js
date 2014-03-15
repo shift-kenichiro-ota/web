@@ -107,7 +107,7 @@ define(function() {
                         console.log("testCasePointer[i] : " + testCasePointer[i] + " test suite : " + test_case[testCasePointer[i]].key);
                         if (test_case[i].WebView == 2) {
                             // 手動でWebViewから戻ったときにテストを継続させる
-                            document.getElementById("test_continue").onclick = function() { document.getElementById("test_continue").onclick = null; setTimeout(callback, 3000); };
+                            applican.addLaunchWebviewCloseEventListener(function () {   setTimeout(callback, 3000); });
                             cmn.openWebView(test_case[i].key, testCasePointer[i]);
                         } else {
                             testCase(test_case, testCasePointer[i], callback);
@@ -240,7 +240,7 @@ define(function() {
                 webviewTestCase(test_case, i, callback);
                 suiteLoop = i;
             }, function(callback) {
-                notificationAlert("WebViewをクローズして、「テストを続ける」ボタンを押して下さい", "WebViewテストスィートの終了", "OK", callback);
+                notificationAlert("WebViewをクローズして下さい", "WebViewテストスィートの終了", "OK", callback);
             }
         ], function(err, result) {
                 console.log("webview test");

@@ -1,8 +1,25 @@
 define(function() {
     var test_case_json = [
         {"key" : "01", "exeflg" : true, "val": [
-            "SimpleStorageRemove", "FinishFinish"
+            "CameraGetPicture", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "02", "exeflg" : true, "val": [
+            "CameraGetPicture", "FinishFinish"
+        ], "WebView":2},
+        {"key" : "03", "exeflg" : true, "val": [
+            "CameraGetPicture", "FinishFinish"
+        ], "WebView":1},
+        {"key" : "04", "exeflg" : true, "val": [
+            "CameraGetPicture", "FinishFinish"
+        ], "WebView":2},
+        {"key" : "05", "exeflg" : true, "val": [
+            "CameraGetPicture", "FinishFinish"
+        ], "WebView":2},
+        {"key" : "06", "exeflg" : true, "val": [
+            "CameraGetPicture", "FinishFinish"
         ], "WebView":1}
+
+
         /*
         {"key" : "01", "exeflg" : true, "val" : [
             "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraCleanup", "CaptureCaptureVideo", "CompassGetCurrentHeading", "ConnectionType", "ContactFind", "DatabaseExecTransaction", "DeviceGetDisplayInfo", "DocomoLocationGetCurrentPosition", "DirectoryEntryToURL", "FileEntryFile", "GameSoundStopSE", "GEOLocationGetCurrentPosition", "GlobalizationGetPreferredLanguage", "GoogleAnalyticsTrackView", "HTTPGet", "LocalNotificationAllCancel", "NotificationAlert", "SimpleStorageClear", "SplashScreenHide", "VideoPlay", "WiFiOn", "FinishFinish"
