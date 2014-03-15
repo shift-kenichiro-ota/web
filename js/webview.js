@@ -42,7 +42,7 @@ require.config({
 
     paths : {
         'applican_debug_settings' : 'test/applican_debug_settings',
-        'applican' : 'libs/applican-1.2.1',
+        'applican' : 'libs/applican-1.3',
         'jquery' : 'libs/jquery-2.0.3.min',
         'jquery.mobile' : 'libs/jquery.mobile-1.3.2.min',
         'async' : 'libs/async.min',

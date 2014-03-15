@@ -1539,8 +1539,7 @@ function getSimpleStorage(key, finishCallback) {
 	    var dump = "getSimpleStorage_success ";
 	    dump += result + "";
 	    test_result = "OK" + dump;
-        // keyに対するvalueが存在しない場合、iOSでは"(null)"がAndroidでは""が返ってくる
-	    if (result === "(null)" || !result) {
+        if (result === null) {
             simpleStorageData = null;
 	    } else {
             simpleStorageData = simpleStorageData + result + " ";
@@ -2218,7 +2217,7 @@ function testResult(testcase, finishCallback) {
         },
         function(callback) {
             console.log(testcase + "," + test_result + " ");
-            fileWrite1(testcase + " : " + test_result + ", ", callback);
+            fileWrite1(testcase + ", " + test_result + "\n", callback);
         },
         function(callback) {
             upload1(callback);

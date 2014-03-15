@@ -1,8 +1,12 @@
 var applican = null;
 
 
+var ApplicanError = function() {};
+ApplicanError.DEVICE_BUSY_ERR = 'DEVICE_BUSY_ERR';
+
 var LocalNotificationError = function() {};
 LocalNotificationError.ILLEGAL_PARAMETER = 'ILLEGAL_PARAMETER';
+LocalNotificationError.NOTIFICATIO_BUSY_ERR = 'NOTIFICATIO_BUSY_ERR';
 
 var CompassError = function() {};
 CompassError.COMPASS_INTERNAL_ERR = 'COMPASS_INTERNAL_ERR';
@@ -17,6 +21,7 @@ PositionError.POSITION_BUSY_ERR = 'POSITION_BUSY_ERR';
 
 var ListError = function() {};
 ListError.CANCELED = 'CANCELED';
+ListError.BUSY = 'BUSY';
 
 var WiFiError = function() {};
 WiFiError.PERMISSION_DENIED = 'PERMISSION_DENIED';
@@ -25,7 +30,7 @@ WiFiError.DISCONNECT = 'DISCONNECT';
 WiFiError.ILLEGAL_PARAMETER = 'ILLEGAL_PARAMETER';
 WiFiError.CONNECT_FAILED = 'CONNECT_FAILED';
 WiFiError.NOT_SUPPORTED = 'NOT_SUPPORTED';
-
+WiFiError.BUSY = 'BUSY';
 
 var WiFiStatus = function() {};
 WiFiStatus.WIFI_ON = 'WIFI_ON';
@@ -34,6 +39,7 @@ WiFiStatus.WIFI_OFF = 'WIFI_OFF';
 var VideoError = function() {};
 VideoError.NOT_FOUND_ERR = 'NOT_FOUND_ERR';
 VideoError.CANCELED = 'CANCELED';
+VideoError.BUSY = 'BUSY';
 
 var CaptureError = function() {};
 CaptureError.CAPTURE_INTERNAL_ERR = 0;
@@ -41,22 +47,25 @@ CaptureError.CAPTURE_APPLICATION_BUSY = 1;
 CaptureError.CAPTURE_INVALID_ARGUMENT = 2;
 CaptureError.CAPTURE_NO_MEDIA_FILES = 3;
 CaptureError.CAPTURE_NOT_SUPPORTED = 20;
+CaptureError.CAPTURE_BUSY = 30;
 
 var GameSoundError = function() {};
 GameSoundError.INVALID_DATA = 1;
 GameSoundError.ILLEGAL_TRACK = 2;
 GameSoundError.NOW_LOADING = 3;
-GameSoundError.UNKNOWN_ERROR = 4;
+GameSoundError.BUSY_ERROR = 4;
 
 var GlobalizationError = function() {};
 GlobalizationError.UNKNOWN_ERROR  = 0;
 GlobalizationError.FORMATTING_ERROR  = 1;
 GlobalizationError.PARSING_ERROR  = 2;
 GlobalizationError.PATTERN_ERROR  = 3;
+GlobalizationError.BUSY_ERROR  = 30;
 
 var AppCError = function() {};
 AppCError.UNKNOWN_ERROR = 1;
 AppCError.SETTING_ERROR = 2;
+AppCError.BUSY_ERROR = 3;
 
 var PurchaseError = function() {};
 PurchaseError.UNKNOWN_ERROR = 0;
@@ -1127,6 +1136,7 @@ ContactError.PENDING_OPERATION_ERROR = 3;
 ContactError.IO_ERROR = 4;
 ContactError.NOT_SUPPORTED_ERROR = 5;
 ContactError.PERMISSION_DENIED_ERROR = 20;
+ContactError.CONTACT_BUSY = 30;
 
 
 var ContactName = function(formatted, familyName, givenName, middle, prefix, suffix) {
@@ -1310,7 +1320,10 @@ var Barcode = function(config, queue) {
 	////////
 	//バーコード読み取り
 	this.captureBarcode = function(barcodeSuccess, barcodeError, barcodeOptions){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			barcodeError();
+			return;
+		}
 		this.isExecute = true;
 		
 		this.barcodeSuccess = barcodeSuccess;
@@ -1368,7 +1381,7 @@ var Compass = function(config, queue) {
 	//現在向いている向きを取得
 	this.getCurrentHeading = function(compassSuccess, compassError, compassOptions){
 		if(this.isExecute){
-			var error = {code:CompassError.COMPASS_BUSY_ERR};
+			var error = {code:CompassError.COMPASS_BUSY_ERR, message:""};
 			compassError(error);
 			return;
 		}
@@ -1418,7 +1431,12 @@ var Compass = function(config, queue) {
 	////////
 	//コンパス方位を一定の時間間隔で取得
 	this.watchHeading = function(compassSuccess, compassError, compassOptions){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			var error = {code:CompassError.COMPASS_BUSY_ERR, message:""};
+			compassError(error);
+			return;
+		}
+		
 		this.isExecute = true;
 		this.compassSuccess = compassSuccess;
 		this.compassError = compassError;
@@ -1544,7 +1562,10 @@ var Accelerometer = function(config, queue) {
 	////////
 	//加速度を一定の時間間隔で取得
 	this.watchAcceleration = function(accelerometerSuccess, accelerometerError, accelerometerOptions){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			accelerometerError();
+			return;
+		}
 		this.isExecute = true;
 		this.accelerometerSuccess = accelerometerSuccess;
 		this.accelerometerError = accelerometerError;
@@ -1684,7 +1705,12 @@ var Geolocation = function(config, queue) {
 	////////
 	//現在位置を一定の時間間隔で取得
 	this.watchPosition = function(geolocationSuccess, geolocationError, geolocationOptions){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			var error = {code:PositionError.POSITION_BUSY_ERR, message:'Geolocation is running'};
+			geolocationError(error);
+			return;
+		}
+		
 		this.isExecute = true;
 		this.geolocationSuccess = geolocationSuccess;
 		this.geolocationError = geolocationError;
@@ -1756,8 +1782,10 @@ var Docomolocation = function(config) {
 	////////
 	//現在位置を取得
 	this.getCurrentPosition = function(geolocationSuccess, geolocationError, geolocationOptions){
-		
-		if(this.isExecute)return;
+		if(this.isExecute){
+			geolocationError({code:0, message:'BUSY'});
+			return;
+		}
 		this.isExecute = true;
 		this.geolocationSuccess = geolocationSuccess;
 		this.geolocationError = geolocationError;
@@ -1996,7 +2024,10 @@ var _Device = function(config, queue) {
 	////////
 	//Push通知用のデバイストークンを取得
 	this.getPushToken = function(deviceSuccess, deviceError, deviceOptions){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			deviceError();
+			return;
+		}
 		this.isExecute = true;
 		this.deviceSuccess = deviceSuccess;
 		this.deviceError = deviceError;
@@ -2044,6 +2075,20 @@ var _Device = function(config, queue) {
 			this.queue.pf_callApi(scheme, true, successCallback, errorCallback);
 		}
 	}
+	
+	//画面の常時点灯
+	this.keepScreenOn = function(enable){
+		var options={};
+		options.enable = enable;
+		
+		if(applican.config.debug){
+		}else{
+			var scheme = 'applican-api://device/keepScreenOn/'+encodeURIComponent(JSON.stringify(options));
+			applican.queue.pf_callApi(scheme);
+		}
+	}
+	
+	
 }
 
 
@@ -2087,7 +2132,10 @@ var _Camera = function(config, queue) {
 	////////
 	//カメラ撮影
 	this.takePicture = function(cameraSuccess, cameraError, cameraOptions){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			cameraError();
+			return;
+		}
 		this.isExecute = true;
 		
 		this.cameraSuccess = cameraSuccess;
@@ -2120,7 +2168,10 @@ var _Camera = function(config, queue) {
 	////////
 	//カメラ撮影(PhoneGap)
 	this.getPicture = function(cameraSuccess, cameraError, cameraOptions){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			cameraError('BUSY');
+			return;
+		}
 		this.isExecute = true;
 		
 		this.cameraSuccess = cameraSuccess;
@@ -2153,7 +2204,10 @@ var _Camera = function(config, queue) {
 	////////
 	//画像ファイルをクリーンアップ(PhoneGap)
 	this.cleanup = function(cameraSuccess, cameraError){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			cameraError('BUSY');
+			return;
+		}
 		this.isExecute = true;
 		
 		this.cameraSuccess = cameraSuccess;
@@ -2185,7 +2239,10 @@ var _Camera = function(config, queue) {
 	////////
 	//ライブラリへ保存
 	this.saveToPhotoAlbum = function(data, cameraSuccess, cameraError){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			cameraError('BUSY');
+			return;
+		}
 		this.isExecute = true;
 		
 		this.cameraSuccess = cameraSuccess;
@@ -2193,7 +2250,6 @@ var _Camera = function(config, queue) {
 
 		if(this.config.debug){
 			this.isExecute = false;
-            // isExecute = false; applicanのバグ
 			cameraSuccess();
 		}else{
 			var scheme = 'applican-api://camera/saveToPhotoAlbum/'+encodeURIComponent(data);
@@ -2230,9 +2286,6 @@ var _Notification = function(config, queue) {
 	 
 	//alert
 	this.alert = function(message, alertCallback, title, buttonName){
-		if(this.isExecute)return;
-		this.isExecute = true;
-		
 		this.notificationSuccess = alertCallback;
 
 		
@@ -2260,9 +2313,6 @@ var _Notification = function(config, queue) {
 	
 	//confirm
 	this.confirm = function(message, confirmCallback, title, buttonName){
-		if(this.isExecute)return;
-		this.isExecute = true;
-		
 		this.notificationSuccess = confirmCallback;
 
 		
@@ -2335,9 +2385,11 @@ var _LocalNotification = function(config, queue) {
 	this.timer = null;
 	this.queue = queue;
 	 
-	//alert
 	this.schedule = function(localNotificationSuccess, localNotificationError, localNotificationOptions){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			localNotificationError({code:LocalNotificationError.NOTIFICATIO_BUSY_ERR});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.localNotificationSuccess = localNotificationSuccess;
@@ -2378,6 +2430,34 @@ var _LocalNotification = function(config, queue) {
 			var me = this;
 		}else{
 			var scheme = 'applican-api://localNotification/allCancel/';
+			this.queue.pf_callApi(scheme);
+		}
+	}
+	
+	
+	this.getBadgeNum = function(localNotificationSuccess){
+		this.localNotificationSuccess = localNotificationSuccess;
+
+		if(this.config.debug || this.config.device_os=="ANDROID"){
+			this._getBadgeNumSuccess(0);
+		}else{
+			var scheme = 'applican-api://localNotification/getBadgeNum/';
+			this.queue.pf_callApi(scheme);
+		}
+	}
+	//成功
+	this._getBadgeNumSuccess = function(result){
+		this.localNotificationSuccess(result);
+	}
+
+
+	this.setBadgeNum = function(num){
+		var options={};
+		options.num = num;
+		
+		if(this.config.debug){
+		}else{
+			var scheme = 'applican-api://localNotification/setBadgeNum/'+encodeURIComponent(JSON.stringify(options));
 			this.queue.pf_callApi(scheme);
 		}
 	}
@@ -2434,7 +2514,10 @@ var _Contacts = function(config, queue) {
 	}
 
 	this.find = function(contactFields, contactSuccess, contactError, options){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			contactError({code:ContactError.CONTACT_BUSY});
+			return;
+		}
 		this.isExecute = true;
 		
 		if(typeof options == 'undefined' || options==null) options={};
@@ -2650,7 +2733,11 @@ var _List = function(config, queue) {
 	};
  
 	this.show = function(type, title, list_data, successCallback, errorCallback, options){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:ListError.BUSY});
+			return;
+		}
+		
 		this.isExecute = true;
 		
 		this.listSuccess = successCallback;
@@ -2703,7 +2790,10 @@ var _Video = function(config, queue) {
 	this.videoError = null;
  
 	this.play = function(src, successCallback, errorCallback, options){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:VideoError.BUSY});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.videoSuccess = successCallback;
@@ -2794,7 +2884,10 @@ var _WiFi = function(config, queue) {
 	
 	
 	this.getStatus = function(successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:WiFiError.BUSY});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.wifiSuccess = successCallback;
@@ -2819,7 +2912,10 @@ var _WiFi = function(config, queue) {
 	
 	
 	this.on = function(successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:WiFiError.BUSY});
+			return;
+		}
 		this.isExecute = true;
 
 		this.wifiSuccess = successCallback;
@@ -2835,7 +2931,10 @@ var _WiFi = function(config, queue) {
 	}
 	
 	this.off = function(successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:WiFiError.BUSY});
+			return;
+		}
 		this.isExecute = true;
 
 		this.wifiSuccess = successCallback;
@@ -2863,7 +2962,10 @@ var _WiFi = function(config, queue) {
 	
 	
 	this.getSSIDList = function(successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:WiFiError.BUSY});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.wifiSuccess = successCallback;
@@ -2889,7 +2991,10 @@ var _WiFi = function(config, queue) {
 	
 	
 	this.getCurrentSSID = function(successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:WiFiError.BUSY});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.wifiSuccess = successCallback;
@@ -2915,7 +3020,10 @@ var _WiFi = function(config, queue) {
 	
 
 	this.connect = function(successCallback, errorCallback, options){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:WiFiError.BUSY});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.wifiSuccess = successCallback;
@@ -2941,7 +3049,10 @@ var _WiFi = function(config, queue) {
 	
 
 	this.getCurrentIPv4Address = function(successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:WiFiError.BUSY});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.wifiSuccess = successCallback;
@@ -2986,7 +3097,10 @@ var _PopInfo = function(config, queue) {
 	}
 
 	this.show = function(title, successCallback, errorCallback) {
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:0});
+			return;
+		}
 		this.isExecute = true;
 
 		this.popInfoSuccess = successCallback;
@@ -3005,7 +3119,10 @@ var _PopInfo = function(config, queue) {
 	}
 
 	this.getId = function(successCallback, errorCallback) {
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:0});
+			return;
+		}
 		this.isExecute = true;
 
 		this.popInfoSuccess = successCallback;
@@ -3124,7 +3241,10 @@ var _Capture = function(config, queue) {
 	this.error = null;
  
 	this.captureAudio = function(successCallback, errorCallback, options){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:CaptureError.CAPTURE_BUSY, message:"CAPTURE_BUSY"});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.success = successCallback;
@@ -3161,7 +3281,10 @@ var _Capture = function(config, queue) {
 	}
 	
 	this.captureVideo = function(successCallback, errorCallback, options){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:CaptureError.CAPTURE_BUSY, message:"CAPTURE_BUSY"});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.success = successCallback;
@@ -3198,7 +3321,10 @@ var _Capture = function(config, queue) {
 	}
 
 	this.captureImage = function(successCallback, errorCallback, options){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:CaptureError.CAPTURE_BUSY, message:"CAPTURE_BUSY"});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.success = successCallback;
@@ -3252,7 +3378,10 @@ var _Globalization = function(config, queue) {
 	this.error = null;
  
 	this.getPreferredLanguage = function(successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:GlobalizationError.BUSY_ERROR, message:"BUSY_ERROR"});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.success = successCallback;
@@ -3278,7 +3407,10 @@ var _Globalization = function(config, queue) {
 	}
 	
 	this.getLocaleName = function(successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:GlobalizationError.BUSY_ERROR, message:"BUSY_ERROR"});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.success = successCallback;
@@ -3304,7 +3436,10 @@ var _Globalization = function(config, queue) {
 	}
 	
 	this.dateToString = function(srcDate, successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:GlobalizationError.BUSY_ERROR, message:"BUSY_ERROR"});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.success = successCallback;
@@ -3388,15 +3523,18 @@ var _GameSound = function(config, queue) {
 	this.error = null;
  
 	this.loadBGM = function(list, successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:GameSoundError.BUSY_ERROR, message:"BUSY_ERROR"});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.success = successCallback;
 		this.error = errorCallback;
 		
 		if(this.config.debug){
-			//successCallback();
-            this._loadBGMSuccess();
+			this.isExecute = false;
+			successCallback();
 		}else{
 			var options={};
 			options.list = list;
@@ -3483,15 +3621,18 @@ var _GameSound = function(config, queue) {
 	
 	
 	this.loadSE = function(list, successCallback, errorCallback){
-		if(this.isExecute)return;
+		if(this.isExecute){
+			errorCallback({code:GameSoundError.BUSY_ERROR, message:"BUSY_ERROR"});
+			return;
+		}
 		this.isExecute = true;
 		
 		this.success = successCallback;
 		this.error = errorCallback;
 		
 		if(this.config.debug){
-			//successCallback();
-            this._loadSESuccess();
+			this.isExecute = false;
+			successCallback();
 		}else{
 			var options={};
 			options.list = list;
@@ -3657,7 +3798,10 @@ var _AppC = function(config, queue) {
 	}
 
 	this.showCutin = function(successCallback, errorCallback){
-		if(this.isExecute) return;
+		if(this.isExecute){
+			errorCallback({code:AppCError.BUSY_ERROR, message:"BUSY_ERROR"});
+			return;
+		}
 		this.isExecute = true;
 
 		this.success = successCallback;
@@ -3681,7 +3825,10 @@ var _AppC = function(config, queue) {
 	}
 
 	this.showWeb = function(successCallback, errorCallback){
-		if(this.isExecute) return;
+		if(this.isExecute){
+			errorCallback({code:AppCError.BUSY_ERROR, message:"BUSY_ERROR"});
+			return;
+		}
 		this.isExecute = true;
 
 		this.success = successCallback;
@@ -3705,7 +3852,10 @@ var _AppC = function(config, queue) {
 	}
 	
 	this.showAgreement = function(successCallback, errorCallback){
-		if(this.isExecute) return;
+		if(this.isExecute){
+			errorCallback({code:AppCError.BUSY_ERROR, message:"BUSY_ERROR"});
+			return;
+		}
 		this.isExecute = true;
 
 		this.success = successCallback;
@@ -3925,6 +4075,129 @@ var _Purchase = function(config, queue) {
 }
 
 
+
+
+/////////////////////////
+//WebSocket
+var _WebSocket = function(config, queue) {
+	this.config = config;
+	this.isExecute = false;
+	this.queue = queue;
+	this.success = null;
+	this.error = null;
+
+	this._open = null;
+	this._onmessage = null;
+	this._onerror = null;
+	this._onclose = null;
+	
+	this._connection = null;
+
+	this.open = function(url, onopen, onmessage, onclose, onerror){
+		var options={};
+		options.url = url;
+
+		this._onopen = onopen;
+		this._onmessage = onmessage;
+		this._onerror = onerror;
+		this._onclose = onclose;
+		
+		if(applican.config.debug || this.config.device_os=="IOS"){
+			this._connection = new WebSocket(url);
+			this._connection.onopen = onopen;
+			this._connection.onerror = onerror;
+			this._connection.onmessage = onmessage;
+			this._connection.onclose = onclose;
+		}else{
+			var scheme = 'applican-api://webSocket/open/'+encodeURIComponent(JSON.stringify(options));
+			applican.queue.pf_callApi(scheme);
+		}
+	}
+
+	this._wsOnOpen = function(){
+		this._onopen();
+	}
+	
+	this._wsOnMessage = function(event){
+		this._onmessage(event);
+	}
+
+	this._wsOnError = function(event){
+		this._onerror(event);
+	}
+	
+	this._wsOnClose = function(event){
+		this._onclose(event);
+	}
+
+	this.send = function(data){
+		var options={};
+		options.data = data;
+	
+		if(applican.config.debug || this.config.device_os=="IOS"){
+			this._connection.send(data);
+		}else{
+			var scheme = 'applican-api://webSocket/send/'+encodeURIComponent(JSON.stringify(options));
+			applican.queue.pf_callApi(scheme);
+		}
+	}
+	
+	this.close = function(){
+		if(applican.config.debug || this.config.device_os=="IOS"){
+			this._connection.close();
+		}else{
+			var scheme = 'applican-api://webSocket/close/';
+			applican.queue.pf_callApi(scheme);
+		}
+	}
+}
+	
+	
+
+/////////////////////////
+//SlideMenu
+var _SlideMenu = function(config, queue) {
+	this.config = config;
+	this.isExecute = false;
+	this.queue = queue;
+	this.success = null;
+	this.error = null;
+
+	this.getCurrentMenu = function(successCallback){
+		this.success = successCallback;
+
+		if(applican.config.debug){
+			successCallback('');
+		}else{
+			var scheme = 'applican-api://slideMenu/getCurrentMenu/';
+			this.queue.pf_callApi(scheme);
+		}
+	}
+	
+	this._getCurrentMenuSuccess = function(result){
+		this.isExecute = false;
+		this.success(result);
+	}
+	
+	this.setMenu = function(menu){
+		var options={};
+		options.menu = menu;
+		if(this.config.debug){
+		}else{
+			var scheme = 'applican-api://slideMenu/setMenu/'+encodeURIComponent(JSON.stringify(options));
+			this.queue.pf_callApi(scheme);
+		}
+	}
+	
+	this.resetMenu = function(){
+		if(this.config.debug){
+		}else{
+			var scheme = 'applican-api://slideMenu/resetMenu/';
+			this.queue.pf_callApi(scheme);
+		}
+	}
+}
+	
 /////////////////////////
 //親クラス
 var applicanRoot = function() {
@@ -3934,7 +4207,7 @@ var applicanRoot = function() {
 	this.mediaCounter = 0;
 
 	this.config = {
-		version:'1.2.1',
+		version:'1.3',
 		debug:true,
 		device_os:'UNKNOWN'
 	};
@@ -3979,6 +4252,9 @@ var applicanRoot = function() {
 	this.appc = new _AppC(this.config, this.queue);
 	this.arpl = new _Arpl(this.config, this.queue);
 	this.purchase = new _Purchase(this.config, this.queue);
+	this.webSocket = new _WebSocket(this.config, this.queue);
+	this.slideMenu = new _SlideMenu(this.config, this.queue);
+	
 
 	//デバッグモードの場合、デバッグ用設定値をセットする
 	if(this.config.debug){
@@ -4119,6 +4395,7 @@ var applicanRoot = function() {
 		this.requestFileSystemSuccess(fileSystem);
 		this.isFileExecute = false;
 	}
+
 
 	this.openDatabaseSuccess = null;
 	this.openDatabaseError = null;
