@@ -2217,7 +2217,7 @@ function testResult(testcase, finishCallback) {
         },
         function(callback) {
             console.log(testcase + "," + test_result + " ");
-            fileWrite1(testcase + ", " + test_result + "\n", callback);
+            fileWrite1("CaseNo-" + caseNo + " : " + testcase + ", " + test_result + "\n", callback);
         },
         function(callback) {
             upload1(callback);

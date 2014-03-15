@@ -75,6 +75,20 @@ define(function() {
 		});
 	}
 
+    // uploadヘッダー
+    function outputHeader(fininishCallback) {
+        var dump = "";
+        dump += "担当者 : " + document.getElementById("tester").value + "\n";
+        dump += "通信環境 : " + applican.connection.type + "\n";
+        dump += "デバイス名 : " + applican.device.name + "\n";
+        dump += "プラットフォーム : " + applican.device.platform + "\n";
+        dump += "UUID : " + applican.device.uuid + "\n";
+        dump += "バージョン : " + applican.device.version + "\n";
+        dump += "applican : " + applican.device.applican + "\n";
+
+        fileWrite1(dump, fininishCallback);
+    }
+
 	// 組み合わせ番号をファイルに出力
 	function outputCaseNo(caseNo, finishCallback) {
 		fileWrite1("組み合わせNo" + caseNo + "のテスト\n", finishCallback);
@@ -164,6 +178,7 @@ define(function() {
 	return {
         backgroundStart : backgroundStart,
         backgroundFinish : backgroundFinish,
+        outputHeader : outputHeader,
         openWebView : openWebView,
         beforeTest : beforeTest,
         outputDeviceName : outputDeviceName,

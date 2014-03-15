@@ -21,7 +21,7 @@ define(function() {
                 cmn.backgroundStart(callback);
             },
             function(callback) {
-                cmn.outputDeviceName(callback);
+                cmn.outputHeader(callback);
             },
             function(callback) {
                 testExecute(callback);
