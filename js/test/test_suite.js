@@ -28,6 +28,9 @@ define(function() {
             },
             function(callback) {
                cmn.backgroundFinish(callback);
+            },
+            function(callback) {
+                notificationAlert("テストがすべて終了しました。", "テスト終了", "OK", callback);
             }
         ], function(err, results) {
             if (err) {
@@ -58,9 +61,7 @@ define(function() {
         async.series([
             function(callback) {
                 test_case = readTestCase();
-                setTimeout(function() {
-                    callback();
-                }, 300);
+                callback();
             },function(callback) {
                 var i = 0;
                 var endTestSuite = test_case.length;
@@ -224,11 +225,16 @@ define(function() {
         var test_case;
         async.series([
             function(callback) {
+                cmn.backgroundStart(callback);
+            },
+            function(callback) {
+                cmn.outputHeader(callback);
+            },
+            function(callback) {
                 test_case = readTestCase();
-                setTimeout(function() {
-                    callback();
-                }, 300);
-            },function(callback) {
+                callback();
+            },
+            function(callback) {
                 var i = 0;
                 var urlParams = get_url_vars();
                 if (urlParams == null || urlParams == "") {
@@ -239,7 +245,11 @@ define(function() {
                 suiteNo = test_case[i].key;
                 webviewTestCase(test_case, i, callback);
                 suiteLoop = i;
-            }, function(callback) {
+            },
+            function(callback) {
+                cmn.backgroundFinish(callback);
+            },
+            function(callback) {
                 notificationAlert("WebViewをクローズして下さい", "WebViewテストスィートの終了", "OK", callback);
             }
         ], function(err, result) {

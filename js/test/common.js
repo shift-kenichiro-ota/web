@@ -155,9 +155,6 @@ define(function() {
             },
             function(callback) {
                 releaseAllBGM(callback);
-            },
-            function(callback) {
-                notificationAlert("テストがすべて終了しました。", "テスト終了", "OK", callback);
             }
         ], function() {
             finishCallback();
