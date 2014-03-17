@@ -220,6 +220,11 @@ define(function() {
 
     // 2枚目のWebViewが表示された時のテスト実行メソッド
     function webviewTest() {
+        // ボタン二度押し防止
+        if (started) {
+            return;
+        }
+        started = true;
         console.log("test webview");
         var suiteLoop;
         var test_case;
@@ -250,10 +255,12 @@ define(function() {
                 cmn.backgroundFinish(callback);
             },
             function(callback) {
+                started = false;
                 notificationAlert("WebViewをクローズして下さい", "WebViewテストスィートの終了", "OK", callback);
             }
         ], function(err, result) {
                 console.log("webview test");
+
             }
         );
     }
