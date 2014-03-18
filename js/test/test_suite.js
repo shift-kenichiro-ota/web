@@ -332,7 +332,7 @@ define(function() {
                         }
                     }, 1000 * 60);
 
-                testCase(function() { callbackCalled = true; callback(); });
+                testCase(function() { if (callbackCalled) { return; } callbackCalled = true; callback(); });
             }
         ], function() {
             console.log("run test case");
