@@ -530,6 +530,9 @@ function testDatabaseQuery(finishCallback) {
             openDb("", callback);
         },
         function(callback) {
+            createTable(callback);
+        },
+        function(callback) {
             searchData(callback);
         }], function() {
         console.log("testDatabaseQuery");

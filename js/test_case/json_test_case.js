@@ -1,5 +1,10 @@
 define(function() {
     var test_case_json = [
+        /*
+        {"key" : "01", "exeflg" : true, "val" : [
+            "DatabaseQuery", "DatabaseQuery","DatabaseQuery","DatabaseQuery","FinishFinish"
+        ], "WebView" : 1}
+        */
         {"key" : "01", "exeflg" : true, "val" : [
             "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraCleanup", "CaptureCaptureAudio", "CompassGetCurrentHeading", "ConnectionType", "ContactSave", "DatabaseOpenDatabase", "DeviceGetDisplayInfo", "DocomoLocationGetCurrentPosition", "DirectoryEntryCopyTo", "FileEntryFile", "GameSoundPlaySE", "GEOLocationGetCurrentPosition", "GlobalizationGetPreferredLanguage", "GoogleAnalyticsTrackView", "HTTPGet", "LocalNotificationSchedule", "NotificationAlert", "SimpleStorageGet", "SplashScreenShow", "VideoPlay", "WiFiOff", "FinishFinish"
         ], "WebView" : 2},
