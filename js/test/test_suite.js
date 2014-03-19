@@ -203,7 +203,7 @@ define(function() {
                             applican_init();
                             // 強制的にNGとする
                             test_result = "NG";
-                            testResult(test_name + "の確認", function() { callbackCalled = true; setTimeout(callback, 2000); });
+                            testResult(test_name + "の確認", function() { callbackCalled = true; callback(); });
                         }
                     }, 1000 * 60);
 
@@ -328,7 +328,7 @@ define(function() {
                             applican_init();
                             // 強制的にNGとする
                             test_result = "NG";
-                            testResult(test_name + "の確認", function() { setTimeout(callback, 2000); });
+                            testResult(test_name + "の確認", function() { callbackCalled = true; callback(); });
                         }
                     }, 1000 * 60);
 

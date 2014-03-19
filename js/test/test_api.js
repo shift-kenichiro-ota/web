@@ -368,7 +368,7 @@ function fileWrite1(contents, finishCallback) {
 	    dump += "code:" + error.code;
 	    console.log(dump);
 	    fileWriteStatus = true;
-        setTimeout(function() { finishCallback(error); }, 0);
+        finishCallback(error);
     };
 
     var fileWrite1_gotFileWriter = function(writer) {
@@ -390,7 +390,7 @@ function fileWrite1(contents, finishCallback) {
 
 	    writer.onwriteend = function() {
 		    console.log("onwrite end");
-            setTimeout(finishCallback, 0);
+            finishCallback();
 	    };
 	    console.log(writeContents);
 	    writer.write(writeContents);
@@ -735,7 +735,7 @@ function upload1(finishCallback) {
 	    dump += "http_status:" + error.http_status + " ";
 	    uploadStatus = true;
 	    console.log(dump);
-        setTimeout(function() { finishCallback(error); }, 0);
+        finishCallback(error);
     };
 
     var upload1_uploadSuccess = function(result) {
@@ -747,7 +747,7 @@ function upload1(finishCallback) {
 	    console.log(dump);
         test_result = dump;
 
-        setTimeout(finishCallback, 0);
+        finishCallback();
     };
 
     var upload1_gotFileEntry = function(fileEntry) {
@@ -2259,7 +2259,7 @@ function displayResult(testcase, finishCallback) {
         html.appendChild(span);
 
         document.getElementById("testResultArea").appendChild(html);
-        setTimeout(callback, 0); // 遅い端末対応
+        callback();
 	}], function() {
         console.log("display test result finish");
         finishCallback();
