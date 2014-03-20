@@ -2221,11 +2221,9 @@ function testResult(testcase, finishCallback) {
         },
         function(callback) {
             upload1(callback);
-        },
-        function(callback) {
-            varsReset(callback);
         }],
         function(err, results) {
+            varsReset();
            console.log("テスト結果処理終了");
             finishCallback();
     });
@@ -2266,12 +2264,11 @@ function displayResult(testcase, finishCallback) {
 	});
 }
 
-function varsReset(finishCallback) {
+function varsReset() {
 	test_result = "";
 	testCaseTitle = "";
 	simpleStorageData = "";
 	writeContents = "";
-    finishCallback();
 }
 
 function insertTestResult(db, sql, finishCallback) {

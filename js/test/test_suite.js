@@ -203,7 +203,7 @@ define(function() {
                             applican_init();
                             // 強制的にNGとする
                             test_result = "NG";
-                            testResult(test_name + "の確認", function() { callbackCalled = true; callback(); });
+                            testResult(test_name + "の確認", function() { if (callbackCalled) { return; } callbackCalled = true; callback(); }); // testResult内部で非同期とデスパッチが入るので二重チェックする
                         }
                     }, 1000 * 60);
 
@@ -328,7 +328,7 @@ define(function() {
                             applican_init();
                             // 強制的にNGとする
                             test_result = "NG";
-                            testResult(test_name + "の確認", function() { callbackCalled = true; callback(); });
+                            testResult(test_name + "の確認", function() { if (callbackCalled) { return; } callbackCalled = true; callback(); }); // testResult内部で非同期とデスパッチが入るので二重チェックする
                         }
                     }, 1000 * 60);
 
