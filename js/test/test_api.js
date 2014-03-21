@@ -2256,7 +2256,7 @@ function displayResult(testcase, finishCallback) {
 
         html.appendChild(span);
 
-        document.getElementById("testResultArea").appendChild(html);
+        document.getElementById("test_case_num" + suiteNo).appendChild(html);
         setTimeout(callback, 0); // 遅い端末対応
 	}], function() {
         console.log("display test result finish");

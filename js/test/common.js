@@ -4,6 +4,7 @@
 
 define(function() {
 	var async = require('async');
+    //var $ = require('jquery');
 
 	// テスト開始時に行うこと
 	function beforeTest(finishCallback) {
@@ -14,13 +15,20 @@ define(function() {
                 console.log("テスト開始前処理");
 
                 //var colItem = '<li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b" id="test_case_num"' + suiteNo + '>API組み合わせ番号' + suiteNo + '</li>';
-                var colItem = document.createElement("li");
+                var div = document.createElement("div");
+                div.setAttribute("data-role", "collapsible");
+                div.setAttribute("data-collapsed", "false");
+                var h3 = document.createElement("h3");
+                h3.appendChild(document.createTextNode("API組み合わせ番号" + suiteNo));
+                div.appendChild(h3);
+                var colItem = document.createElement("ul");
                 colItem.id = "test_case_num" + suiteNo;
                 colItem.setAttribute("data-role", "list-divider");
                 colItem.setAttribute("role", "heading");
-                colItem.className = "ui-li ui-li-divider ui-bar-b";
-                colItem.appendChild(document.createTextNode("API組み合わせ番号" + suiteNo));
-                document.getElementById("testResult").appendChild(colItem);
+                colItem.className = "ui-listview";
+                div.appendChild(colItem);
+                document.getElementById("testResultArea").appendChild(div);
+                //$("#testResultArea").collapsibleset("refresh"); アコーディオンパネルを有効にすると処理オチする端末があるのでいったんオフ
                 callback();
             },
             function(callback) {

@@ -2,9 +2,22 @@ define(function() {
     var test_case_json = [
         /*
         {"key" : "01", "exeflg" : true, "val" : [
-            "DatabaseQuery", "DatabaseQuery","DatabaseQuery","DatabaseQuery","FinishFinish"
-        ], "WebView" : 1}
+            "DatabaseQuery", "FinishFinish"
+        ], "WebView" : 1},
+        {"key" : "02", "exeflg" : true, "val" : [
+            "DatabaseQuery", "FinishFinish"
+        ], "WebView" : 2},
+         {"key" : "03", "exeflg" : true, "val" : [
+            "DatabaseQuery", "FinishFinish"
+        ], "WebView" : 1},
+         {"key" : "04", "exeflg" : true, "val" : [
+            "DatabaseQuery", "DatabaseQuery", "FinishFinish"
+        ], "WebView" : 1},
+         {"key" : "05", "exeflg" : true, "val" : [
+            "DatabaseQuery", "DatabaseQuery", "FinishFinish"
+        ], "WebView" : 1},
         */
+
         {"key" : "01", "exeflg" : true, "val" : [
             "AccelerometerGetCurrentAcceleration", "BarcodeCaptureBarcode", "CameraCleanup", "CaptureCaptureAudio", "CompassGetCurrentHeading", "ConnectionType", "ContactSave", "DatabaseOpenDatabase", "DeviceGetDisplayInfo", "DocomoLocationGetCurrentPosition", "DirectoryEntryCopyTo", "FileEntryFile", "GameSoundPlaySE", "GEOLocationGetCurrentPosition", "GlobalizationGetPreferredLanguage", "GoogleAnalyticsTrackView", "HTTPGet", "LocalNotificationSchedule", "NotificationAlert", "SimpleStorageGet", "SplashScreenShow", "VideoPlay", "WiFiOff", "FinishFinish"
         ], "WebView" : 2},
