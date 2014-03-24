@@ -8,7 +8,7 @@
 var _compassWatchID;
 var _accelerationWatchID;
 var _geolocationWatchID;
-var baseURL = "http://cadaver-funeral.com";
+var baseURL = "http://localhost";
 var getURL = baseURL + "/get.php?a=1&b=2";
 var postURL = baseURL + "/post.php";
 var writeContents = "";
